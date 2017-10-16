@@ -6,5 +6,8 @@
     "module": "commonjs",
     "strict": true,
     "noImplicitAny": true
-  }
+  },
+  "exclude": [
+    "test/**/*"
+  ]
 }
