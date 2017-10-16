@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["es2015", "es2015.core", "dom"],
+    "experimentalDecorators": true,
+    "module": "commonjs",
+    "strict": true,
+    "noImplicitAny": true
+  }
+}
