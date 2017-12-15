@@ -1,12 +1,12 @@
 {
   "name": "@calebboyd/semaphore",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "description": "Simple promise based counting semaphore",
   "main": "index.js",
   "scripts": {
     "test": "npm run clean && mocha",
     "clean": "rimraf \"*.{js,d.ts}\"",
-    "prepublishOnly": "tsc --declaration"
+    "prepublishOnly": "npm test && tsc --declaration"
   },
   "files": [
     "*.js",

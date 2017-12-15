@@ -1,6 +1,5 @@
 import { expect } from 'chai'
-import { Semaphore } from '..'
-import { each, map } from '../each'
+import { Semaphore, each, map } from '..'
 
 describe ('Semaphore', () => {
   it('should limit concurrency', async () => {

@@ -4,7 +4,7 @@ export const bound: MethodDecorator = function bound<T>(
   descriptor: TypedPropertyDescriptor<T>
 ) {  
   return {
-    configurable : true,
+    configurable: true,
     get(this: T) {
       const value = (descriptor.value as any).bind(this)
       Object.defineProperty(this, propertyKey, { value, configurable: true, writable: true })
