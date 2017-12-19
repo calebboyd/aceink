@@ -21,6 +21,16 @@ describe ('Semaphore', () => {
     await Promise.all(results)
     expect(Date.now() - start).to.be.within(200,300)
   })
+
+  it('should pass values', async () => {
+    const value = { some: 'thing' }
+    const lock = new Semaphore<typeof value>(1)
+    const finished = await lock.acquire(value).then(x => {
+      expect(x).to.equal(value)
+      return true
+    })
+    expect(finished).to.be.true
+  })
 })
 
 describe('each', () => {
