@@ -6,11 +6,11 @@ export function createLock (count: number, promise = Promise) {
 }
 
 export class Semaphore <T= number> {
-  private waiting: Deferred<T | number>[] = []
+  private waiting: Deferred<T>[] = []
   private locks: number = 0
   private requestedLockCount: number = 0
   private createDeferred = this.promise !== Promise 
-    ? createDeferredFactory<T>(this.promise)
+    ? createDeferredFactory(this.promise)
     : createDeferred
   
   constructor (public size: number = 1, private promise = Promise) {
@@ -21,13 +21,14 @@ export class Semaphore <T= number> {
 
   get count () { return this.locks }
   get pending () { return this.waiting.length }
-  acquire (arg?: T | number) {
-    arg = typeof arg !== 'undefined' ? arg : ++this.requestedLockCount
+  acquire(arg?: T) {
+    ++this.requestedLockCount
+    arg = (typeof arg !== 'undefined' ? arg : this.requestedLockCount) as T
     if (this.locks < this.size) {
       this.locks++
       return this.promise.resolve(arg)
     }
-    const lock = this.createDeferred()
+    const lock = this.createDeferred<T>()
     lock.value = arg
     this.waiting.push(lock)
     return lock.promise

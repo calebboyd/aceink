@@ -1,7 +1,7 @@
-export function createDeferredFactory<T> (PromiseCtor = Promise) {
-  return function deferred() {
+export function createDeferredFactory (PromiseCtor = Promise) {
+  return function deferred<T>() {
     const deferred: Deferred<T> = {} as any
-    const promise = new PromiseCtor((resolve, reject) => {
+    const promise = new PromiseCtor<T>((resolve, reject) => {
       deferred.resolve = resolve
       deferred.reject = reject
     })
@@ -9,7 +9,8 @@ export function createDeferredFactory<T> (PromiseCtor = Promise) {
     return deferred
   }
 }
-export const createDeferred = createDeferredFactory<number>()
+export const createDeferred = createDeferredFactory()
+
 export interface Deferred<T> {
   value: T
   promise: Promise<T>
