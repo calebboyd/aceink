@@ -12,3 +12,7 @@ export function each<T> (this: any, list: Iterable<T>, iterator: Function, { con
   }
   return Promise.all(pending).then(() => void 0)
 }
+
+export const eachSerial = function eachSerial<T> (this: any, list: Iterable<T>, iterator: Function, { context }: { context?: any } = {}) {
+  return each(list, iterator, { context, concurrency: 1})
+}

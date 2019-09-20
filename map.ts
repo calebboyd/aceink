@@ -1,4 +1,3 @@
-import { Semaphore } from './semaphore'
 import { each } from './each'
 
 export function map<T> (this: any, list: Iterable<T>, iterator: Function, { context, concurrency }: { context?: any, concurrency: null | number } = { concurrency: null }) {
@@ -9,5 +8,9 @@ export function map<T> (this: any, list: Iterable<T>, iterator: Function, { cont
     return result
   }, { concurrency })
   .then(() => Promise.all(results))
+}
+
+export function mapSerial<T> (this: any, list: Iterable<T>, iterator: Function, { context }: { context?: any } = {}) {
+  return map<T>(list, iterator, { context, concurrency: 1 })
 }
 
