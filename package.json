@@ -20,12 +20,13 @@
   "author": "Caleb Boyd",
   "license": "MIT",
   "devDependencies": {
-    "@types/chai": "^4.2.3",
-    "@types/mocha": "^5.2.7",
+    "@types/chai": "^4.2.11",
+    "@types/mocha": "^7.0.2",
+    "@types/node": "^14.0.11",
     "chai": "^4.2.0",
-    "mocha": "^6.2.0",
-    "rimraf": "^3.0.0",
-    "ts-node": "^8.4.1",
-    "typescript": "^3.6.3"
+    "mocha": "^7.2.0",
+    "rimraf": "^3.0.2",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.5"
   }
 }

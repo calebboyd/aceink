@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import { Semaphore, each, map } from '..'
+import { gowait, Semaphore, each, map } from '..'
 
 describe ('Semaphore', () => {
   it('should limit concurrency', async () => {
@@ -38,13 +38,13 @@ describe('each', () => {
     const list = [1, 2, 3, 4, 5, 6]
     const copiedValues: number[] = []
     const start = Date.now()
-    
+
     await each(list as any, (value: number, i: number) => {
       expect(value).to.equal(list[i])
       copiedValues.push(value)
       return new Promise(r => setTimeout(r, 100))
     }, { concurrency: 2 })
-    
+
     expect(Date.now() - start).to.be.within(300, 400)
     expect(copiedValues).to.eql(list)
   })
@@ -55,7 +55,7 @@ describe('map', () => {
     const list = [1, 2, 3, 4, 5, 6]
     const mappedValues = list.map(x => x + 1)
     const start = Date.now()
-    
+
     const result = await map(list as any, (value: number, i: number) => {
       return new Promise(resolve => {
         setTimeout(() => {
@@ -63,8 +63,28 @@ describe('map', () => {
         }, 100)
       })
     }, { concurrency: 2 })
-    
+
     expect(Date.now() - start).to.be.within(300, 400)
     expect(mappedValues).to.eql(result)
   })
+})
+
+describe('gowait', () => {
+  it('should return the result of the function', async () => {
+    const func = () => Promise.resolve('1234')
+    const [_, result] = await gowait(func())
+    expect(result).to.equal('1234')
+    expect(_).to.be.null
+  })
+  it('should return the error of the function', async () => {
+    const func = () => Promise.reject('1234')
+    const [error, result] = await gowait(func())
+    expect(result).to.be.undefined
+    expect(error).to.equal('1234')
+  })
+
+  it('should throw native errors', async () => {
+    //TODO
+  })
+
 })
