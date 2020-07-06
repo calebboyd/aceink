@@ -13,6 +13,7 @@
     "clean": "rimraf \"*.{js,d.ts}\"",
     "build": "npm run clean && npm run lint && tsc",
     "prepublishOnly": "npm run build && npm run commitlint",
+    "postpublish": "npm run clean",
     "watch:typescript": "tsc -w",
     "watch:test": "jest --watchAll",
     "watch": "npm run build && concurrently -k \"npm:watch:typescript\" \"npm:watch:test\" -c blue,green",
