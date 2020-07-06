@@ -1,18 +1,40 @@
 import { Semaphore } from './semaphore'
+import { noop } from './lang'
 
-export function each<T> (this: any, list: Iterable<T>, iterator: Function, { context, concurrency }: { context?: any, concurrency: null | number } = { concurrency: null }) {
+export type IteratorFunc<T, R = any> =
+  | ((value: T, i: number, list: Iterable<T>) => R)
+  | ((value: T) => R)
+  | ((value: T, i: number) => R)
+
+export function each<T, K = any>(
+  this: K | void,
+  list: Iterable<T>,
+  iterator: IteratorFunc<T>,
+  { context, concurrency }: { context?: K | void; concurrency?: number } = {
+    context: undefined,
+    concurrency: 0,
+  }
+): Promise<void> {
   const arrList = Array.from(list)
   context = context || this
-  if (concurrency === null) concurrency = arrList.length
-  const lock = new Semaphore(concurrency)
-  const pending = []
-  const handler = function (locks: number) { return iterator.call(context, arrList[locks - 1], locks - 1, list) }
-  for (let i = 0; i < arrList.length; i++) {
-    pending.push(lock.acquire().then(handler).then(lock.release))
+  if (!concurrency) {
+    concurrency = arrList.length
   }
-  return Promise.all(pending).then(() => void 0)
+  const lock = new Semaphore(concurrency),
+    pending = [],
+    release = lock.release,
+    handler = (locks: number) => iterator.call(context, arrList[locks - 1], locks - 1, list)
+  for (let i = 0; i < arrList.length; i++) {
+    pending.push(lock.acquire().then(handler).then(release))
+  }
+  return Promise.all(pending).then(noop)
 }
 
-export const eachSerial = function eachSerial<T> (this: any, list: Iterable<T>, iterator: Function, { context }: { context?: any } = {}) {
-  return each(list, iterator, { context, concurrency: 1})
+export const eachSerial = function eachSerial<T, K = any>(
+  this: K | void,
+  list: Iterable<T>,
+  iterator: IteratorFunc<T>,
+  { context }: { context?: K | void } = {}
+): Promise<void> {
+  return each(list, iterator, { context, concurrency: 1 })
 }

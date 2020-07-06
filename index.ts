@@ -1,6 +1,7 @@
 export { each, eachSerial } from './each'
 export { map, mapSerial } from './map'
-export { createDeferredFactory, createDeferred, Deferred} from './deferred'
+export { createDeferredFactory, createDeferred, Deferred } from './deferred'
 export { gowait, ErrorValue } from './gowait'
 export { Semaphore, createLock } from './semaphore'
-
+export { Queue, q } from './queue'
+export { Func, noop, identity, once, bound } from './lang'

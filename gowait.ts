@@ -1,4 +1,3 @@
-
 const nativeErrorTypes = [
   EvalError,
   RangeError,
@@ -6,7 +5,7 @@ const nativeErrorTypes = [
   SyntaxError,
   TypeError,
   URIError,
-].filter(x => typeof x === 'function')
+].filter((x) => typeof x === 'function')
 
 function throwIfNativeError(error: Error) {
   for (const NativeError of nativeErrorTypes) {
@@ -14,7 +13,9 @@ function throwIfNativeError(error: Error) {
   }
 }
 
-function noop () { void 0 }
+function noop() {
+  void 0
+}
 function valueTuple<T>(arg: T): [null, T] {
   return [null, arg]
 }
@@ -35,9 +36,9 @@ export type ErrorValue<T> = [Error, undefined] | [null, T]
  *
  * @param promised
  */
-export function gowait<T>(promised: Promise<T>, final: (...args: any[]) => any = noop): Promise<ErrorValue<T>> {
-  return promised.then(valueTuple).catch(errorTuple).finally(noop)
+export function gowait<T>(
+  promised: Promise<T>,
+  final: (...args: any[]) => any = noop
+): Promise<ErrorValue<T>> {
+  return promised.then(valueTuple).catch(errorTuple).finally(final)
 }
-
-
-

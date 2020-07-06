@@ -1,5 +1,5 @@
-export function createDeferredFactory (PromiseCtor = Promise) {
-  return function deferred<T>() {
+export function createDeferredFactory(PromiseCtor = Promise) {
+  return function deferred<T>(): Deferred<T> {
     const deferred: Deferred<T> = {} as any
     const promise = new PromiseCtor<T>((resolve, reject) => {
       deferred.resolve = resolve

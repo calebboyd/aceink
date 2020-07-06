@@ -1,13 +1,24 @@
 {
   "compilerOptions": {
     "target": "es2018",
-    "lib": ["es2018"],
-    "experimentalDecorators": true,
+    "declaration": true,
     "module": "commonjs",
+    "skipLibCheck": true,
+    "lib": [
+      "dom",
+      "es2018"
+    ],
     "strict": true,
-    "noImplicitAny": true
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "inlineSourceMap": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
   "exclude": [
-    "test/**/*"
+    "node_modules"
+  ],
+  "include": [
+    "**/*.ts"
   ]
 }
