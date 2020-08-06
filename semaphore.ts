@@ -1,10 +1,14 @@
 import { bound } from './lang'
 import { createDeferredFactory, Deferred, createDeferred } from './deferred'
-
+/**
+ * @public
+ */
 export function createLock(count: number, promise = Promise): Semaphore<number> {
   return new Semaphore(count, promise)
 }
-
+/**
+ * @public
+ */
 export class Semaphore<T = number> {
   private waiting: Deferred<T>[] = []
   private locks = 0

@@ -1,11 +1,16 @@
 import { Semaphore } from './semaphore'
 import { noop } from './lang'
-
+/**
+ * @public
+ */
 export type IteratorFunc<T, R = any> =
   | ((value: T, i: number, list: Iterable<T>) => R)
   | ((value: T) => R)
   | ((value: T, i: number) => R)
 
+/**
+ * @public
+ */
 export function each<T, K = any>(
   this: K | void,
   list: Iterable<T>,
@@ -29,7 +34,9 @@ export function each<T, K = any>(
   }
   return Promise.all(pending).then(noop)
 }
-
+/**
+ * @public
+ */
 export const eachSerial = function eachSerial<T, K = any>(
   this: K | void,
   list: Iterable<T>,

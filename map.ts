@@ -1,5 +1,7 @@
 import { each, IteratorFunc } from './each'
-
+/**
+ * @public
+ */
 export function map<T, R, K = any>(
   this: K,
   list: Iterable<T>,
@@ -17,7 +19,9 @@ export function map<T, R, K = any>(
     { context, concurrency }
   ).then(() => Promise.all(results))
 }
-
+/**
+ * @public
+ */
 export function mapSerial<T, R, K = any>(
   this: K,
   list: Iterable<T>,

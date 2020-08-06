@@ -1,8 +1,18 @@
+/**
+ * @public
+ */
 export const noop = (): void => void 0
+/**
+ * @public
+ */
 export const identity = <T = any>(x: T): T => x
+/**
+ * @public
+ */
 export type Func<T = any> = (...args: any[]) => T
 
 /**
+ * @public
  * Execute {fn} one time and [after=noop] for every subsequent invocation
  */
 export function once<T extends Func>(fn: T, after: Func = noop): T {
@@ -13,7 +23,9 @@ export function once<T extends Func>(fn: T, after: Func = noop): T {
   }
   return one as T
 }
-
+/**
+ * @public
+ */
 export const bound: MethodDecorator = function bound<T>(
   target: any,
   propertyKey: string | symbol,

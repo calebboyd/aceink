@@ -3,15 +3,18 @@
   "version": "2.0.0",
   "description": "Async tools",
   "main": "index.js",
+  "typings": "index.d.ts",
   "repository": {
     "type": "git",
     "url": "git://github.com/calebboyd/async.git"
   },
   "scripts": {
+    "docts": "docts",
     "commitlint": "commitlint -f $(git rev-list --tags --max-count=1) -t $(git log --pretty=%H | head -1)",
     "lint": "eslint \"*.ts\" --fix --ext \"*.ts\"",
     "clean": "rimraf \"*.{js,d.ts}\"",
-    "build": "npm run clean && npm run lint && tsc",
+    "build:docs": "rimraf docs && typedoc --plugin typedoc-plugin-markdown --exclude '*.spec.*' --excludeNotDocumented && rimraf docs/README.md",
+    "build": "npm run clean && npm run lint && tsc && npm run build:docs",
     "prepublishOnly": "npm run build && npm run commitlint",
     "postpublish": "npm run clean",
     "watch:typescript": "tsc -w",
@@ -41,6 +44,8 @@
     "jest": "^26.2.2",
     "prettier": "^2.0.5",
     "rimraf": "^3.0.2",
+    "typedoc": "^0.17.8",
+    "typedoc-plugin-markdown": "^2.4.0",
     "typescript": "^3.9.7"
   },
   "dependencies": {},

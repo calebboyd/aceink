@@ -1,3 +1,6 @@
+/**
+ * @public
+ */
 export function createDeferredFactory(PromiseCtor = Promise) {
   return function deferred<T>(): Deferred<T> {
     const deferred: Deferred<T> = {} as any
@@ -9,8 +12,14 @@ export function createDeferredFactory(PromiseCtor = Promise) {
     return deferred
   }
 }
+/**
+ * @public
+ */
 export const createDeferred = createDeferredFactory()
 
+/**
+ * @public
+ */
 export interface Deferred<T> {
   value: T
   promise: Promise<T>

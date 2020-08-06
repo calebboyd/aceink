@@ -1,10 +1,14 @@
 import { Semaphore } from './semaphore'
 import { Func } from './lang'
-
+/**
+ * @public
+ */
 export function q(size: number): Queue {
   return new Queue(size)
 }
-
+/**
+ * @public
+ */
 export class Queue {
   private lock = new Semaphore(this.concurrency)
   private last: Promise<any> = Promise.resolve()

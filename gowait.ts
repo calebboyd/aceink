@@ -23,10 +23,13 @@ function errorTuple(error: Error): [Error, undefined] {
   throwIfNativeError(error)
   return [error, undefined]
 }
-
+/**
+ * @public
+ */
 export type ErrorValue<T> = [Error, undefined] | [null, T]
 
 /**
+ * @public
  * Kind of like nodes ErrBacks, but with the ease (and overhead) of promises.
  *
  * const [err, value] = await gowait(doWorkThatMightErrorAsync())
