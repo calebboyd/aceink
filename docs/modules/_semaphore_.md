@@ -1,4 +1,6 @@
-[@calebboyd/async](../README.md) › [Globals](../globals.md) › ["semaphore"](_semaphore_.md)
+**[@calebboyd/async](../README.md)**
+
+> [Globals](../globals.md) / "semaphore"
 
 # Module: "semaphore"
 
@@ -14,17 +16,17 @@
 
 ## Functions
 
-###  createLock
+### createLock
 
-▸ **createLock**(`count`: number, `promise`: PromiseConstructor): *[Semaphore](../classes/_semaphore_.semaphore.md)‹number›*
+▸ **createLock**(`count`: number, `promise`: PromiseConstructor): [Semaphore](../classes/_semaphore_.semaphore.md)\<number>
 
-*Defined in [semaphore.ts:6](https://github.com/calebboyd/async/blob/a91dbbf/semaphore.ts#L6)*
+*Defined in [semaphore.ts:6](https://github.com/calebboyd/async/blob/c145a52/semaphore.ts#L6)*
 
-**Parameters:**
+#### Parameters:
 
-Name | Type | Default |
+Name | Type | Default value |
 ------ | ------ | ------ |
 `count` | number | - |
 `promise` | PromiseConstructor | Promise |
 
-**Returns:** *[Semaphore](../classes/_semaphore_.semaphore.md)‹number›*
+**Returns:** [Semaphore](../classes/_semaphore_.semaphore.md)\<number>

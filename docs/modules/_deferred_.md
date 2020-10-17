@@ -1,4 +1,6 @@
-[@calebboyd/async](../README.md) › [Globals](../globals.md) › ["deferred"](_deferred_.md)
+**[@calebboyd/async](../README.md)**
+
+> [Globals](../globals.md) / "deferred"
 
 # Module: "deferred"
 
@@ -10,7 +12,7 @@
 
 ### Variables
 
-* [createDeferred](_deferred_.md#const-createdeferred)
+* [createDeferred](_deferred_.md#createdeferred)
 
 ### Functions
 
@@ -18,24 +20,24 @@
 
 ## Variables
 
-### `Const` createDeferred
+### createDeferred
 
-• **createDeferred**: *deferred* = createDeferredFactory()
+• `Const` **createDeferred**: deferred = createDeferredFactory()
 
-*Defined in [deferred.ts:18](https://github.com/calebboyd/async/blob/a91dbbf/deferred.ts#L18)*
+*Defined in [deferred.ts:18](https://github.com/calebboyd/async/blob/c145a52/deferred.ts#L18)*
 
 ## Functions
 
-###  createDeferredFactory
+### createDeferredFactory
 
-▸ **createDeferredFactory**(`PromiseCtor`: PromiseConstructor): *deferred*
+▸ **createDeferredFactory**(`PromiseCtor`: PromiseConstructor): deferred
 
-*Defined in [deferred.ts:4](https://github.com/calebboyd/async/blob/a91dbbf/deferred.ts#L4)*
+*Defined in [deferred.ts:4](https://github.com/calebboyd/async/blob/c145a52/deferred.ts#L4)*
 
-**Parameters:**
+#### Parameters:
 
-Name | Type | Default |
+Name | Type | Default value |
 ------ | ------ | ------ |
 `PromiseCtor` | PromiseConstructor | Promise |
 
-**Returns:** *deferred*
+**Returns:** deferred

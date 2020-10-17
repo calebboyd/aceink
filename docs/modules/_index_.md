@@ -1,4 +1,6 @@
-[@calebboyd/async](../README.md) › [Globals](../globals.md) › ["index"](_index_.md)
+**[@calebboyd/async](../README.md)**
+
+> [Globals](../globals.md) / "index"
 
 # Module: "index"
 
@@ -27,108 +29,108 @@
 
 ## References
 
-###  Deferred
+### Deferred
 
-• **Deferred**:
-
-___
-
-###  ErrorValue
-
-• **ErrorValue**:
+Re-exports: [Deferred](../interfaces/_deferred_.deferred.md)
 
 ___
 
-###  Func
+### ErrorValue
 
-• **Func**:
-
-___
-
-###  Queue
-
-• **Queue**:
+Re-exports: [ErrorValue](_gowait_.md#errorvalue)
 
 ___
 
-###  Semaphore
+### Func
 
-• **Semaphore**:
-
-___
-
-###  bound
-
-• **bound**:
+Re-exports: [Func](_lang_.md#func)
 
 ___
 
-###  createDeferred
+### Queue
 
-• **createDeferred**:
-
-___
-
-###  createDeferredFactory
-
-• **createDeferredFactory**:
+Re-exports: [Queue](../classes/_queue_.queue.md)
 
 ___
 
-###  createLock
+### Semaphore
 
-• **createLock**:
-
-___
-
-###  each
-
-• **each**:
+Re-exports: [Semaphore](../classes/_semaphore_.semaphore.md)
 
 ___
 
-###  eachSerial
+### bound
 
-• **eachSerial**:
-
-___
-
-###  gowait
-
-• **gowait**:
+Re-exports: [bound](_lang_.md#bound)
 
 ___
 
-###  identity
+### createDeferred
 
-• **identity**:
-
-___
-
-###  map
-
-• **map**:
+Re-exports: [createDeferred](_deferred_.md#createdeferred)
 
 ___
 
-###  mapSerial
+### createDeferredFactory
 
-• **mapSerial**:
-
-___
-
-###  noop
-
-• **noop**:
+Re-exports: [createDeferredFactory](_deferred_.md#createdeferredfactory)
 
 ___
 
-###  once
+### createLock
 
-• **once**:
+Re-exports: [createLock](_semaphore_.md#createlock)
 
 ___
 
-###  q
+### each
 
-• **q**:
+Re-exports: [each](_each_.md#each)
+
+___
+
+### eachSerial
+
+Re-exports: [eachSerial](_each_.md#eachserial)
+
+___
+
+### gowait
+
+Re-exports: [gowait](_gowait_.md#gowait)
+
+___
+
+### identity
+
+Re-exports: [identity](_lang_.md#identity)
+
+___
+
+### map
+
+Re-exports: [map](_map_.md#map)
+
+___
+
+### mapSerial
+
+Re-exports: [mapSerial](_map_.md#mapserial)
+
+___
+
+### noop
+
+Re-exports: [noop](_lang_.md#noop)
+
+___
+
+### once
+
+Re-exports: [once](_lang_.md#once)
+
+___
+
+### q
+
+Re-exports: [q](_queue_.md#q)

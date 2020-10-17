@@ -1,4 +1,6 @@
-[@calebboyd/async](../README.md) › [Globals](../globals.md) › ["lang"](_lang_.md)
+**[@calebboyd/async](../README.md)**
+
+> [Globals](../globals.md) / "lang"
 
 # Module: "lang"
 
@@ -10,100 +12,104 @@
 
 ### Functions
 
-* [bound](_lang_.md#const-bound)
-* [identity](_lang_.md#const-identity)
-* [noop](_lang_.md#const-noop)
+* [bound](_lang_.md#bound)
+* [identity](_lang_.md#identity)
+* [noop](_lang_.md#noop)
 * [once](_lang_.md#once)
 
 ## Type aliases
 
-###  Func
+### Func
 
-Ƭ **Func**: *function*
+Ƭ  **Func**\<T>: (...args: any[]) => T
 
-*Defined in [lang.ts:12](https://github.com/calebboyd/async/blob/a91dbbf/lang.ts#L12)*
+*Defined in [lang.ts:12](https://github.com/calebboyd/async/blob/c145a52/lang.ts#L12)*
 
-#### Type declaration:
+#### Type parameters:
 
-▸ (...`args`: any[]): *T*
-
-**Parameters:**
-
-Name | Type |
+Name | Default |
 ------ | ------ |
-`...args` | any[] |
+`T` | any |
 
 ## Functions
 
-### `Const` bound
+### bound
 
-▸ **bound**‹**T**›(`target`: any, `propertyKey`: string | symbol, `descriptor`: TypedPropertyDescriptor‹T›): *object*
+▸ `Const`**bound**\<T>(`target`: any, `propertyKey`: string \| symbol, `descriptor`: TypedPropertyDescriptor\<T>): object
 
-*Defined in [lang.ts:29](https://github.com/calebboyd/async/blob/a91dbbf/lang.ts#L29)*
+*Defined in [lang.ts:29](https://github.com/calebboyd/async/blob/c145a52/lang.ts#L29)*
 
-**Type parameters:**
+#### Type parameters:
 
-▪ **T**
+Name |
+------ |
+`T` |
 
-**Parameters:**
+#### Parameters:
 
 Name | Type |
 ------ | ------ |
 `target` | any |
-`propertyKey` | string &#124; symbol |
-`descriptor` | TypedPropertyDescriptor‹T› |
+`propertyKey` | string \| symbol |
+`descriptor` | TypedPropertyDescriptor\<T> |
 
-**Returns:** *object*
+**Returns:** object
 
-* **configurable**: *true* = true
+Name | Type |
+------ | ------ |
+`configurable` | true |
 
 ___
 
-### `Const` identity
+### identity
 
-▸ **identity**‹**T**›(`x`: T): *T*
+▸ `Const`**identity**\<T>(`x`: T): T
 
-*Defined in [lang.ts:8](https://github.com/calebboyd/async/blob/a91dbbf/lang.ts#L8)*
+*Defined in [lang.ts:8](https://github.com/calebboyd/async/blob/c145a52/lang.ts#L8)*
 
-**Type parameters:**
+#### Type parameters:
 
-▪ **T**
+Name | Default |
+------ | ------ |
+`T` | any |
 
-**Parameters:**
+#### Parameters:
 
 Name | Type |
 ------ | ------ |
 `x` | T |
 
-**Returns:** *T*
+**Returns:** T
 
 ___
 
-### `Const` noop
+### noop
 
-▸ **noop**(): *void*
+▸ `Const`**noop**(): void
 
-*Defined in [lang.ts:4](https://github.com/calebboyd/async/blob/a91dbbf/lang.ts#L4)*
+*Defined in [lang.ts:4](https://github.com/calebboyd/async/blob/c145a52/lang.ts#L4)*
 
-**Returns:** *void*
+**Returns:** void
 
 ___
 
-###  once
+### once
 
-▸ **once**‹**T**›(`fn`: T, `after`: [Func](_lang_.md#func)): *T*
+▸ **once**\<T>(`fn`: T, `after`: [Func](_lang_.md#func)): T
 
-*Defined in [lang.ts:18](https://github.com/calebboyd/async/blob/a91dbbf/lang.ts#L18)*
+*Defined in [lang.ts:18](https://github.com/calebboyd/async/blob/c145a52/lang.ts#L18)*
 
-**Type parameters:**
+#### Type parameters:
 
-▪ **T**: *[Func](_lang_.md#func)*
+Name | Type |
+------ | ------ |
+`T` | [Func](_lang_.md#func) |
 
-**Parameters:**
+#### Parameters:
 
-Name | Type | Default |
+Name | Type | Default value |
 ------ | ------ | ------ |
 `fn` | T | - |
 `after` | [Func](_lang_.md#func) | noop |
 
-**Returns:** *T*
+**Returns:** T

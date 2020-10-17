@@ -1,4 +1,6 @@
-[@calebboyd/async](../README.md) › [Globals](../globals.md) › ["queue"](_queue_.md)
+**[@calebboyd/async](../README.md)**
+
+> [Globals](../globals.md) / "queue"
 
 # Module: "queue"
 
@@ -14,16 +16,16 @@
 
 ## Functions
 
-###  q
+### q
 
-▸ **q**(`size`: number): *[Queue](../classes/_queue_.queue.md)*
+▸ **q**(`size`: number): [Queue](../classes/_queue_.queue.md)
 
-*Defined in [queue.ts:6](https://github.com/calebboyd/async/blob/a91dbbf/queue.ts#L6)*
+*Defined in [queue.ts:6](https://github.com/calebboyd/async/blob/c145a52/queue.ts#L6)*
 
-**Parameters:**
+#### Parameters:
 
 Name | Type |
 ------ | ------ |
 `size` | number |
 
-**Returns:** *[Queue](../classes/_queue_.queue.md)*
+**Returns:** [Queue](../classes/_queue_.queue.md)

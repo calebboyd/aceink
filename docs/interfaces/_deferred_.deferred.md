@@ -1,10 +1,14 @@
-[@calebboyd/async](../README.md) › [Globals](../globals.md) › ["deferred"](../modules/_deferred_.md) › [Deferred](_deferred_.deferred.md)
+**[@calebboyd/async](../README.md)**
 
-# Interface: Deferred ‹**T**›
+> [Globals](../globals.md) / ["deferred"](../modules/_deferred_.md) / Deferred
+
+# Interface: Deferred\<T>
 
 ## Type parameters
 
-▪ **T**
+Name |
+------ |
+`T` |
 
 ## Hierarchy
 

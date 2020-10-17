@@ -1,4 +1,6 @@
-[@calebboyd/async](README.md) › [Globals](globals.md)
+**[@calebboyd/async](README.md)**
+
+> Globals
 
 # @calebboyd/async
 

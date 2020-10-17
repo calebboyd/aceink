@@ -1,4 +1,6 @@
-[@calebboyd/async](../README.md) › [Globals](../globals.md) › ["gowait"](_gowait_.md)
+**[@calebboyd/async](../README.md)**
+
+> [Globals](../globals.md) / "gowait"
 
 # Module: "gowait"
 
@@ -14,36 +16,37 @@
 
 ## Type aliases
 
-###  ErrorValue
+### ErrorValue
 
-Ƭ **ErrorValue**: *[Error, undefined] | [null, T]*
+Ƭ  **ErrorValue**\<T>: [Error, undefined] \| [null, T]
 
-*Defined in [gowait.ts:29](https://github.com/calebboyd/async/blob/a91dbbf/gowait.ts#L29)*
+*Defined in [gowait.ts:29](https://github.com/calebboyd/async/blob/c145a52/gowait.ts#L29)*
+
+#### Type parameters:
+
+Name |
+------ |
+`T` |
 
 ## Functions
 
-###  gowait
+### gowait
 
-▸ **gowait**‹**T**›(`promised`: Promise‹T›, `final`: function): *Promise‹[ErrorValue](_gowait_.md#errorvalue)‹T››*
+▸ **gowait**\<T>(`promised`: Promise\<T>, `final`: (...args: any[]) => any): Promise\<[ErrorValue](_gowait_.md#errorvalue)\<T>>
 
-*Defined in [gowait.ts:42](https://github.com/calebboyd/async/blob/a91dbbf/gowait.ts#L42)*
+*Defined in [gowait.ts:42](https://github.com/calebboyd/async/blob/c145a52/gowait.ts#L42)*
 
-**Type parameters:**
+#### Type parameters:
 
-▪ **T**
+Name |
+------ |
+`T` |
 
-**Parameters:**
+#### Parameters:
 
-▪ **promised**: *Promise‹T›*
+Name | Type | Default value | Description |
+------ | ------ | ------ | ------ |
+`promised` | Promise\<T> | - |   |
+`final` | (...args: any[]) => any | noop | - |
 
-▪`Default value`  **final**: *function*= noop
-
-▸ (...`args`: any[]): *any*
-
-**Parameters:**
-
-Name | Type |
------- | ------ |
-`...args` | any[] |
-
-**Returns:** *Promise‹[ErrorValue](_gowait_.md#errorvalue)‹T››*
+**Returns:** Promise\<[ErrorValue](_gowait_.md#errorvalue)\<T>>

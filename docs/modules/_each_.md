@@ -1,4 +1,6 @@
-[@calebboyd/async](../README.md) › [Globals](../globals.md) › ["each"](_each_.md)
+**[@calebboyd/async](../README.md)**
+
+> [Globals](../globals.md) / "each"
 
 # Module: "each"
 
@@ -11,76 +13,74 @@
 ### Functions
 
 * [each](_each_.md#each)
-* [eachSerial](_each_.md#const-eachserial)
+* [eachSerial](_each_.md#eachserial)
 
 ## Type aliases
 
-###  IteratorFunc
+### IteratorFunc
 
-Ƭ **IteratorFunc**: *function | function | function*
+Ƭ  **IteratorFunc**\<T, R>: (value: T, i: number, list: Iterable\<T>) => R \| (value: T) => R \| (value: T, i: number) => R
 
-*Defined in [each.ts:6](https://github.com/calebboyd/async/blob/a91dbbf/each.ts#L6)*
+*Defined in [each.ts:6](https://github.com/calebboyd/async/blob/c145a52/each.ts#L6)*
+
+#### Type parameters:
+
+Name | Default |
+------ | ------ |
+`T` | - |
+`R` | any |
 
 ## Functions
 
-###  each
+### each
 
-▸ **each**‹**T**, **K**›(`this`: K | void, `list`: Iterable‹T›, `iterator`: [IteratorFunc](_each_.md#iteratorfunc)‹T›, `__namedParameters`: object): *Promise‹void›*
+▸ **each**\<T, K>(`this`: K \| void, `list`: Iterable\<T>, `iterator`: [IteratorFunc](_each_.md#iteratorfunc)\<T>, `__namedParameters`: { concurrency: undefined \| number ; context: undefined \| void \| K  }): Promise\<void>
 
-*Defined in [each.ts:14](https://github.com/calebboyd/async/blob/a91dbbf/each.ts#L14)*
+*Defined in [each.ts:14](https://github.com/calebboyd/async/blob/c145a52/each.ts#L14)*
 
-**Type parameters:**
+#### Type parameters:
 
-▪ **T**
+Name | Default |
+------ | ------ |
+`T` | - |
+`K` | any |
 
-▪ **K**
+#### Parameters:
 
-**Parameters:**
-
-▪ **this**: *K | void*
-
-▪ **list**: *Iterable‹T›*
-
-▪ **iterator**: *[IteratorFunc](_each_.md#iteratorfunc)‹T›*
-
-▪`Default value`  **__namedParameters**: *object*= {
+Name | Type | Default value |
+------ | ------ | ------ |
+`this` | K \| void | - |
+`list` | Iterable\<T> | - |
+`iterator` | [IteratorFunc](_each_.md#iteratorfunc)\<T> | - |
+`__namedParameters` | { concurrency: undefined \| number ; context: undefined \| void \| K  } | {
     context: undefined,
     concurrency: 0,
-  }
+  } |
 
-Name | Type |
------- | ------ |
-`concurrency` | undefined &#124; number |
-`context` | undefined &#124; void &#124; K |
-
-**Returns:** *Promise‹void›*
+**Returns:** Promise\<void>
 
 ___
 
-### `Const` eachSerial
+### eachSerial
 
-▸ **eachSerial**‹**T**, **K**›(`this`: K | void, `list`: Iterable‹T›, `iterator`: [IteratorFunc](_each_.md#iteratorfunc)‹T›, `__namedParameters`: object): *Promise‹void›*
+▸ `Const`**eachSerial**\<T, K>(`this`: K \| void, `list`: Iterable\<T>, `iterator`: [IteratorFunc](_each_.md#iteratorfunc)\<T>, `__namedParameters`: { context: undefined \| void \| K  }): Promise\<void>
 
-*Defined in [each.ts:40](https://github.com/calebboyd/async/blob/a91dbbf/each.ts#L40)*
+*Defined in [each.ts:40](https://github.com/calebboyd/async/blob/c145a52/each.ts#L40)*
 
-**Type parameters:**
+#### Type parameters:
 
-▪ **T**
-
-▪ **K**
-
-**Parameters:**
-
-▪ **this**: *K | void*
-
-▪ **list**: *Iterable‹T›*
-
-▪ **iterator**: *[IteratorFunc](_each_.md#iteratorfunc)‹T›*
-
-▪`Default value`  **__namedParameters**: *object*= {}
-
-Name | Type |
+Name | Default |
 ------ | ------ |
-`context` | undefined &#124; void &#124; K |
+`T` | - |
+`K` | any |
 
-**Returns:** *Promise‹void›*
+#### Parameters:
+
+Name | Type | Default value |
+------ | ------ | ------ |
+`this` | K \| void | - |
+`list` | Iterable\<T> | - |
+`iterator` | [IteratorFunc](_each_.md#iteratorfunc)\<T> | - |
+`__namedParameters` | { context: undefined \| void \| K  } | {} |
+
+**Returns:** Promise\<void>
