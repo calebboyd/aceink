@@ -8,7 +8,7 @@ describe('Semaphore', () => {
     const results: any[] = []
     while (tasks--) {
       const result = lock.acquire().then(() => {
-        return new Promise((resolve) => {
+        return new Promise<void>((resolve) => {
           setTimeout(() => {
             lock.release()
             resolve()
