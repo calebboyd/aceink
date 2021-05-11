@@ -1,12 +1,12 @@
 {
   "compilerOptions": {
-    "target": "es2018",
+    "target": "es2019",
     "declaration": true,
     "module": "commonjs",
     "skipLibCheck": true,
     "lib": [
       "dom",
-      "es2018"
+      "es2019"
     ],
     "strict": true,
     "allowSyntheticDefaultImports": true,
@@ -19,6 +19,6 @@
     "node_modules"
   ],
   "include": [
-    "**/*.ts"
+    "*.ts"
   ]
 }

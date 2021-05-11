@@ -10,6 +10,7 @@ export type IteratorFunc<T, R = any> =
 
 /**
  * @public
+ * Iterate a list with a set concurrency
  */
 export function each<T, K = any>(
   this: K | void,
@@ -36,6 +37,7 @@ export function each<T, K = any>(
 }
 /**
  * @public
+ * Iterate a list with a concurrency of 1
  */
 export const eachSerial = function eachSerial<T, K = any>(
   this: K | void,

@@ -1,15 +1,26 @@
 /**
  * @public
+ * Basic noop function
  */
 export const noop = (): void => void 0
 /**
  * @public
+ * Basic identity function
  */
-export const identity = <T = any>(x: T): T => x
+export const identity = <T>(x: T): T => x
+
 /**
  * @public
+ * Anonymous Function definition
  */
 export type Func<T = any> = (...args: any[]) => T
+
+/**
+ * @public
+ * delay a certain number of milliseconds returning a promise that resolves an argument
+ */
+export const delay = <T = undefined>(ms?: number, arg?: T): Promise<T> =>
+  new Promise<T>((resolve) => setTimeout(resolve, ms, arg))
 
 /**
  * @public
@@ -25,6 +36,7 @@ export function once<T extends Func>(fn: T, after: Func = noop): T {
 }
 /**
  * @public
+ * Bound is a mutating decorator that will bind a function to the class instance
  */
 export const bound: MethodDecorator = function bound<T>(
   target: any,

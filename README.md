@@ -1,9 +1,39 @@
 ## async
 
-a collection of async javascript utilities
+Useful async tools optimized for dx.
 
-`npm i @calebboyd/async`
+a queue, a lock, and concurrent map and each
 
-see the documentation [here](/docs/globals.md)
+Get it on npm: `npm install @calebboyd/async`
 
+---
+### Example (queue)
 
+```javascript
+import { q } from '@calebboyd/async'
+
+const { ready, add, empty } = q(10)
+
+function fetchQux(qux) {
+  return fetch(`https://example.com/${qux}`)
+}
+
+const fooBars = Array.from(Array(100).keys())
+for (const value of fooBars) {
+  await ready()
+  add(fetchQux, value)
+}
+return empty()
+
+```
+
+### Example (gowait)
+
+```javascript
+import { gowait, delay } from '@calebboyd/async'
+
+const [err, value] = await gowait(delay(100, 42))
+console.log(value) //42
+```
+
+see the generated documentation [here](/docs/modules.md)

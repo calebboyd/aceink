@@ -1,34 +1,45 @@
 import { Semaphore } from './semaphore'
-import { Func } from './lang'
+import { bound, Func } from './lang'
+
+type UnWrapPromise<T> = T extends PromiseLike<infer U> ? U : T
+
 /**
  * @public
+ * Create Queue with a specified size
  */
 export function q(size: number): Queue {
   return new Queue(size)
 }
 /**
  * @public
+ * Work queue abstraction around a semaphore
  */
 export class Queue {
-  private lock = new Semaphore(this.concurrency)
+  private lock = new Semaphore<any>(this.concurrency)
   private last: Promise<any> = Promise.resolve()
   constructor(private concurrency: number) {}
+
+  get pending(): number {
+    return this.lock.pending
+  }
+
   /**
-   * Enqueue work
-   * @param work
+   * Add work to the Queue, The work function _can_ be async and should NOT throw
+   * @param work work function
+   * @param arg single argument that will be passed to the work function
+   * @returns
    */
-  async do<T>(work: Func<Promise<T>>): Promise<T> {
-    const last = this.last
-    let done = () => {
-      this.lock.release()
-      done = () => void 0
-    }
-    return (this.last = this.lock
-      .acquire()
+  @bound
+  add<T>(
+    work: Func<T>,
+    arg?: Parameters<typeof work>[0]
+  ): Promise<UnWrapPromise<ReturnType<typeof work>>> {
+    const { acquire, release } = this.lock,
+      last = this.last
+    return (this.last = acquire(arg)
       .then(work)
-      .catch(done)
       .then((result) => {
-        done()
+        release()
         return last.then(() => result)
       }))
   }
@@ -36,13 +47,14 @@ export class Queue {
   /**
    * Wait for the queue to have at least one empty slot
    */
-  public async ready(): Promise<void> {
-    await this.lock.acquire()
-    this.lock.release()
+  @bound
+  public ready(): Promise<void> {
+    return this.lock.acquire().then(this.lock.release)
   }
   /**
    * Wait for the queue to be empty
    */
+  @bound
   public async empty(): Promise<void> {
     let last
     while (last !== this.last) {
