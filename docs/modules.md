@@ -43,7 +43,7 @@
 
 #### Defined in
 
-[gowait.ts:28](https://github.com/calebboyd/async/blob/3efea5a/src/gowait.ts#L28)
+[gowait.ts:28](https://github.com/calebboyd/async/blob/6b3f238/src/gowait.ts#L28)
 
 ___
 
@@ -76,7 +76,7 @@ Anonymous Function definition
 
 #### Defined in
 
-[lang.ts:16](https://github.com/calebboyd/async/blob/3efea5a/src/lang.ts#L16)
+[lang.ts:16](https://github.com/calebboyd/async/blob/6b3f238/src/lang.ts#L16)
 
 ## Functions
 
@@ -104,7 +104,7 @@ Create a new Deferred instance
 
 #### Defined in
 
-[deferred.ts:9](https://github.com/calebboyd/async/blob/3efea5a/src/deferred.ts#L9)
+[deferred.ts:9](https://github.com/calebboyd/async/blob/6b3f238/src/deferred.ts#L9)
 
 ___
 
@@ -133,7 +133,7 @@ Basic counting semaphore/lock factory
 
 #### Defined in
 
-[semaphore.ts:6](https://github.com/calebboyd/async/blob/3efea5a/src/semaphore.ts#L6)
+[semaphore.ts:6](https://github.com/calebboyd/async/blob/6b3f238/src/semaphore.ts#L6)
 
 ___
 
@@ -162,7 +162,7 @@ delay a certain number of milliseconds returning a promise that resolves an argu
 
 #### Defined in
 
-[lang.ts:24](https://github.com/calebboyd/async/blob/3efea5a/src/lang.ts#L24)
+[lang.ts:24](https://github.com/calebboyd/async/blob/6b3f238/src/lang.ts#L24)
 
 ___
 
@@ -197,7 +197,7 @@ Iterate a list with optional concurrency
 
 #### Defined in
 
-[each.ts:15](https://github.com/calebboyd/async/blob/3efea5a/src/each.ts#L15)
+[each.ts:15](https://github.com/calebboyd/async/blob/6b3f238/src/each.ts#L15)
 
 ___
 
@@ -239,7 +239,7 @@ if (err) {
 
 #### Defined in
 
-[gowait.ts:45](https://github.com/calebboyd/async/blob/3efea5a/src/gowait.ts#L45)
+[gowait.ts:45](https://github.com/calebboyd/async/blob/6b3f238/src/gowait.ts#L45)
 
 ___
 
@@ -267,7 +267,7 @@ Basic identity function
 
 #### Defined in
 
-[lang.ts:10](https://github.com/calebboyd/async/blob/3efea5a/src/lang.ts#L10)
+[lang.ts:10](https://github.com/calebboyd/async/blob/6b3f238/src/lang.ts#L10)
 
 ___
 
@@ -302,7 +302,7 @@ Map over a list with optional concurrency
 
 #### Defined in
 
-[map.ts:8](https://github.com/calebboyd/async/blob/3efea5a/src/map.ts#L8)
+[map.ts:8](https://github.com/calebboyd/async/blob/6b3f238/src/map.ts#L8)
 
 ___
 
@@ -318,7 +318,7 @@ Basic noop function
 
 #### Defined in
 
-[lang.ts:5](https://github.com/calebboyd/async/blob/3efea5a/src/lang.ts#L5)
+[lang.ts:5](https://github.com/calebboyd/async/blob/6b3f238/src/lang.ts#L5)
 
 ___
 
@@ -347,7 +347,7 @@ Execute fn one time and [after=noop] for every subsequent invocation
 
 #### Defined in
 
-[lang.ts:31](https://github.com/calebboyd/async/blob/3efea5a/src/lang.ts#L31)
+[lang.ts:31](https://github.com/calebboyd/async/blob/6b3f238/src/lang.ts#L31)
 
 ___
 
@@ -370,4 +370,4 @@ Create Queue with a specified size
 
 #### Defined in
 
-[queue.ts:8](https://github.com/calebboyd/async/blob/3efea5a/src/queue.ts#L8)
+[queue.ts:8](https://github.com/calebboyd/async/blob/6b3f238/src/queue.ts#L8)

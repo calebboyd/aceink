@@ -54,7 +54,7 @@ Basic counting semaphore/lock
 
 #### Defined in
 
-[semaphore.ts:20](https://github.com/calebboyd/async/blob/3efea5a/src/semaphore.ts#L20)
+[semaphore.ts:20](https://github.com/calebboyd/async/blob/6b3f238/src/semaphore.ts#L20)
 
 ## Properties
 
@@ -64,7 +64,7 @@ Basic counting semaphore/lock
 
 #### Defined in
 
-[semaphore.ts:17](https://github.com/calebboyd/async/blob/3efea5a/src/semaphore.ts#L17)
+[semaphore.ts:17](https://github.com/calebboyd/async/blob/6b3f238/src/semaphore.ts#L17)
 
 ___
 
@@ -74,7 +74,7 @@ ___
 
 #### Defined in
 
-[semaphore.ts:18](https://github.com/calebboyd/async/blob/3efea5a/src/semaphore.ts#L18)
+[semaphore.ts:18](https://github.com/calebboyd/async/blob/6b3f238/src/semaphore.ts#L18)
 
 ___
 
@@ -84,7 +84,7 @@ ___
 
 #### Defined in
 
-[semaphore.ts:15](https://github.com/calebboyd/async/blob/3efea5a/src/semaphore.ts#L15)
+[semaphore.ts:15](https://github.com/calebboyd/async/blob/6b3f238/src/semaphore.ts#L15)
 
 ___
 
@@ -94,7 +94,7 @@ ___
 
 #### Defined in
 
-[semaphore.ts:16](https://github.com/calebboyd/async/blob/3efea5a/src/semaphore.ts#L16)
+[semaphore.ts:16](https://github.com/calebboyd/async/blob/6b3f238/src/semaphore.ts#L16)
 
 ## Accessors
 
@@ -108,7 +108,7 @@ ___
 
 #### Defined in
 
-[semaphore.ts:31](https://github.com/calebboyd/async/blob/3efea5a/src/semaphore.ts#L31)
+[semaphore.ts:31](https://github.com/calebboyd/async/blob/6b3f238/src/semaphore.ts#L31)
 
 ___
 
@@ -122,7 +122,7 @@ ___
 
 #### Defined in
 
-[semaphore.ts:34](https://github.com/calebboyd/async/blob/3efea5a/src/semaphore.ts#L34)
+[semaphore.ts:34](https://github.com/calebboyd/async/blob/6b3f238/src/semaphore.ts#L34)
 
 ## Methods
 
@@ -144,7 +144,7 @@ Acquire a slot
 
 #### Defined in
 
-[semaphore.ts:41](https://github.com/calebboyd/async/blob/3efea5a/src/semaphore.ts#L41)
+[semaphore.ts:41](https://github.com/calebboyd/async/blob/6b3f238/src/semaphore.ts#L41)
 
 ___
 
@@ -160,4 +160,4 @@ Release a slot
 
 #### Defined in
 
-[semaphore.ts:56](https://github.com/calebboyd/async/blob/3efea5a/src/semaphore.ts#L56)
+[semaphore.ts:56](https://github.com/calebboyd/async/blob/6b3f238/src/semaphore.ts#L56)
