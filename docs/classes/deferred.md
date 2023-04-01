@@ -44,7 +44,7 @@ Use of a deferred is generally an anti-pattern, use with discretion.
 
 #### Defined in
 
-[deferred.ts:31](https://github.com/calebboyd/async/blob/6b3f238/src/deferred.ts#L31)
+[deferred.ts:31](https://github.com/calebboyd/async/blob/ce8a509/src/deferred.ts#L31)
 
 ## Properties
 
@@ -56,7 +56,7 @@ The Promise instance
 
 #### Defined in
 
-[deferred.ts:30](https://github.com/calebboyd/async/blob/6b3f238/src/deferred.ts#L30)
+[deferred.ts:30](https://github.com/calebboyd/async/blob/ce8a509/src/deferred.ts#L30)
 
 ___
 
@@ -82,7 +82,7 @@ Reject the promise with some reason
 
 #### Defined in
 
-[deferred.ts:26](https://github.com/calebboyd/async/blob/6b3f238/src/deferred.ts#L26)
+[deferred.ts:26](https://github.com/calebboyd/async/blob/ce8a509/src/deferred.ts#L26)
 
 ___
 
@@ -108,7 +108,7 @@ resolve the Promise with the stored value
 
 #### Defined in
 
-[deferred.ts:22](https://github.com/calebboyd/async/blob/6b3f238/src/deferred.ts#L22)
+[deferred.ts:22](https://github.com/calebboyd/async/blob/ce8a509/src/deferred.ts#L22)
 
 ___
 
@@ -120,4 +120,4 @@ Convenience placeholder for a value to resolve the deferred with
 
 #### Defined in
 
-[deferred.ts:35](https://github.com/calebboyd/async/blob/6b3f238/src/deferred.ts#L35)
+[deferred.ts:35](https://github.com/calebboyd/async/blob/ce8a509/src/deferred.ts#L35)

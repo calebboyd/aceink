@@ -66,7 +66,7 @@
     "build:cjs": "tsc --outDir lib/cjs --module commonjs && echo '{\"type\": \"commonjs\"}' > lib/cjs/package.json",
     "build": "rimraf lib && npm run lint && tsc && npm run build:cjs && npm run build:docs",
     "prepublishOnly": "npm run build",
-    "test": "vitest --run"
+    "test": "vitest src --run"
   },
   "files": [
     "lib"
