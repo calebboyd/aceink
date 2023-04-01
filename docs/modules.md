@@ -1,40 +1,38 @@
-[@calebboyd/async](README.md) / Exports
+[aceink](README.md) / Exports
 
-# @calebboyd/async
+# aceink
 
 ## Table of contents
 
 ### Classes
 
-- [Deferred](classes/deferred.md)
-- [Queue](classes/queue.md)
-- [Semaphore](classes/semaphore.md)
+- [Deferred](classes/Deferred.md)
+- [Queue](classes/Queue.md)
+- [Semaphore](classes/Semaphore.md)
 
-### Type aliases
+### Type Aliases
 
 - [ErrorValue](modules.md#errorvalue)
 - [Func](modules.md#func)
 
 ### Functions
 
-- [bound](modules.md#bound)
+- [createDeferred](modules.md#createdeferred)
 - [createLock](modules.md#createlock)
 - [delay](modules.md#delay)
 - [each](modules.md#each)
-- [eachSerial](modules.md#eachserial)
 - [gowait](modules.md#gowait)
 - [identity](modules.md#identity)
 - [map](modules.md#map)
-- [mapSerial](modules.md#mapserial)
 - [noop](modules.md#noop)
 - [once](modules.md#once)
 - [q](modules.md#q)
 
-## Type aliases
+## Type Aliases
 
 ### ErrorValue
 
-Ƭ **ErrorValue**<T, E\>: [E, *undefined*] \| [``null``, T]
+Ƭ **ErrorValue**<`T`, `E`\>: [`E`, `undefined`] \| [``null``, `T`]
 
 #### Type parameters
 
@@ -43,39 +41,50 @@
 | `T` |
 | `E` |
 
-Defined in: [gowait.ts:30](https://github.com/calebboyd/async/blob/3e68cc2/gowait.ts#L30)
+#### Defined in
+
+[gowait.ts:28](https://github.com/calebboyd/async/blob/3efea5a/src/gowait.ts#L28)
 
 ___
 
 ### Func
 
-Ƭ **Func**<T\>: (...`args`: *any*[]) => T
+Ƭ **Func**<`Result`, `Args`\>: (...`args`: `Args`) => `Result`
 
 #### Type parameters
 
-| Name | Default |
+| Name | Type |
 | :------ | :------ |
-| `T` | *any* |
+| `Result` | `ExplicitAny` |
+| `Args` | extends `ExplicitAny`[] = `ExplicitAny`[] |
 
 #### Type declaration
 
-▸ (...`args`: *any*[]): T
+▸ (`...args`): `Result`
 
-#### Parameters
+Anonymous Function definition
+
+##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `...args` | *any*[] |
+| `...args` | `Args` |
 
-**Returns:** T
+##### Returns
 
-Defined in: [lang.ts:16](https://github.com/calebboyd/async/blob/3e68cc2/lang.ts#L16)
+`Result`
+
+#### Defined in
+
+[lang.ts:16](https://github.com/calebboyd/async/blob/3efea5a/src/lang.ts#L16)
 
 ## Functions
 
-### bound
+### createDeferred
 
-▸ `Const` **bound**<T\>(`target`: Object, `propertyKey`: *string* \| *symbol*, `descriptor`: *TypedPropertyDescriptor*<T\>): *void* \| *TypedPropertyDescriptor*<T\>
+▸ **createDeferred**<`T`\>(`value?`): [`Deferred`](classes/Deferred.md)<`T`\>
+
+Create a new Deferred instance
 
 #### Type parameters
 
@@ -87,141 +96,158 @@ Defined in: [lang.ts:16](https://github.com/calebboyd/async/blob/3e68cc2/lang.ts
 
 | Name | Type |
 | :------ | :------ |
-| `target` | Object |
-| `propertyKey` | *string* \| *symbol* |
-| `descriptor` | *TypedPropertyDescriptor*<T\> |
+| `value?` | `T` |
 
-**Returns:** *void* \| *TypedPropertyDescriptor*<T\>
+#### Returns
 
-Defined in: [lang.ts:41](https://github.com/calebboyd/async/blob/3e68cc2/lang.ts#L41)
+[`Deferred`](classes/Deferred.md)<`T`\>
+
+#### Defined in
+
+[deferred.ts:9](https://github.com/calebboyd/async/blob/3efea5a/src/deferred.ts#L9)
 
 ___
 
 ### createLock
 
-▸ **createLock**<RefType\>(`count?`: *number*, `promise?`: PromiseConstructor): [*Semaphore*](classes/semaphore.md)<RefType\>
+▸ **createLock**<`RefType`\>(`count?`, `bound?`): [`Semaphore`](classes/Semaphore.md)<`RefType`\>
+
+Basic counting semaphore/lock factory
 
 #### Type parameters
 
-| Name | Default |
+| Name | Type |
 | :------ | :------ |
-| `RefType` | *number* |
+| `RefType` | `number` |
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `count?` | *number* |
-| `promise` | PromiseConstructor |
+| Name | Type | Default value |
+| :------ | :------ | :------ |
+| `count?` | `number` | `undefined` |
+| `bound` | `boolean` | `true` |
 
-**Returns:** [*Semaphore*](classes/semaphore.md)<RefType\>
+#### Returns
 
-Defined in: [semaphore.ts:7](https://github.com/calebboyd/async/blob/3e68cc2/semaphore.ts#L7)
+[`Semaphore`](classes/Semaphore.md)<`RefType`\>
+
+#### Defined in
+
+[semaphore.ts:6](https://github.com/calebboyd/async/blob/3efea5a/src/semaphore.ts#L6)
 
 ___
 
 ### delay
 
-▸ `Const` **delay**<T\>(`ms?`: *number*, `arg?`: T): *Promise*<T\>
+▸ **delay**<`T`\>(`ms?`, `arg?`): `Promise`<`T`\>
+
+delay a certain number of milliseconds returning a promise that resolves an argument
 
 #### Type parameters
 
-| Name | Default |
+| Name | Type |
 | :------ | :------ |
-| `T` | *undefined* |
+| `T` | `undefined` |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `ms?` | *number* |
-| `arg?` | T |
+| `ms?` | `number` |
+| `arg?` | `T` |
 
-**Returns:** *Promise*<T\>
+#### Returns
 
-Defined in: [lang.ts:22](https://github.com/calebboyd/async/blob/3e68cc2/lang.ts#L22)
+`Promise`<`T`\>
+
+#### Defined in
+
+[lang.ts:24](https://github.com/calebboyd/async/blob/3efea5a/src/lang.ts#L24)
 
 ___
 
 ### each
 
-▸ **each**<T, K\>(`list`: *Iterable*<T\>, `iterator`: *IteratorFunc*<T\>, `__namedParameters`: { `concurrency?`: *number* ; `context?`: K \| *void*  }): *Promise*<void\>
+▸ **each**<`T`, `K`\>(`this`, `list`, `iterator`, `«destructured»?`): `Promise`<`void`\>
+
+Iterate a list with optional concurrency
 
 #### Type parameters
 
-| Name | Default |
+| Name | Type |
 | :------ | :------ |
-| `T` | - |
-| `K` | *any* |
+| `T` | `T` |
+| `K` | `any` |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `list` | *Iterable*<T\> |
-| `iterator` | *IteratorFunc*<T\> |
-| `__namedParameters` | *object* |
-| `__namedParameters.concurrency?` | *number* |
-| `__namedParameters.context?` | K \| *void* |
+| `this` | `void` \| `K` |
+| `list` | `Iterable`<`T`\> |
+| `iterator` | `IteratorFunc`<`T`, `any`\> |
+| `«destructured»` | `Object` |
+| › `concurrency?` | `number` |
+| › `context?` | `void` \| `K` |
+| › `onError?` | ``"settle"`` \| ``"bail"`` |
 
-**Returns:** *Promise*<void\>
+#### Returns
 
-Defined in: [each.ts:15](https://github.com/calebboyd/async/blob/3e68cc2/each.ts#L15)
+`Promise`<`void`\>
 
-___
+#### Defined in
 
-### eachSerial
-
-▸ `Const` **eachSerial**<T, K\>(`list`: *Iterable*<T\>, `iterator`: *IteratorFunc*<T, any\>, `__namedParameters`: { `context?`: *void* \| K  }): *Promise*<void\>
-
-#### Type parameters
-
-| Name | Default |
-| :------ | :------ |
-| `T` | - |
-| `K` | *any* |
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `list` | *Iterable*<T\> |
-| `iterator` | *IteratorFunc*<T, any\> |
-| `__namedParameters` | *object* |
-| `__namedParameters.context?` | *void* \| K |
-
-**Returns:** *Promise*<void\>
-
-Defined in: [each.ts:42](https://github.com/calebboyd/async/blob/3e68cc2/each.ts#L42)
+[each.ts:15](https://github.com/calebboyd/async/blob/3efea5a/src/each.ts#L15)
 
 ___
 
 ### gowait
 
-▸ **gowait**<T, E\>(`promised`: *Promise*<T\> \| [*Func*](modules.md#func)<Promise<T\>\>): *Promise*<[*ErrorValue*](modules.md#errorvalue)<T, E\>\>
+▸ **gowait**<`T`, `E`\>(`promised`): `Promise`<[`ErrorValue`](modules.md#errorvalue)<`T`, `E`\>\>
+
+Kind of like nodes ErrBacks, but with the ease (and overhead) of promises.
+It will only reject promises for native errors.
+Syncronous errors are caught.
+
+**`Example`**
+
+```ts
+const [err, value] = await gowait(doWorkThatMightErrorAsync())
+if (err) {
+  panic(err)
+} else {
+  success(value)
+}
+```
 
 #### Type parameters
 
-| Name | Default |
+| Name | Type |
 | :------ | :------ |
-| `T` | - |
-| `E` | Error |
+| `T` | `T` |
+| `E` | `Error` |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `promised` | *Promise*<T\> \| [*Func*](modules.md#func)<Promise<T\>\> |
+| `promised` | `Promise`<`T`\> \| [`Func`](modules.md#func)<`Promise`<`T`\>\> |
 
-**Returns:** *Promise*<[*ErrorValue*](modules.md#errorvalue)<T, E\>\>
+#### Returns
 
-Defined in: [gowait.ts:45](https://github.com/calebboyd/async/blob/3e68cc2/gowait.ts#L45)
+`Promise`<[`ErrorValue`](modules.md#errorvalue)<`T`, `E`\>\>
+
+#### Defined in
+
+[gowait.ts:45](https://github.com/calebboyd/async/blob/3efea5a/src/gowait.ts#L45)
 
 ___
 
 ### identity
 
-▸ `Const` **identity**<T\>(`x`: T): T
+▸ **identity**<`T`\>(`x`): `T`
+
+Basic identity function
 
 #### Type parameters
 
@@ -233,112 +259,115 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `x` | T |
+| `x` | `T` |
 
-**Returns:** T
+#### Returns
 
-Defined in: [lang.ts:10](https://github.com/calebboyd/async/blob/3e68cc2/lang.ts#L10)
+`T`
+
+#### Defined in
+
+[lang.ts:10](https://github.com/calebboyd/async/blob/3efea5a/src/lang.ts#L10)
 
 ___
 
 ### map
 
-▸ **map**<T, R, K\>(`list`: *Iterable*<T\>, `iterator`: *IteratorFunc*<T, R\>, `__namedParameters`: { `concurrency?`: *number* ; `context?`: K  }): *Promise*<R[]\>
+▸ **map**<`T`, `R`, `K`\>(`this`, `list`, `iterator`, `«destructured»?`): `Promise`<`R`[]\>
+
+Map over a list with optional concurrency
 
 #### Type parameters
 
-| Name | Default |
+| Name | Type |
 | :------ | :------ |
-| `T` | - |
-| `R` | - |
-| `K` | *any* |
+| `T` | `T` |
+| `R` | `R` |
+| `K` | `any` |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `list` | *Iterable*<T\> |
-| `iterator` | *IteratorFunc*<T, R\> |
-| `__namedParameters` | *object* |
-| `__namedParameters.concurrency?` | *number* |
-| `__namedParameters.context?` | K |
+| `this` | `K` |
+| `list` | `Iterable`<`T`\> |
+| `iterator` | `IteratorFunc`<`T`, `R`\> |
+| `«destructured»` | `Object` |
+| › `concurrency?` | `number` |
+| › `context?` | `K` |
 
-**Returns:** *Promise*<R[]\>
+#### Returns
 
-Defined in: [map.ts:5](https://github.com/calebboyd/async/blob/3e68cc2/map.ts#L5)
+`Promise`<`R`[]\>
 
-___
+#### Defined in
 
-### mapSerial
-
-▸ **mapSerial**<T, R, K\>(`list`: *Iterable*<T\>, `iterator`: *IteratorFunc*<T, R\>, `__namedParameters`: { `context?`: K  }): *any*
-
-#### Type parameters
-
-| Name | Default |
-| :------ | :------ |
-| `T` | - |
-| `R` | - |
-| `K` | *any* |
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `list` | *Iterable*<T\> |
-| `iterator` | *IteratorFunc*<T, R\> |
-| `__namedParameters` | *object* |
-| `__namedParameters.context?` | K |
-
-**Returns:** *any*
-
-Defined in: [map.ts:25](https://github.com/calebboyd/async/blob/3e68cc2/map.ts#L25)
+[map.ts:8](https://github.com/calebboyd/async/blob/3efea5a/src/map.ts#L8)
 
 ___
 
 ### noop
 
-▸ `Const` **noop**(): *void*
+▸ **noop**(): `void`
 
-**Returns:** *void*
+Basic noop function
 
-Defined in: [lang.ts:5](https://github.com/calebboyd/async/blob/3e68cc2/lang.ts#L5)
+#### Returns
+
+`void`
+
+#### Defined in
+
+[lang.ts:5](https://github.com/calebboyd/async/blob/3efea5a/src/lang.ts#L5)
 
 ___
 
 ### once
 
-▸ **once**<T\>(`fn`: T, `after?`: [*Func*](modules.md#func)): T
+▸ **once**<`T`\>(`fn`, `after?`): `T`
+
+Execute fn one time and [after=noop] for every subsequent invocation
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
-| `T` | [*Func*](modules.md#func)<any\> |
+| `T` | extends [`Func`](modules.md#func)<`any`, `any`[]\> |
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `fn` | T |
-| `after` | [*Func*](modules.md#func) |
+| Name | Type | Default value |
+| :------ | :------ | :------ |
+| `fn` | `T` | `undefined` |
+| `after` | [`Func`](modules.md#func)<`any`, `any`[]\> | `noop` |
 
-**Returns:** T
+#### Returns
 
-Defined in: [lang.ts:29](https://github.com/calebboyd/async/blob/3e68cc2/lang.ts#L29)
+`T`
+
+#### Defined in
+
+[lang.ts:31](https://github.com/calebboyd/async/blob/3efea5a/src/lang.ts#L31)
 
 ___
 
 ### q
 
-▸ **q**(`size`: *number*): [*Queue*](classes/queue.md)
+▸ **q**(`size`, `bound?`): [`Queue`](classes/Queue.md)
+
+Create Queue with a specified size
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `size` | *number* |
+| Name | Type | Default value |
+| :------ | :------ | :------ |
+| `size` | `number` | `undefined` |
+| `bound` | `boolean` | `true` |
 
-**Returns:** [*Queue*](classes/queue.md)
+#### Returns
 
-Defined in: [queue.ts:10](https://github.com/calebboyd/async/blob/3e68cc2/queue.ts#L10)
+[`Queue`](classes/Queue.md)
+
+#### Defined in
+
+[queue.ts:8](https://github.com/calebboyd/async/blob/3efea5a/src/queue.ts#L8)

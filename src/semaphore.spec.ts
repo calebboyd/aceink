@@ -1,11 +1,12 @@
-import { Semaphore, createLock } from './semaphore'
+import { describe, it, expect } from 'vitest'
+import { Semaphore, createLock } from './semaphore.js'
 
 describe('Semaphore', () => {
   it('should limit concurrency', async () => {
     const { acquire, release } = new Semaphore(10)
     let tasks = 11
     const start = Date.now()
-    const results: any[] = []
+    const results: Array<Promise<void>> = []
     while (tasks--) {
       const result = acquire().then(() => {
         return new Promise<void>((resolve) => {
@@ -18,8 +19,9 @@ describe('Semaphore', () => {
       results.push(result)
     }
     await Promise.all(results)
-    expect(Date.now() - start).toBeGreaterThan(200)
-    expect(Date.now() - start).toBeLessThan(300)
+    const end = Date.now() - start
+    expect(end).toBeGreaterThanOrEqual(200)
+    expect(end).toBeLessThan(250)
   })
 
   it('should pass values', async () => {

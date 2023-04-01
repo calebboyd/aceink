@@ -1,4 +1,5 @@
-import { gowait } from './gowait'
+import { describe, it, expect } from 'vitest'
+import { gowait } from './gowait.js'
 
 describe('gowait', () => {
   it('should return the result of the function', async () => {
@@ -21,13 +22,22 @@ describe('gowait', () => {
     expect(error).toEqual('1234')
 
     const resolved = Promise.resolve('abcd')
-    ;(func as any).then = resolved.then.bind(resolved)
+    func.then = resolved.then.bind(resolved)
     const [err, value] = await gowait(func)
     expect(value).toEqual('abcd')
     expect(err).toBeNull()
   })
 
-  it('should throw native errors', async () => {
-    //TODO
+  it('should catch syncronous errors and throw native ones asyncronously', async () => {
+    const func = () => {
+      new Function('%.(4)')()
+      return Promise.resolve()
+    }
+    let caught = false
+    await gowait(func).catch((e) => {
+      caught = true
+      expect(e).toBeInstanceOf(SyntaxError)
+    })
+    expect(caught).toBe(true)
   })
 })

@@ -1,115 +1,138 @@
-[@calebboyd/async](../README.md) / [Exports](../modules.md) / Queue
+[aceink](../README.md) / [Exports](../modules.md) / Queue
 
 # Class: Queue
+
+Work queue abstraction around a semaphore
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](queue.md#constructor)
+- [constructor](Queue.md#constructor)
 
 ### Properties
 
-- [last](queue.md#last)
-- [lock](queue.md#lock)
+- [last](Queue.md#last)
+- [lock](Queue.md#lock)
 
 ### Accessors
 
-- [pending](queue.md#pending)
+- [pending](Queue.md#pending)
 
 ### Methods
 
-- [add](queue.md#add)
-- [empty](queue.md#empty)
-- [ready](queue.md#ready)
+- [add](Queue.md#add)
+- [empty](Queue.md#empty)
+- [ready](Queue.md#ready)
 
 ## Constructors
 
 ### constructor
 
-\+ **new Queue**(`concurrency`: *number*): [*Queue*](queue.md)
+• **new Queue**(`concurrency`, `bound?`)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `concurrency` | *number* |
+| Name | Type | Default value |
+| :------ | :------ | :------ |
+| `concurrency` | `number` | `undefined` |
+| `bound` | `boolean` | `true` |
 
-**Returns:** [*Queue*](queue.md)
+#### Defined in
 
-Defined in: [queue.ts:19](https://github.com/calebboyd/async/blob/3e68cc2/queue.ts#L19)
+[queue.ts:18](https://github.com/calebboyd/async/blob/3efea5a/src/queue.ts#L18)
 
 ## Properties
 
 ### last
 
-• `Private` **last**: *Promise*<any\>
+• `Private` **last**: `Promise`<`any`\>
 
-Defined in: [queue.ts:19](https://github.com/calebboyd/async/blob/3e68cc2/queue.ts#L19)
+#### Defined in
+
+[queue.ts:17](https://github.com/calebboyd/async/blob/3efea5a/src/queue.ts#L17)
 
 ___
 
 ### lock
 
-• `Private` **lock**: [*Semaphore*](semaphore.md)<any\>
+• `Private` **lock**: [`Semaphore`](Semaphore.md)<`number`\>
 
-Defined in: [queue.ts:18](https://github.com/calebboyd/async/blob/3e68cc2/queue.ts#L18)
+#### Defined in
+
+[queue.ts:16](https://github.com/calebboyd/async/blob/3efea5a/src/queue.ts#L16)
 
 ## Accessors
 
 ### pending
 
-• get **pending**(): *number*
+• `get` **pending**(): `number`
 
-**Returns:** *number*
+#### Returns
 
-Defined in: [queue.ts:22](https://github.com/calebboyd/async/blob/3e68cc2/queue.ts#L22)
+`number`
+
+#### Defined in
+
+[queue.ts:27](https://github.com/calebboyd/async/blob/3efea5a/src/queue.ts#L27)
 
 ## Methods
 
 ### add
 
-▸ **add**<T\>(`work`: [*Func*](../modules.md#func)<T\>, `arg?`: *any*): *Promise*<UnWrapPromise<T\>\>
+▸ **add**<`T`\>(`work`, `arg?`): `Promise`<`Awaited`<`ReturnType`<`T`\>\>\>
 
 Add work to the Queue, The work function _can_ be async and should NOT throw
 
 #### Type parameters
 
-| Name |
-| :------ |
-| `T` |
+| Name | Type |
+| :------ | :------ |
+| `T` | extends [`Func`](../modules.md#func) |
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `work` | [*Func*](../modules.md#func)<T\> | work function |
-| `arg?` | *any* | single argument that will be passed to the work function |
+| `work` | `T` | work function |
+| `arg?` | `Parameters`<`T`\>[``0``] | single argument that will be passed to the work function |
 
-**Returns:** *Promise*<UnWrapPromise<T\>\>
+#### Returns
 
-Defined in: [queue.ts:33](https://github.com/calebboyd/async/blob/3e68cc2/queue.ts#L33)
+`Promise`<`Awaited`<`ReturnType`<`T`\>\>\>
+
+#### Defined in
+
+[queue.ts:37](https://github.com/calebboyd/async/blob/3efea5a/src/queue.ts#L37)
 
 ___
 
 ### empty
 
-▸ **empty**(): *Promise*<void\>
+▸ **empty**(): `Promise`<`void`\>
 
 Wait for the queue to be empty
 
-**Returns:** *Promise*<void\>
+#### Returns
 
-Defined in: [queue.ts:58](https://github.com/calebboyd/async/blob/3e68cc2/queue.ts#L58)
+`Promise`<`void`\>
+
+#### Defined in
+
+[queue.ts:57](https://github.com/calebboyd/async/blob/3efea5a/src/queue.ts#L57)
 
 ___
 
 ### ready
 
-▸ **ready**(): *Promise*<void\>
+▸ **ready**(): `Promise`<`void`\>
 
 Wait for the queue to have at least one empty slot
 
-**Returns:** *Promise*<void\>
+#### Returns
 
-Defined in: [queue.ts:51](https://github.com/calebboyd/async/blob/3e68cc2/queue.ts#L51)
+`Promise`<`void`\>
+
+#### Defined in
+
+[queue.ts:51](https://github.com/calebboyd/async/blob/3efea5a/src/queue.ts#L51)

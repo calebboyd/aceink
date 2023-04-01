@@ -1,3 +1,15 @@
+import type { ExplicitAny } from './lang.js'
+
+/**
+ * @public
+ * Create a new Deferred instance
+ * @param value
+ * @returns
+ */
+export function createDeferred<T>(value?: T): Deferred<T> {
+  return new Deferred(value)
+}
+
 /**
  * @public
  * A Basic Deferred class, exposing the promise, resolve and reject methods.
@@ -11,7 +23,7 @@ export class Deferred<T> {
   /**
    * Reject the promise with some reason
    */
-  reject!: (reason?: any) => void
+  reject!: (reason?: ExplicitAny) => void
   /**
    * The Promise instance
    */
@@ -20,10 +32,9 @@ export class Deferred<T> {
     /**
      * Convenience placeholder for a value to resolve the deferred with
      */
-    public value?: T,
-    public PromiseImpl: PromiseConstructorLike = Promise
+    public value?: T
   ) {
-    this.promise = new PromiseImpl((resolve, reject) => {
+    this.promise = new Promise((resolve, reject) => {
       this.resolve = resolve
       this.reject = reject
     }) as Promise<T>

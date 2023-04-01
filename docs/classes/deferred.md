@@ -1,6 +1,9 @@
-[@calebboyd/async](../README.md) / [Exports](../modules.md) / Deferred
+[aceink](../README.md) / [Exports](../modules.md) / Deferred
 
 # Class: Deferred<T\>
+
+A Basic Deferred class, exposing the promise, resolve and reject methods.
+Use of a deferred is generally an anti-pattern, use with discretion.
 
 ## Type parameters
 
@@ -12,21 +15,20 @@
 
 ### Constructors
 
-- [constructor](deferred.md#constructor)
+- [constructor](Deferred.md#constructor)
 
 ### Properties
 
-- [PromiseImpl](deferred.md#promiseimpl)
-- [promise](deferred.md#promise)
-- [reject](deferred.md#reject)
-- [resolve](deferred.md#resolve)
-- [value](deferred.md#value)
+- [promise](Deferred.md#promise)
+- [reject](Deferred.md#reject)
+- [resolve](Deferred.md#resolve)
+- [value](Deferred.md#value)
 
 ## Constructors
 
 ### constructor
 
-\+ **new Deferred**<T\>(`value?`: T, `PromiseImpl?`: PromiseConstructorLike): [*Deferred*](deferred.md)<T\>
+• **new Deferred**<`T`\>(`value?`)
 
 #### Type parameters
 
@@ -36,81 +38,86 @@
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `value?` | T |
-| `PromiseImpl` | PromiseConstructorLike |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `value?` | `T` | Convenience placeholder for a value to resolve the deferred with |
 
-**Returns:** [*Deferred*](deferred.md)<T\>
+#### Defined in
 
-Defined in: [deferred.ts:18](https://github.com/calebboyd/async/blob/3e68cc2/deferred.ts#L18)
+[deferred.ts:31](https://github.com/calebboyd/async/blob/3efea5a/src/deferred.ts#L31)
 
 ## Properties
 
-### PromiseImpl
-
-• **PromiseImpl**: PromiseConstructorLike
-
-___
-
 ### promise
 
-• **promise**: *Promise*<T\>
+• **promise**: `Promise`<`T`\>
 
 The Promise instance
 
-Defined in: [deferred.ts:18](https://github.com/calebboyd/async/blob/3e68cc2/deferred.ts#L18)
+#### Defined in
+
+[deferred.ts:30](https://github.com/calebboyd/async/blob/3efea5a/src/deferred.ts#L30)
 
 ___
 
 ### reject
 
-• **reject**: (`reason?`: *any*) => *void*
-
-Reject the promise with some reason
+• **reject**: (`reason?`: `any`) => `void`
 
 #### Type declaration
 
-▸ (`reason?`: *any*): *void*
+▸ (`reason?`): `void`
 
-#### Parameters
+Reject the promise with some reason
+
+##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `reason?` | *any* |
+| `reason?` | `any` |
 
-**Returns:** *void*
+##### Returns
 
-Defined in: [deferred.ts:14](https://github.com/calebboyd/async/blob/3e68cc2/deferred.ts#L14)
+`void`
 
-Defined in: [deferred.ts:14](https://github.com/calebboyd/async/blob/3e68cc2/deferred.ts#L14)
+#### Defined in
+
+[deferred.ts:26](https://github.com/calebboyd/async/blob/3efea5a/src/deferred.ts#L26)
 
 ___
 
 ### resolve
 
-• **resolve**: (`value`: T \| *PromiseLike*<T\>) => *void*
-
-resolve the Promise with the stored value
+• **resolve**: (`value`: `T` \| `PromiseLike`<`T`\>) => `void`
 
 #### Type declaration
 
-▸ (`value`: T \| *PromiseLike*<T\>): *void*
+▸ (`value`): `void`
 
-#### Parameters
+resolve the Promise with the stored value
+
+##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `value` | T \| *PromiseLike*<T\> |
+| `value` | `T` \| `PromiseLike`<`T`\> |
 
-**Returns:** *void*
+##### Returns
 
-Defined in: [deferred.ts:10](https://github.com/calebboyd/async/blob/3e68cc2/deferred.ts#L10)
+`void`
 
-Defined in: [deferred.ts:10](https://github.com/calebboyd/async/blob/3e68cc2/deferred.ts#L10)
+#### Defined in
+
+[deferred.ts:22](https://github.com/calebboyd/async/blob/3efea5a/src/deferred.ts#L22)
 
 ___
 
 ### value
 
-• `Optional` **value**: T
+• `Optional` **value**: `T`
+
+Convenience placeholder for a value to resolve the deferred with
+
+#### Defined in
+
+[deferred.ts:35](https://github.com/calebboyd/async/blob/3efea5a/src/deferred.ts#L35)

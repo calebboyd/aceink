@@ -1,27 +1,41 @@
-## async
+## aceink
 
-Useful async tools optimized for dx.
+Useful async tools.
 
-a queue, a lock, and concurrent map and each
+- `createLock`
+  - a simple counting sempahore
+- `createDeferred`
+  - simple deferred promise
+- `q`
+  - a concurrent work queue
+- `each`, `map`
+  - *optionally* concurrent iteration functions
+- `gowait`
+  - convert a promise or promise returning function to `[error,result]` tuples
+- `delay`
+  - delay ms, optionally resolve an argument
+- `noop`, `identity`, `once`
+  - Other useful language functions
 
-Get it on npm: `npm install @calebboyd/async`
+Get it on npm: `npm install aceink`
+
+See the generated documentation [here](/docs/modules.md)
 
 ---
 ### Example (queue)
 
 ```javascript
-import { q } from '@calebboyd/async'
+import { q } from 'aceink'
 
 const { ready, add, empty } = q(10)
 
-function fetchQux(qux) {
-  return fetch(`https://example.com/${qux}`)
+function fetchQux(bar) {
+  return fetch(`https://example.com/${bar}`)
 }
 
-const fooBars = Array.from(Array(100).keys())
-for (const value of fooBars) {
+for (const foo of Array(100).keys()) {
   await ready()
-  add(fetchQux, value)
+  add(fetchQux, foo)
 }
 return empty()
 
@@ -30,10 +44,8 @@ return empty()
 ### Example (gowait)
 
 ```javascript
-import { gowait, delay } from '@calebboyd/async'
+import { gowait, delay } from 'aceink'
 
 const [err, value] = await gowait(delay(100, 42))
 console.log(value) //42
 ```
-
-see the generated documentation [here](/docs/modules.md)

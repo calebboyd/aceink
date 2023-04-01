@@ -1,4 +1,5 @@
-import { each } from './each'
+import { describe, it, expect } from 'vitest'
+import { each } from './each.js'
 
 describe('each', () => {
   it('should iterate, concurrently', async () => {
@@ -7,7 +8,7 @@ describe('each', () => {
     const start = Date.now()
 
     await each(
-      list as any,
+      list,
       (value: number, i: number) => {
         expect(value).toEqual(list[i])
         copiedValues.push(value)

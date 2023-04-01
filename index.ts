@@ -1,7 +1,0 @@
-export { each, eachSerial } from './each'
-export { map, mapSerial } from './map'
-export { Deferred } from './deferred'
-export { gowait, ErrorValue } from './gowait'
-export { Semaphore, createLock } from './semaphore'
-export { Queue, q } from './queue'
-export { Func, noop, identity, once, bound, delay } from './lang'

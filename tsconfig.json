@@ -1,24 +1,24 @@
 {
   "compilerOptions": {
-    "target": "es2019",
+    "outDir": "lib/esm",
+    "target": "ES2022",
     "declaration": true,
-    "module": "commonjs",
+    "module": "ES2022",
+    "moduleResolution": "nodenext",
     "skipLibCheck": true,
     "lib": [
       "dom",
-      "es2019"
+      "es2022"
     ],
     "strict": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "inlineSourceMap": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    "inlineSourceMap": true
   },
   "exclude": [
     "node_modules"
   ],
   "include": [
-    "*.ts"
+    "src/**/*.ts"
   ]
 }

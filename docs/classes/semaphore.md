@@ -1,133 +1,163 @@
-[@calebboyd/async](../README.md) / [Exports](../modules.md) / Semaphore
+[aceink](../README.md) / [Exports](../modules.md) / Semaphore
 
 # Class: Semaphore<RefType\>
 
+Basic counting semaphore/lock
+
 ## Type parameters
 
-| Name | Default |
+| Name | Type |
 | :------ | :------ |
-| `RefType` | *number* |
+| `RefType` | `number` |
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](semaphore.md#constructor)
+- [constructor](Semaphore.md#constructor)
 
 ### Properties
 
-- [locks](semaphore.md#locks)
-- [requestedLockCount](semaphore.md#requestedlockcount)
-- [size](semaphore.md#size)
-- [waiting](semaphore.md#waiting)
+- [locks](Semaphore.md#locks)
+- [requestedLockCount](Semaphore.md#requestedlockcount)
+- [size](Semaphore.md#size)
+- [waiting](Semaphore.md#waiting)
 
 ### Accessors
 
-- [count](semaphore.md#count)
-- [pending](semaphore.md#pending)
+- [count](Semaphore.md#count)
+- [pending](Semaphore.md#pending)
 
 ### Methods
 
-- [acquire](semaphore.md#acquire)
-- [release](semaphore.md#release)
+- [acquire](Semaphore.md#acquire)
+- [release](Semaphore.md#release)
 
 ## Constructors
 
 ### constructor
 
-\+ **new Semaphore**<RefType\>(`size?`: *number*, `promise?`: PromiseConstructor): [*Semaphore*](semaphore.md)<RefType\>
+• **new Semaphore**<`RefType`\>(`size?`, `bound?`)
 
 #### Type parameters
 
-| Name | Default |
+| Name | Type |
 | :------ | :------ |
-| `RefType` | *number* |
+| `RefType` | `number` |
 
 #### Parameters
 
 | Name | Type | Default value |
 | :------ | :------ | :------ |
-| `size` | *number* | 1 |
-| `promise` | PromiseConstructor | - |
+| `size` | `number` | `1` |
+| `bound` | `boolean` | `true` |
 
-**Returns:** [*Semaphore*](semaphore.md)<RefType\>
+#### Defined in
 
-Defined in: [semaphore.ts:21](https://github.com/calebboyd/async/blob/3e68cc2/semaphore.ts#L21)
+[semaphore.ts:20](https://github.com/calebboyd/async/blob/3efea5a/src/semaphore.ts#L20)
 
 ## Properties
 
 ### locks
 
-• `Private` **locks**: *number*= 0
+• `Private` **locks**: `number` = `0`
 
-Defined in: [semaphore.ts:20](https://github.com/calebboyd/async/blob/3e68cc2/semaphore.ts#L20)
+#### Defined in
+
+[semaphore.ts:17](https://github.com/calebboyd/async/blob/3efea5a/src/semaphore.ts#L17)
 
 ___
 
 ### requestedLockCount
 
-• `Private` **requestedLockCount**: *number*= 0
+• `Private` **requestedLockCount**: `number` = `0`
 
-Defined in: [semaphore.ts:21](https://github.com/calebboyd/async/blob/3e68cc2/semaphore.ts#L21)
+#### Defined in
+
+[semaphore.ts:18](https://github.com/calebboyd/async/blob/3efea5a/src/semaphore.ts#L18)
 
 ___
 
 ### size
 
-• **size**: *number*
+• `Readonly` **size**: `number`
 
-Defined in: [semaphore.ts:18](https://github.com/calebboyd/async/blob/3e68cc2/semaphore.ts#L18)
+#### Defined in
+
+[semaphore.ts:15](https://github.com/calebboyd/async/blob/3efea5a/src/semaphore.ts#L15)
 
 ___
 
 ### waiting
 
-• `Private` **waiting**: [*Deferred*](deferred.md)<RefType\>[]= []
+• `Private` **waiting**: [`Deferred`](Deferred.md)<`RefType`\>[] = `[]`
 
-Defined in: [semaphore.ts:19](https://github.com/calebboyd/async/blob/3e68cc2/semaphore.ts#L19)
+#### Defined in
+
+[semaphore.ts:16](https://github.com/calebboyd/async/blob/3efea5a/src/semaphore.ts#L16)
 
 ## Accessors
 
 ### count
 
-• get **count**(): *number*
+• `get` **count**(): `number`
 
-**Returns:** *number*
+#### Returns
 
-Defined in: [semaphore.ts:30](https://github.com/calebboyd/async/blob/3e68cc2/semaphore.ts#L30)
+`number`
+
+#### Defined in
+
+[semaphore.ts:31](https://github.com/calebboyd/async/blob/3efea5a/src/semaphore.ts#L31)
 
 ___
 
 ### pending
 
-• get **pending**(): *number*
+• `get` **pending**(): `number`
 
-**Returns:** *number*
+#### Returns
 
-Defined in: [semaphore.ts:33](https://github.com/calebboyd/async/blob/3e68cc2/semaphore.ts#L33)
+`number`
+
+#### Defined in
+
+[semaphore.ts:34](https://github.com/calebboyd/async/blob/3efea5a/src/semaphore.ts#L34)
 
 ## Methods
 
 ### acquire
 
-▸ **acquire**(`ref?`: RefType): *Promise*<RefType\>
+▸ **acquire**(`ref?`): `Promise`<`RefType`\>
+
+Acquire a slot
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `ref?` | RefType |
+| `ref?` | `RefType` |
 
-**Returns:** *Promise*<RefType\>
+#### Returns
 
-Defined in: [semaphore.ts:41](https://github.com/calebboyd/async/blob/3e68cc2/semaphore.ts#L41)
+`Promise`<`RefType`\>
+
+#### Defined in
+
+[semaphore.ts:41](https://github.com/calebboyd/async/blob/3efea5a/src/semaphore.ts#L41)
 
 ___
 
 ### release
 
-▸ **release**(): *void*
+▸ **release**(): `void`
 
-**Returns:** *void*
+Release a slot
 
-Defined in: [semaphore.ts:57](https://github.com/calebboyd/async/blob/3e68cc2/semaphore.ts#L57)
+#### Returns
+
+`void`
+
+#### Defined in
+
+[semaphore.ts:56](https://github.com/calebboyd/async/blob/3efea5a/src/semaphore.ts#L56)

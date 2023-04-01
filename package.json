@@ -1,55 +1,94 @@
 {
-  "name": "@calebboyd/async",
-  "version": "3.0.0",
+  "name": "aceink",
+  "version": "1.0.1",
   "description": "Async tools",
-  "main": "index.js",
-  "typings": "index.d.ts",
+  "type": "module",
+  "main": "./lib/cjs/index.js",
+  "typings": "./lib/esm/index.d.ts",
+  "exports": {
+    "./package.json": {
+      "import": "./lib/esm/package.json",
+      "require": "./lib/cjs/package.json"
+    },
+    ".": {
+      "import": "./lib/esm/index.js",
+      "require": "./lib/cjs/index.js",
+      "types": "./lib/esm/index.d.ts"
+    },
+    "./deferred": {
+      "import": "./lib/esm/deferred.js",
+      "require": "./lib/cjs/deferred.js",
+      "types": "./lib/esm/deferred.d.ts"
+    },
+    "./map": {
+      "import": "./lib/esm/map.js",
+      "require": "./lib/cjs/map.js",
+      "types": "./lib/esm/map.d.ts"
+    },
+    "./each": {
+      "import": "./lib/esm/each.js",
+      "require": "./lib/cjs/each.js",
+      "types": "./lib/esm/each.d.ts"
+    },
+    "./queue": {
+      "import": "./lib/esm/queue.js",
+      "require": "./lib/cjs/queue.js",
+      "types": "./lib/esm/queue.d.ts"
+    },
+    "./semaphore": {
+      "import": "./lib/esm/semaphore.js",
+      "require": "./lib/cjs/semaphore.js",
+      "types": "./lib/esm/semaphore.d.ts"
+    },
+    "./lock": {
+      "import": "./lib/esm/semaphore.js",
+      "require": "./lib/cjs/semaphore.js",
+      "types": "./lib/esm/semaphore.d.ts"
+    },
+    "./lang": {
+      "import": "./lib/esm/lang.js",
+      "require": "./lib/cjs/lang.js",
+      "types": "./lib/esm/lang.d.ts"
+    },
+    "./gowait": {
+      "import": "./lib/esm/gowait.js",
+      "require": "./lib/cjs/gowait.js",
+      "types": "./lib/esm/gowait.d.ts"
+    }
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/calebboyd/async.git"
   },
   "scripts": {
-    "lint": "eslint \"*.ts\" --fix --ext \"*.ts\"",
-    "clean": "rimraf \"*.{js,d.ts}\"",
-    "build:docs": "rimraf docs && typedoc index.ts && rimraf docs/README.md",
-    "build": "npm run clean && npm run lint && tsc && npm run build:docs",
+    "lint": "eslint \"src/**/*.ts\" --fix --ext \"*.ts\"",
+    "build:docs": "rimraf docs && typedoc src/index.ts && rimraf docs/README.md",
+    "build:cjs": "tsc --outDir lib/cjs --module commonjs && echo '{\"type\": \"commonjs\"}' > lib/cjs/package.json",
+    "build": "rimraf lib && npm run lint && tsc && npm run build:cjs && npm run build:docs",
     "prepublishOnly": "npm run build",
-    "postpublish": "npm run clean",
-    "watch:typescript": "tsc -w",
-    "watch:test": "jest --watchAll",
-    "watch": "npm run build && concurrently -k \"npm:watch:typescript\" \"npm:watch:test\" -c blue,green",
-    "test": "jest --passWithNoTests"
+    "test": "vitest --run"
   },
   "files": [
-    "lib",
-    "!**/*.spec.js",
-    "*.js",
-    "*.d.ts"
+    "lib"
   ],
   "author": "Caleb Boyd",
   "license": "MIT",
   "devDependencies": {
-    "@types/jest": "^26.0.23",
-    "@types/node": "^15.0.2",
-    "@typescript-eslint/eslint-plugin": "^4.23.0",
-    "@typescript-eslint/parser": "^4.23.0",
-    "concurrently": "^6.1.0",
-    "eslint": "^7.26.0",
-    "eslint-config-prettier": "~8.3.0",
-    "eslint-plugin-prettier": "^3.4.0",
-    "jest": "^26.6.3",
-    "prettier": "^2.3.0",
-    "rimraf": "^3.0.2",
-    "ts-jest": "^26.5.6",
-    "typedoc": "^0.20.36",
-    "typedoc-plugin-markdown": "^3.8.0",
-    "typescript": "^4.2.4"
-  },
-  "jest": {
-    "preset": "ts-jest",
-    "testPathIgnorePatterns": [
-      ".*\\.js"
-    ]
+    "@calebboyd/semantic-release-config": "^1.0.1",
+    "@types/node": "^18.15.11",
+    "@typescript-eslint/eslint-plugin": "^5.57.0",
+    "@typescript-eslint/parser": "^5.57.0",
+    "concurrently": "^8.0.1",
+    "eslint": "^8.37.0",
+    "eslint-config-prettier": "~8.8.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.8.7",
+    "rimraf": "^4.4.1",
+    "typedoc": "^0.23.28",
+    "typedoc-plugin-markdown": "^3.14.0",
+    "typescript": "^5.0.3",
+    "vitest": "^0.29.8"
   },
   "prettier": {
     "parser": "typescript",
@@ -60,31 +99,44 @@
   "eslintConfig": {
     "parser": "@typescript-eslint/parser",
     "plugins": [
-      "@typescript-eslint"
+      "@typescript-eslint",
+      "import"
     ],
     "extends": [
       "eslint:recommended",
       "plugin:@typescript-eslint/recommended",
       "prettier",
-      "plugin:prettier/recommended"
+      "plugin:prettier/recommended",
+      "plugin:import/typescript"
     ],
     "ignorePatterns": [
       "*.d.ts"
     ],
-    "overrides": [
-      {
-        "files": [
-          "*.spec.ts"
-        ],
-        "env": {
-          "jest": true
-        }
-      }
-    ],
     "rules": {
-      "@typescript-eslint/no-explicit-any": 0,
+      "import/extensions": [
+        "error",
+        "ignorePackages"
+      ],
+      "@typescript-eslint/consistent-type-imports": "error",
       "@typescript-eslint/explicit-function-return-type": 0,
       "@typescript-eslint/no-use-before-define": 0
     }
+  },
+  "release": {
+    "branches": [
+      "+([0-9])?(.{+([0-9]),x}).x",
+      "main",
+      "next",
+      "next-major",
+      {
+        "name": "beta",
+        "prerelease": true
+      },
+      {
+        "name": "alpha",
+        "prerelease": true
+      }
+    ],
+    "extends": "@calebboyd/semantic-release-config"
   }
 }

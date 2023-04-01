@@ -1,4 +1,5 @@
-import { map } from './map'
+import { describe, it, expect } from 'vitest'
+import { map } from './map.js'
 
 describe('map', () => {
   it('should iterate, mapping concurrently', async () => {
@@ -6,7 +7,7 @@ describe('map', () => {
       mappedValues = list.map((x) => x + 1),
       start = Date.now(),
       result = await map(
-        list as any,
+        list,
         (value: number) => {
           return new Promise((resolve) => {
             setTimeout(() => {
