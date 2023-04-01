@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.1](https://github.com/calebboyd/async/compare/v1.0.0...v1.0.1) (2023-04-01)
+
+
+### Bug Fixes
+
+* bump version ([732201d](https://github.com/calebboyd/async/commit/732201d0d97e6817f5cb16302f34e658b5e966b7))
+
 # 1.0.0 (2023-04-01)
 
 
