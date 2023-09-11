@@ -42,12 +42,19 @@ export type ErrorValue<T, E> = [E, undefined] | [null, T]
  *
  * @param promised
  */
-export function gowait<T, E = Error>(
-  promised: Promise<T> | Func<Promise<T>>
+
+export function gowait<K extends Func<Promise<T>>, T, E = Error>(
+  func: T,
+  ...args: Parameters<K>
+): Promise<ErrorValue<T, E>>
+export function gowait<K extends Func<Promise<T>>, T, E = Error>(
+  promised: Promise<T> | K,
+  ...args: T extends Func ? Parameters<K> : never[]
 ): Promise<ErrorValue<T, E>> {
   if (typeof promised === 'function' && !('then' in promised)) {
     try {
-      promised = promised()
+      if (args.length) promised = promised(...args)
+      else promised = promised()
     } catch (e: ExplicitAny) {
       return Promise.resolve(errorTuple(e))
     }
@@ -55,5 +62,5 @@ export function gowait<T, E = Error>(
   if (typeof promised.then === 'function') {
     return promised.then(valueTuple, errorTuple)
   }
-  return Promise.reject(new Error(`${promised} is not a promise or promise returning function`))
+  return Promise.reject(new TypeError(`${promised} is not a promise or promise returning function`))
 }
