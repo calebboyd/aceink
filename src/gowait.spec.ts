@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { gowait } from './gowait.js'
+import { gowait, wrap } from './gowait.js'
 
 describe('gowait', () => {
   it('should return the result of the function', async () => {
@@ -16,23 +16,25 @@ describe('gowait', () => {
     expect(_).toBeNull()
   })
   it('should return the error of the function', async () => {
-    const func = () => Promise.reject('1234')
+    const func = () => new Promise((_, j) => j('1234'))
     const [error, result] = await gowait(func())
     expect(result).toBeUndefined()
     expect(error).toEqual('1234')
   })
 
   it('should execute a non-thenable function object', async () => {
-    const func = (arg: number) => {
+    const func = (arg: number): Promise<string> => {
       return Promise.reject('1234' + arg)
     }
+
     const [error, result] = await gowait(func, 5)
     expect(result).toBeUndefined()
     expect(error).toEqual('12345')
 
     const resolved = Promise.resolve('abcd')
     func.then = resolved.then.bind(resolved)
-    const [err, value] = await gowait(func)
+
+    const [err, value] = await gowait(func, 1)
     expect(value).toEqual('abcd')
     expect(err).toBeNull()
   })
@@ -42,11 +44,23 @@ describe('gowait', () => {
       new Function('%.(4)')()
       return Promise.resolve()
     }
+
     let caught = false
     await gowait(func).catch((e) => {
       caught = true
       expect(e).toBeInstanceOf(SyntaxError)
     })
     expect(caught).toBe(true)
+  })
+
+  it('should allow wrapping / currying a function', async () => {
+    const func = (arg: number): Promise<string> => {
+      return Promise.reject(new Error(arg.toString()))
+    }
+    const wrapped = wrap(func)
+    // an <Error> type is required
+    const [error, result] = await wrapped<Error>(1234)
+    expect(result).toBeUndefined()
+    expect(error).toEqual(new Error((1234).toString()))
   })
 })
