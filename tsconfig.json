@@ -3,8 +3,8 @@
     "outDir": "lib/esm",
     "target": "ES2022",
     "declaration": true,
-    "module": "ES2022",
-    "moduleResolution": "nodenext",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "skipLibCheck": true,
     "lib": [
       "dom",

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { gowait, wrap } from './gowait.js'
+import { gowait, wrap as wrapGoWait } from './gowait.js'
 
 describe('gowait', () => {
   it('should return the result of the function', async () => {
@@ -10,8 +10,9 @@ describe('gowait', () => {
   })
 
   it('should return the result of a promise returning function', async () => {
-    const func = (arg1: number, arg2: number) => Promise.resolve('1234' + arg1 + arg2)
-    const [_, result] = await gowait(func, 5, 6)
+    const func = (arg1: number, arg2: number, _: string) =>
+      Promise.resolve('1234' + arg1 + arg2 + _)
+    const [_, result] = await gowait(func, 5, 6, '')
     expect(result).toEqual('123456')
     expect(_).toBeNull()
   })
@@ -53,14 +54,15 @@ describe('gowait', () => {
     expect(caught).toBe(true)
   })
 
-  it('should allow wrapping / currying a function', async () => {
-    const func = (arg: number): Promise<string> => {
+  it('should allow wrapping a function where the wrapped function requires an type parameter to access the result', async () => {
+    type FuncErrors = Error | null
+    const func = (arg: number): Promise<number> => {
       return Promise.reject(new Error(arg.toString()))
     }
-    const wrapped = wrap(func)
-    // an <Error> type is required
-    const [error, result] = await wrapped<Error>(1234)
+    const wrapped = wrapGoWait(func)
+    // a <FuncErrors> (or any type) is required
+    const [error, result] = await wrapped<FuncErrors>(1234)
     expect(result).toBeUndefined()
-    expect(error).toEqual(new Error((1234).toString()))
+    expect(error).toEqual(new Error('1234'))
   })
 })

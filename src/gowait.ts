@@ -31,7 +31,7 @@ export type ErrorValue<T, E> = [E, undefined] | [null, T]
  * @public
  * Kind of like nodes ErrBacks, but with the ease (and overhead) of promises.
  * It will only reject promises for native errors.
- * Syncronous errors are caught.
+ * Synchronous errors are caught.
  * @example
  * const [err, value] = await gowait(doWorkThatMightErrorAsync())
  * if (err) {
@@ -43,35 +43,53 @@ export type ErrorValue<T, E> = [E, undefined] | [null, T]
  * @param promised
  */
 
-export function gowait<E, T>(
-  promised: Promise<T> | Func<Promise<T>>,
+type GoWaitResult<T, E> = T extends Func
+  ? Promise<ErrorValue<Awaited<ReturnType<T>>, E>>
+  : Promise<ErrorValue<Awaited<T>, E>>
+type PromiseReturningFunction = Func<Promise<ExplicitAny>, ExplicitAny>
+
+export function gowait<E, T extends PromiseReturningFunction>(
+  promised: T,
+  ...args: Parameters<T>
+): Promise<ErrorValue<Awaited<ReturnType<T>>, E>>
+
+export function gowait<E, T extends Promise<ExplicitAny>>(
+  promised: T
+): Promise<ErrorValue<Awaited<T>, E>>
+
+export function gowait<E, T extends Promise<ExplicitAny> | PromiseReturningFunction>(
+  promised: T,
   ...args: ExplicitAny[]
-): Promise<ErrorValue<T, E>> {
+): GoWaitResult<T, E> {
   if (typeof promised === 'function' && !('then' in promised)) {
     try {
-      if (args.length) promised = promised(...args)
-      else promised = promised()
+      promised = promised(...args) as T
     } catch (e: ExplicitAny) {
-      return Promise.resolve(errorTuple(e))
+      return Promise.resolve(errorTuple<E>(e)) as GoWaitResult<T, E>
     }
   }
-  if (typeof promised.then === 'function') {
-    return promised.then(valueTuple, errorTuple)
+  const promise = promised as Promise<T>
+
+  if (typeof promise.then === 'function') {
+    return promise.then(valueTuple, errorTuple<E>) as GoWaitResult<T, E>
   }
-  return Promise.reject(new TypeError(`${promised} is not a promise or promise returning function`))
+
+  return Promise.reject(
+    new TypeError(`${promised} is not a promise or promise returning function`)
+  ) as ExplicitAny
 }
 
 /**
- * Helper to curry a function into a "gowait" function.
- * Accessing the result also requires the caller to provide an error type,
+ * Helper to curry a function's type into a "gowait" function.
+ * Accessing the result in typescript also requires the caller to provide an error type,
  * otherwise never is used.
  * @param promised
  * @returns
  */
-export function wrap<T>(
-  promised: Func<Promise<T>>
+export function wrap<T extends Func<Promise<ExplicitAny>, ExplicitAny>>(
+  promised: T
 ): <E = never>(
-  ...args: Parameters<typeof promised>
-) => E extends never ? never : Promise<ErrorValue<T, E>> {
-  return (...args: Parameters<typeof promised>) => gowait(promised, ...args) as ExplicitAny
+  ...args: Parameters<T>
+) => E extends never ? never : Promise<ErrorValue<ReturnType<T>, E>> {
+  return (...args: Parameters<T>) => gowait(promised, ...args) as ExplicitAny
 }
