@@ -60,6 +60,10 @@ export async function each<T, K = ExplicitAny>(
     }
   } catch (error: unknown) {
     firstError = typeof firstError === 'undefined' ? error : firstError
+  } finally {
+    if (onError === 'bail' && typeof firstError !== 'undefined') {
+      values.return?.()
+    }
   }
 
   await queue.empty()

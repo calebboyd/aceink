@@ -1,6 +1,6 @@
 [**aceink**](../README.md)
 
----
+***
 
 [aceink](../globals.md) / once
 
@@ -8,7 +8,7 @@
 
 > **once**\<`T`\>(`fn`, `after?`): `T`
 
-Defined in: [lang.ts:31](https://github.com/calebboyd/aceink/blob/3fe197793f511a5c043f97803e108cc5b918f894/src/lang.ts#L31)
+Defined in: [lang.ts:31](https://github.com/calebboyd/aceink/blob/4ec8f3568f64aede2a4a837c4b806a8b46443a74/src/lang.ts#L31)
 
 Execute fn one time and [after=noop] for every subsequent invocation
 
@@ -16,7 +16,7 @@ Execute fn one time and [after=noop] for every subsequent invocation
 
 ### T
 
-`T` _extends_ [`Func`](../type-aliases/Func.md)\<`any`, `any`[]\>
+`T` *extends* [`Func`](../type-aliases/Func.md)\<`any`, `any`[]\>
 
 ## Parameters
 

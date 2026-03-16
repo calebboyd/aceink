@@ -1,6 +1,6 @@
 [**aceink**](../README.md)
 
----
+***
 
 [aceink](../globals.md) / gowait
 
@@ -10,7 +10,7 @@
 
 > **gowait**\<`E`, `T`\>(`promised`, ...`args`): `Promise`\<[`ErrorValue`](../type-aliases/ErrorValue.md)\<`Awaited`\<`ReturnType`\<`T`\>\>, `E`\>\>
 
-Defined in: [gowait.ts:51](https://github.com/calebboyd/aceink/blob/3fe197793f511a5c043f97803e108cc5b918f894/src/gowait.ts#L51)
+Defined in: [gowait.ts:51](https://github.com/calebboyd/aceink/blob/4ec8f3568f64aede2a4a837c4b806a8b46443a74/src/gowait.ts#L51)
 
 ### Type Parameters
 
@@ -20,7 +20,7 @@ Defined in: [gowait.ts:51](https://github.com/calebboyd/aceink/blob/3fe197793f51
 
 #### T
 
-`T` _extends_ `PromiseReturningFunction`
+`T` *extends* `PromiseReturningFunction`
 
 ### Parameters
 
@@ -40,7 +40,7 @@ Defined in: [gowait.ts:51](https://github.com/calebboyd/aceink/blob/3fe197793f51
 
 > **gowait**\<`E`, `T`\>(`promised`): `Promise`\<[`ErrorValue`](../type-aliases/ErrorValue.md)\<`Awaited`\<`T`\>, `E`\>\>
 
-Defined in: [gowait.ts:56](https://github.com/calebboyd/aceink/blob/3fe197793f511a5c043f97803e108cc5b918f894/src/gowait.ts#L56)
+Defined in: [gowait.ts:56](https://github.com/calebboyd/aceink/blob/4ec8f3568f64aede2a4a837c4b806a8b46443a74/src/gowait.ts#L56)
 
 ### Type Parameters
 
@@ -50,7 +50,7 @@ Defined in: [gowait.ts:56](https://github.com/calebboyd/aceink/blob/3fe197793f51
 
 #### T
 
-`T` _extends_ `Promise`\<`any`\>
+`T` *extends* `Promise`\<`any`\>
 
 ### Parameters
 

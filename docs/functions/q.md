@@ -1,6 +1,6 @@
 [**aceink**](../README.md)
 
----
+***
 
 [aceink](../globals.md) / q
 
@@ -8,7 +8,7 @@
 
 > **q**(`size`, `options?`): [`Queue`](../classes/Queue.md)
 
-Defined in: [queue.ts:28](https://github.com/calebboyd/aceink/blob/3fe197793f511a5c043f97803e108cc5b918f894/src/queue.ts#L28)
+Defined in: [queue.ts:28](https://github.com/calebboyd/aceink/blob/4ec8f3568f64aede2a4a837c4b806a8b46443a74/src/queue.ts#L28)
 
 Create Queue with a specified size
 

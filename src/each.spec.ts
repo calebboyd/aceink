@@ -78,4 +78,31 @@ describe('each', () => {
 
     expect(visited).toEqual([1, 2, 3, 4])
   })
+
+  it('should close iterators when bailing after an error', async () => {
+    let closed = false
+
+    function* values() {
+      try {
+        yield 1
+        yield 2
+        yield 3
+      } finally {
+        closed = true
+      }
+    }
+
+    await expect(
+      each(
+        values(),
+        async (value: number) => {
+          if (value === 2) throw new Error('boom')
+          await delay(1)
+        },
+        { concurrency: 1 },
+      ),
+    ).rejects.toThrow('boom')
+
+    expect(closed).toBe(true)
+  })
 })

@@ -129,7 +129,7 @@ export class Queue {
    */
   public async empty(): Promise<void> {
     while (this.running.size) {
-      await Promise.all(this.running)
+      await Promise.all(Array.from(this.running))
     }
   }
 

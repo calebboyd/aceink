@@ -19,7 +19,7 @@ Useful async tools.
 
 Get it on npm: `npm install aceink`
 
-See the generated documentation [here](/docs/modules.md)
+See the generated documentation [here](/docs/globals.md)
 
 ---
 

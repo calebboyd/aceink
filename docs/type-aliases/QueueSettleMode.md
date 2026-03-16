@@ -1,6 +1,6 @@
 [**aceink**](../README.md)
 
----
+***
 
 [aceink](../globals.md) / QueueSettleMode
 
@@ -8,4 +8,4 @@
 
 > **QueueSettleMode** = `"ordered"` \| `"completion"`
 
-Defined in: [queue.ts:7](https://github.com/calebboyd/aceink/blob/3fe197793f511a5c043f97803e108cc5b918f894/src/queue.ts#L7)
+Defined in: [queue.ts:7](https://github.com/calebboyd/aceink/blob/4ec8f3568f64aede2a4a837c4b806a8b46443a74/src/queue.ts#L7)
