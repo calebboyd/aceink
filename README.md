@@ -9,7 +9,7 @@ Useful async tools.
 - `q`
   - a concurrent work queue
 - `each`, `map`
-  - *optionally* concurrent iteration functions
+  - _optionally_ concurrent iteration functions
 - `gowait`
   - convert a promise or promise returning function to `[error,result]` tuples
 - `delay`
@@ -22,6 +22,7 @@ Get it on npm: `npm install aceink`
 See the generated documentation [here](/docs/modules.md)
 
 ---
+
 ### Example (queue)
 
 ```javascript
@@ -38,7 +39,6 @@ for (const foo of Array(100).keys()) {
   add(fetchQux, foo)
 }
 return empty()
-
 ```
 
 ### Example (gowait)

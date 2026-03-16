@@ -12,8 +12,8 @@ Work queue abstraction around a semaphore
 
 ### Properties
 
-- [last](Queue.md#last)
 - [lock](Queue.md#lock)
+- [running](Queue.md#running)
 
 ### Accessors
 
@@ -33,26 +33,16 @@ Work queue abstraction around a semaphore
 
 #### Parameters
 
-| Name | Type | Default value |
-| :------ | :------ | :------ |
-| `concurrency` | `number` | `undefined` |
-| `bound` | `boolean` | `true` |
+| Name          | Type      | Default value |
+| :------------ | :-------- | :------------ |
+| `concurrency` | `number`  | `undefined`   |
+| `bound`       | `boolean` | `true`        |
 
 #### Defined in
 
-[queue.ts:18](https://github.com/calebboyd/aceink/blob/77a10f9/src/queue.ts#L18)
+[queue.ts:18](https://github.com/calebboyd/aceink/blob/5bc342e/src/queue.ts#L18)
 
 ## Properties
-
-### last
-
-• `Private` **last**: `Promise`<`any`\>
-
-#### Defined in
-
-[queue.ts:17](https://github.com/calebboyd/aceink/blob/77a10f9/src/queue.ts#L17)
-
-___
 
 ### lock
 
@@ -60,7 +50,17 @@ ___
 
 #### Defined in
 
-[queue.ts:16](https://github.com/calebboyd/aceink/blob/77a10f9/src/queue.ts#L16)
+[queue.ts:16](https://github.com/calebboyd/aceink/blob/5bc342e/src/queue.ts#L16)
+
+---
+
+### running
+
+• `Private` **running**: `Set`<`Promise`<`void`\>\>
+
+#### Defined in
+
+[queue.ts:17](https://github.com/calebboyd/aceink/blob/5bc342e/src/queue.ts#L17)
 
 ## Accessors
 
@@ -74,7 +74,7 @@ ___
 
 #### Defined in
 
-[queue.ts:27](https://github.com/calebboyd/aceink/blob/77a10f9/src/queue.ts#L27)
+[queue.ts:27](https://github.com/calebboyd/aceink/blob/5bc342e/src/queue.ts#L27)
 
 ## Methods
 
@@ -82,19 +82,20 @@ ___
 
 ▸ **add**<`T`\>(`work`, `arg?`): `Promise`<`Awaited`<`ReturnType`<`T`\>\>\>
 
-Add work to the Queue, The work function _can_ be async and should NOT throw
+Add work to the Queue. The returned promise settles with the underlying work
+as soon as that work settles.
 
 #### Type parameters
 
-| Name | Type |
-| :------ | :------ |
-| `T` | extends [`Func`](../modules.md#func) |
+| Name | Type                                 |
+| :--- | :----------------------------------- |
+| `T`  | extends [`Func`](../modules.md#func) |
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `work` | `T` | work function |
+| Name   | Type                      | Description                                              |
+| :----- | :------------------------ | :------------------------------------------------------- |
+| `work` | `T`                       | work function                                            |
 | `arg?` | `Parameters`<`T`\>[``0``] | single argument that will be passed to the work function |
 
 #### Returns
@@ -103,15 +104,15 @@ Add work to the Queue, The work function _can_ be async and should NOT throw
 
 #### Defined in
 
-[queue.ts:37](https://github.com/calebboyd/aceink/blob/77a10f9/src/queue.ts#L37)
+[queue.ts:38](https://github.com/calebboyd/aceink/blob/5bc342e/src/queue.ts#L38)
 
-___
+---
 
 ### empty
 
 ▸ **empty**(): `Promise`<`void`\>
 
-Wait for the queue to be empty
+Wait for all queued work to settle.
 
 #### Returns
 
@@ -119,9 +120,9 @@ Wait for the queue to be empty
 
 #### Defined in
 
-[queue.ts:57](https://github.com/calebboyd/aceink/blob/77a10f9/src/queue.ts#L57)
+[queue.ts:70](https://github.com/calebboyd/aceink/blob/5bc342e/src/queue.ts#L70)
 
-___
+---
 
 ### ready
 
@@ -135,4 +136,4 @@ Wait for the queue to have at least one empty slot
 
 #### Defined in
 
-[queue.ts:51](https://github.com/calebboyd/aceink/blob/77a10f9/src/queue.ts#L51)
+[queue.ts:64](https://github.com/calebboyd/aceink/blob/5bc342e/src/queue.ts#L64)

@@ -14,6 +14,7 @@ export function createLock<RefType = number>(count?: number, bound = true): Sema
 export class Semaphore<RefType = number> {
   public readonly size: number
   private waiting: Deferred<RefType>[] = []
+  private waitingIndex = 0
   private locks = 0
   private requestedLockCount = 0
 
@@ -32,7 +33,7 @@ export class Semaphore<RefType = number> {
     return this.locks
   }
   public get pending(): number {
-    return this.waiting.length
+    return this.waiting.length - this.waitingIndex
   }
 
   /**
@@ -54,11 +55,26 @@ export class Semaphore<RefType = number> {
    * Release a slot
    */
   release(): void {
-    const lock = this.waiting.shift()
+    const lock = this.shiftWaiting()
     if (lock) {
       lock.resolve(lock.value as RefType)
-    } else if (--this.locks < 0) {
+    } else if (this.locks === 0) {
       throw new Error('Nothing to release...')
+    } else {
+      this.locks -= 1
     }
+  }
+
+  private shiftWaiting(): Deferred<RefType> | undefined {
+    const lock = this.waiting[this.waitingIndex]
+    if (!lock) return undefined
+    this.waitingIndex += 1
+
+    if (this.waitingIndex * 2 >= this.waiting.length) {
+      this.waiting = this.waiting.slice(this.waitingIndex)
+      this.waitingIndex = 0
+    }
+
+    return lock
   }
 }

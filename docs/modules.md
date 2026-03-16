@@ -37,15 +37,15 @@
 #### Type parameters
 
 | Name |
-| :------ |
-| `T` |
-| `E` |
+| :--- |
+| `T`  |
+| `E`  |
 
 #### Defined in
 
-[gowait.ts:28](https://github.com/calebboyd/aceink/blob/77a10f9/src/gowait.ts#L28)
+[gowait.ts:28](https://github.com/calebboyd/aceink/blob/5bc342e/src/gowait.ts#L28)
 
-___
+---
 
 ### Func
 
@@ -53,10 +53,10 @@ ___
 
 #### Type parameters
 
-| Name | Type |
-| :------ | :------ |
-| `Result` | `ExplicitAny` |
-| `Args` | extends `ExplicitAny`[] = `ExplicitAny`[] |
+| Name     | Type                                      |
+| :------- | :---------------------------------------- |
+| `Result` | `ExplicitAny`                             |
+| `Args`   | extends `ExplicitAny`[] = `ExplicitAny`[] |
 
 #### Type declaration
 
@@ -66,8 +66,8 @@ Anonymous Function definition
 
 ##### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name      | Type   |
+| :-------- | :----- |
 | `...args` | `Args` |
 
 ##### Returns
@@ -76,7 +76,7 @@ Anonymous Function definition
 
 #### Defined in
 
-[lang.ts:16](https://github.com/calebboyd/aceink/blob/77a10f9/src/lang.ts#L16)
+[lang.ts:16](https://github.com/calebboyd/aceink/blob/5bc342e/src/lang.ts#L16)
 
 ## Functions
 
@@ -89,14 +89,14 @@ Create a new Deferred instance
 #### Type parameters
 
 | Name |
-| :------ |
-| `T` |
+| :--- |
+| `T`  |
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `value?` | `T` |
+| Name     | Type |
+| :------- | :--- |
+| `value?` | `T`  |
 
 #### Returns
 
@@ -104,9 +104,9 @@ Create a new Deferred instance
 
 #### Defined in
 
-[deferred.ts:9](https://github.com/calebboyd/aceink/blob/77a10f9/src/deferred.ts#L9)
+[deferred.ts:9](https://github.com/calebboyd/aceink/blob/5bc342e/src/deferred.ts#L9)
 
-___
+---
 
 ### createLock
 
@@ -116,16 +116,16 @@ Basic counting semaphore/lock factory
 
 #### Type parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name      | Type     |
+| :-------- | :------- |
 | `RefType` | `number` |
 
 #### Parameters
 
-| Name | Type | Default value |
-| :------ | :------ | :------ |
-| `count?` | `number` | `undefined` |
-| `bound` | `boolean` | `true` |
+| Name     | Type      | Default value |
+| :------- | :-------- | :------------ |
+| `count?` | `number`  | `undefined`   |
+| `bound`  | `boolean` | `true`        |
 
 #### Returns
 
@@ -133,9 +133,9 @@ Basic counting semaphore/lock factory
 
 #### Defined in
 
-[semaphore.ts:6](https://github.com/calebboyd/aceink/blob/77a10f9/src/semaphore.ts#L6)
+[semaphore.ts:6](https://github.com/calebboyd/aceink/blob/5bc342e/src/semaphore.ts#L6)
 
-___
+---
 
 ### delay
 
@@ -145,16 +145,16 @@ delay a certain number of milliseconds returning a promise that resolves an argu
 
 #### Type parameters
 
-| Name | Type |
-| :------ | :------ |
-| `T` | `undefined` |
+| Name | Type        |
+| :--- | :---------- |
+| `T`  | `undefined` |
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `ms?` | `number` |
-| `arg?` | `T` |
+| Name   | Type     |
+| :----- | :------- |
+| `ms?`  | `number` |
+| `arg?` | `T`      |
 
 #### Returns
 
@@ -162,9 +162,9 @@ delay a certain number of milliseconds returning a promise that resolves an argu
 
 #### Defined in
 
-[lang.ts:24](https://github.com/calebboyd/aceink/blob/77a10f9/src/lang.ts#L24)
+[lang.ts:24](https://github.com/calebboyd/aceink/blob/5bc342e/src/lang.ts#L24)
 
-___
+---
 
 ### each
 
@@ -174,22 +174,22 @@ Iterate a list with optional concurrency
 
 #### Type parameters
 
-| Name | Type |
-| :------ | :------ |
-| `T` | `T` |
-| `K` | `any` |
+| Name | Type  |
+| :--- | :---- |
+| `T`  | `T`   |
+| `K`  | `any` |
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `this` | `void` \| `K` |
-| `list` | `Iterable`<`T`\> |
-| `iterator` | `IteratorFunc`<`T`, `any`\> |
-| `«destructured»` | `Object` |
-| › `concurrency?` | `number` |
-| › `context?` | `void` \| `K` |
-| › `onError?` | ``"settle"`` \| ``"bail"`` |
+| Name             | Type                        |
+| :--------------- | :-------------------------- |
+| `this`           | `void` \| `K`               |
+| `list`           | `Iterable`<`T`\>            |
+| `iterator`       | `IteratorFunc`<`T`, `any`\> |
+| `«destructured»` | `Object`                    |
+| › `concurrency?` | `number`                    |
+| › `context?`     | `void` \| `K`               |
+| › `onError?`     | `"settle"` \| `"bail"`      |
 
 #### Returns
 
@@ -197,51 +197,60 @@ Iterate a list with optional concurrency
 
 #### Defined in
 
-[each.ts:15](https://github.com/calebboyd/aceink/blob/77a10f9/src/each.ts#L15)
+[each.ts:16](https://github.com/calebboyd/aceink/blob/5bc342e/src/each.ts#L16)
 
-___
+---
 
 ### gowait
 
-▸ **gowait**<`T`, `E`\>(`promised`): `Promise`<[`ErrorValue`](modules.md#errorvalue)<`T`, `E`\>\>
-
-Kind of like nodes ErrBacks, but with the ease (and overhead) of promises.
-It will only reject promises for native errors.
-Syncronous errors are caught.
-
-**`Example`**
-
-```ts
-const [err, value] = await gowait(doWorkThatMightErrorAsync())
-if (err) {
-  panic(err)
-} else {
-  success(value)
-}
-```
+▸ **gowait**<`E`, `T`\>(`promised`, `...args`): `Promise`<[`ErrorValue`](modules.md#errorvalue)<`Awaited`<`ReturnType`<`T`\>\>, `E`\>\>
 
 #### Type parameters
 
-| Name | Type |
-| :------ | :------ |
-| `T` | `T` |
-| `E` | `Error` |
+| Name | Type                               |
+| :--- | :--------------------------------- |
+| `E`  | `E`                                |
+| `T`  | extends `PromiseReturningFunction` |
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `promised` | `Promise`<`T`\> \| [`Func`](modules.md#func)<`Promise`<`T`\>\> |
+| Name       | Type               |
+| :--------- | :----------------- |
+| `promised` | `T`                |
+| `...args`  | `Parameters`<`T`\> |
 
 #### Returns
 
-`Promise`<[`ErrorValue`](modules.md#errorvalue)<`T`, `E`\>\>
+`Promise`<[`ErrorValue`](modules.md#errorvalue)<`Awaited`<`ReturnType`<`T`\>\>, `E`\>\>
 
 #### Defined in
 
-[gowait.ts:45](https://github.com/calebboyd/aceink/blob/77a10f9/src/gowait.ts#L45)
+[gowait.ts:51](https://github.com/calebboyd/aceink/blob/5bc342e/src/gowait.ts#L51)
 
-___
+▸ **gowait**<`E`, `T`\>(`promised`): `Promise`<[`ErrorValue`](modules.md#errorvalue)<`Awaited`<`T`\>, `E`\>\>
+
+#### Type parameters
+
+| Name | Type                      |
+| :--- | :------------------------ |
+| `E`  | `E`                       |
+| `T`  | extends `Promise`<`any`\> |
+
+#### Parameters
+
+| Name       | Type |
+| :--------- | :--- |
+| `promised` | `T`  |
+
+#### Returns
+
+`Promise`<[`ErrorValue`](modules.md#errorvalue)<`Awaited`<`T`\>, `E`\>\>
+
+#### Defined in
+
+[gowait.ts:56](https://github.com/calebboyd/aceink/blob/5bc342e/src/gowait.ts#L56)
+
+---
 
 ### identity
 
@@ -252,14 +261,14 @@ Basic identity function
 #### Type parameters
 
 | Name |
-| :------ |
-| `T` |
+| :--- |
+| `T`  |
 
 #### Parameters
 
 | Name | Type |
-| :------ | :------ |
-| `x` | `T` |
+| :--- | :--- |
+| `x`  | `T`  |
 
 #### Returns
 
@@ -267,44 +276,44 @@ Basic identity function
 
 #### Defined in
 
-[lang.ts:10](https://github.com/calebboyd/aceink/blob/77a10f9/src/lang.ts#L10)
+[lang.ts:10](https://github.com/calebboyd/aceink/blob/5bc342e/src/lang.ts#L10)
 
-___
+---
 
 ### map
 
-▸ **map**<`T`, `R`, `K`\>(`this`, `list`, `iterator`, `«destructured»?`): `Promise`<`R`[]\>
+▸ **map**<`T`, `R`, `K`\>(`this`, `list`, `iterator`, `«destructured»?`): `Promise`<`Awaited`<`R`\>[]\>
 
 Map over a list with optional concurrency
 
 #### Type parameters
 
-| Name | Type |
-| :------ | :------ |
-| `T` | `T` |
-| `R` | `R` |
-| `K` | `any` |
+| Name | Type  |
+| :--- | :---- |
+| `T`  | `T`   |
+| `R`  | `R`   |
+| `K`  | `any` |
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `this` | `K` |
-| `list` | `Iterable`<`T`\> |
-| `iterator` | `IteratorFunc`<`T`, `R`\> |
-| `«destructured»` | `Object` |
-| › `concurrency?` | `number` |
-| › `context?` | `K` |
+| Name             | Type                      |
+| :--------------- | :------------------------ |
+| `this`           | `K`                       |
+| `list`           | `Iterable`<`T`\>          |
+| `iterator`       | `IteratorFunc`<`T`, `R`\> |
+| `«destructured»` | `Object`                  |
+| › `concurrency?` | `number`                  |
+| › `context?`     | `K`                       |
 
 #### Returns
 
-`Promise`<`R`[]\>
+`Promise`<`Awaited`<`R`\>[]\>
 
 #### Defined in
 
-[map.ts:8](https://github.com/calebboyd/aceink/blob/77a10f9/src/map.ts#L8)
+[map.ts:8](https://github.com/calebboyd/aceink/blob/5bc342e/src/map.ts#L8)
 
-___
+---
 
 ### noop
 
@@ -318,9 +327,9 @@ Basic noop function
 
 #### Defined in
 
-[lang.ts:5](https://github.com/calebboyd/aceink/blob/77a10f9/src/lang.ts#L5)
+[lang.ts:5](https://github.com/calebboyd/aceink/blob/5bc342e/src/lang.ts#L5)
 
-___
+---
 
 ### once
 
@@ -330,16 +339,16 @@ Execute fn one time and [after=noop] for every subsequent invocation
 
 #### Type parameters
 
-| Name | Type |
-| :------ | :------ |
-| `T` | extends [`Func`](modules.md#func)<`any`, `any`[]\> |
+| Name | Type                                               |
+| :--- | :------------------------------------------------- |
+| `T`  | extends [`Func`](modules.md#func)<`any`, `any`[]\> |
 
 #### Parameters
 
-| Name | Type | Default value |
-| :------ | :------ | :------ |
-| `fn` | `T` | `undefined` |
-| `after` | [`Func`](modules.md#func)<`any`, `any`[]\> | `noop` |
+| Name    | Type                                       | Default value |
+| :------ | :----------------------------------------- | :------------ |
+| `fn`    | `T`                                        | `undefined`   |
+| `after` | [`Func`](modules.md#func)<`any`, `any`[]\> | `noop`        |
 
 #### Returns
 
@@ -347,9 +356,9 @@ Execute fn one time and [after=noop] for every subsequent invocation
 
 #### Defined in
 
-[lang.ts:31](https://github.com/calebboyd/aceink/blob/77a10f9/src/lang.ts#L31)
+[lang.ts:31](https://github.com/calebboyd/aceink/blob/5bc342e/src/lang.ts#L31)
 
-___
+---
 
 ### q
 
@@ -359,10 +368,10 @@ Create Queue with a specified size
 
 #### Parameters
 
-| Name | Type | Default value |
-| :------ | :------ | :------ |
-| `size` | `number` | `undefined` |
-| `bound` | `boolean` | `true` |
+| Name    | Type      | Default value |
+| :------ | :-------- | :------------ |
+| `size`  | `number`  | `undefined`   |
+| `bound` | `boolean` | `true`        |
 
 #### Returns
 
@@ -370,4 +379,4 @@ Create Queue with a specified size
 
 #### Defined in
 
-[queue.ts:8](https://github.com/calebboyd/aceink/blob/77a10f9/src/queue.ts#L8)
+[queue.ts:8](https://github.com/calebboyd/aceink/blob/5bc342e/src/queue.ts#L8)

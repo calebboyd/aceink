@@ -38,4 +38,17 @@ describe('Semaphore', () => {
     const lock = createLock()
     expect(lock.release).toThrow('Nothing to release...')
   })
+
+  it('should keep its internal count stable after an extra release', async () => {
+    const lock = createLock<string>()
+
+    expect(lock.release).toThrow('Nothing to release...')
+    expect(lock.count).toBe(0)
+
+    await expect(lock.acquire('value')).resolves.toBe('value')
+    expect(lock.count).toBe(1)
+
+    lock.release()
+    expect(lock.count).toBe(0)
+  })
 })

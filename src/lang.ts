@@ -30,14 +30,15 @@ export const delay = <T = undefined>(ms?: number, arg?: T): Promise<T> =>
  */
 export function once<T extends Func>(fn: T, after: Func = noop): T {
   const one = function (this: ExplicitAny, ...args: ExplicitAny[]) {
-    const res = fn.call(this, ...args)
-    fn = after as ExplicitAny
-    return res
+    try {
+      return fn.call(this, ...args)
+    } finally {
+      fn = after as ExplicitAny
+    }
   }
   return one as T
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ExplicitAny = any
 
 export function isPromiseLike<T>(obj: T | PromiseLike<T>): obj is PromiseLike<T> {

@@ -6,8 +6,8 @@ Basic counting semaphore/lock
 
 ## Type parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name      | Type     |
+| :-------- | :------- |
 | `RefType` | `number` |
 
 ## Table of contents
@@ -22,6 +22,7 @@ Basic counting semaphore/lock
 - [requestedLockCount](Semaphore.md#requestedlockcount)
 - [size](Semaphore.md#size)
 - [waiting](Semaphore.md#waiting)
+- [waitingIndex](Semaphore.md#waitingindex)
 
 ### Accessors
 
@@ -32,6 +33,7 @@ Basic counting semaphore/lock
 
 - [acquire](Semaphore.md#acquire)
 - [release](Semaphore.md#release)
+- [shiftWaiting](Semaphore.md#shiftwaiting)
 
 ## Constructors
 
@@ -41,20 +43,20 @@ Basic counting semaphore/lock
 
 #### Type parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name      | Type     |
+| :-------- | :------- |
 | `RefType` | `number` |
 
 #### Parameters
 
-| Name | Type | Default value |
-| :------ | :------ | :------ |
-| `size` | `number` | `1` |
-| `bound` | `boolean` | `true` |
+| Name    | Type      | Default value |
+| :------ | :-------- | :------------ |
+| `size`  | `number`  | `1`           |
+| `bound` | `boolean` | `true`        |
 
 #### Defined in
 
-[semaphore.ts:20](https://github.com/calebboyd/aceink/blob/77a10f9/src/semaphore.ts#L20)
+[semaphore.ts:21](https://github.com/calebboyd/aceink/blob/5bc342e/src/semaphore.ts#L21)
 
 ## Properties
 
@@ -64,9 +66,9 @@ Basic counting semaphore/lock
 
 #### Defined in
 
-[semaphore.ts:17](https://github.com/calebboyd/aceink/blob/77a10f9/src/semaphore.ts#L17)
+[semaphore.ts:18](https://github.com/calebboyd/aceink/blob/5bc342e/src/semaphore.ts#L18)
 
-___
+---
 
 ### requestedLockCount
 
@@ -74,9 +76,9 @@ ___
 
 #### Defined in
 
-[semaphore.ts:18](https://github.com/calebboyd/aceink/blob/77a10f9/src/semaphore.ts#L18)
+[semaphore.ts:19](https://github.com/calebboyd/aceink/blob/5bc342e/src/semaphore.ts#L19)
 
-___
+---
 
 ### size
 
@@ -84,9 +86,9 @@ ___
 
 #### Defined in
 
-[semaphore.ts:15](https://github.com/calebboyd/aceink/blob/77a10f9/src/semaphore.ts#L15)
+[semaphore.ts:15](https://github.com/calebboyd/aceink/blob/5bc342e/src/semaphore.ts#L15)
 
-___
+---
 
 ### waiting
 
@@ -94,7 +96,17 @@ ___
 
 #### Defined in
 
-[semaphore.ts:16](https://github.com/calebboyd/aceink/blob/77a10f9/src/semaphore.ts#L16)
+[semaphore.ts:16](https://github.com/calebboyd/aceink/blob/5bc342e/src/semaphore.ts#L16)
+
+---
+
+### waitingIndex
+
+• `Private` **waitingIndex**: `number` = `0`
+
+#### Defined in
+
+[semaphore.ts:17](https://github.com/calebboyd/aceink/blob/5bc342e/src/semaphore.ts#L17)
 
 ## Accessors
 
@@ -108,9 +120,9 @@ ___
 
 #### Defined in
 
-[semaphore.ts:31](https://github.com/calebboyd/aceink/blob/77a10f9/src/semaphore.ts#L31)
+[semaphore.ts:32](https://github.com/calebboyd/aceink/blob/5bc342e/src/semaphore.ts#L32)
 
-___
+---
 
 ### pending
 
@@ -122,7 +134,7 @@ ___
 
 #### Defined in
 
-[semaphore.ts:34](https://github.com/calebboyd/aceink/blob/77a10f9/src/semaphore.ts#L34)
+[semaphore.ts:35](https://github.com/calebboyd/aceink/blob/5bc342e/src/semaphore.ts#L35)
 
 ## Methods
 
@@ -134,8 +146,8 @@ Acquire a slot
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name   | Type      |
+| :----- | :-------- |
 | `ref?` | `RefType` |
 
 #### Returns
@@ -144,9 +156,9 @@ Acquire a slot
 
 #### Defined in
 
-[semaphore.ts:41](https://github.com/calebboyd/aceink/blob/77a10f9/src/semaphore.ts#L41)
+[semaphore.ts:42](https://github.com/calebboyd/aceink/blob/5bc342e/src/semaphore.ts#L42)
 
-___
+---
 
 ### release
 
@@ -160,4 +172,18 @@ Release a slot
 
 #### Defined in
 
-[semaphore.ts:56](https://github.com/calebboyd/aceink/blob/77a10f9/src/semaphore.ts#L56)
+[semaphore.ts:57](https://github.com/calebboyd/aceink/blob/5bc342e/src/semaphore.ts#L57)
+
+---
+
+### shiftWaiting
+
+▸ `Private` **shiftWaiting**(): `undefined` \| [`Deferred`](Deferred.md)<`RefType`\>
+
+#### Returns
+
+`undefined` \| [`Deferred`](Deferred.md)<`RefType`\>
+
+#### Defined in
+
+[semaphore.ts:68](https://github.com/calebboyd/aceink/blob/5bc342e/src/semaphore.ts#L68)

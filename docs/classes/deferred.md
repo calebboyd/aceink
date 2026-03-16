@@ -8,8 +8,8 @@ Use of a deferred is generally an anti-pattern, use with discretion.
 ## Type parameters
 
 | Name |
-| :------ |
-| `T` |
+| :--- |
+| `T`  |
 
 ## Table of contents
 
@@ -33,18 +33,18 @@ Use of a deferred is generally an anti-pattern, use with discretion.
 #### Type parameters
 
 | Name |
-| :------ |
-| `T` |
+| :--- |
+| `T`  |
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `value?` | `T` | Convenience placeholder for a value to resolve the deferred with |
+| Name     | Type | Description                                                      |
+| :------- | :--- | :--------------------------------------------------------------- |
+| `value?` | `T`  | Convenience placeholder for a value to resolve the deferred with |
 
 #### Defined in
 
-[deferred.ts:31](https://github.com/calebboyd/aceink/blob/77a10f9/src/deferred.ts#L31)
+[deferred.ts:31](https://github.com/calebboyd/aceink/blob/5bc342e/src/deferred.ts#L31)
 
 ## Properties
 
@@ -56,9 +56,9 @@ The Promise instance
 
 #### Defined in
 
-[deferred.ts:30](https://github.com/calebboyd/aceink/blob/77a10f9/src/deferred.ts#L30)
+[deferred.ts:30](https://github.com/calebboyd/aceink/blob/5bc342e/src/deferred.ts#L30)
 
-___
+---
 
 ### reject
 
@@ -72,8 +72,8 @@ Reject the promise with some reason
 
 ##### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name      | Type  |
+| :-------- | :---- |
 | `reason?` | `any` |
 
 ##### Returns
@@ -82,9 +82,9 @@ Reject the promise with some reason
 
 #### Defined in
 
-[deferred.ts:26](https://github.com/calebboyd/aceink/blob/77a10f9/src/deferred.ts#L26)
+[deferred.ts:26](https://github.com/calebboyd/aceink/blob/5bc342e/src/deferred.ts#L26)
 
-___
+---
 
 ### resolve
 
@@ -98,8 +98,8 @@ resolve the Promise with the stored value
 
 ##### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name    | Type                       |
+| :------ | :------------------------- |
 | `value` | `T` \| `PromiseLike`<`T`\> |
 
 ##### Returns
@@ -108,9 +108,9 @@ resolve the Promise with the stored value
 
 #### Defined in
 
-[deferred.ts:22](https://github.com/calebboyd/aceink/blob/77a10f9/src/deferred.ts#L22)
+[deferred.ts:22](https://github.com/calebboyd/aceink/blob/5bc342e/src/deferred.ts#L22)
 
-___
+---
 
 ### value
 
@@ -120,4 +120,4 @@ Convenience placeholder for a value to resolve the deferred with
 
 #### Defined in
 
-[deferred.ts:35](https://github.com/calebboyd/aceink/blob/77a10f9/src/deferred.ts#L35)
+[deferred.ts:35](https://github.com/calebboyd/aceink/blob/5bc342e/src/deferred.ts#L35)

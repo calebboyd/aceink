@@ -54,7 +54,7 @@ export function gowait<E, T extends PromiseReturningFunction>(
 ): Promise<ErrorValue<Awaited<ReturnType<T>>, E>>
 
 export function gowait<E, T extends Promise<ExplicitAny>>(
-  promised: T
+  promised: T,
 ): Promise<ErrorValue<Awaited<T>, E>>
 
 export function gowait<E, T extends Promise<ExplicitAny> | PromiseReturningFunction>(
@@ -75,7 +75,7 @@ export function gowait<E, T extends Promise<ExplicitAny> | PromiseReturningFunct
   }
 
   return Promise.reject(
-    new TypeError(`${promised} is not a promise or promise returning function`)
+    new TypeError(`${promised} is not a promise or promise returning function`),
   ) as ExplicitAny
 }
 
@@ -87,9 +87,9 @@ export function gowait<E, T extends Promise<ExplicitAny> | PromiseReturningFunct
  * @returns
  */
 export function wrap<T extends Func<Promise<ExplicitAny>, ExplicitAny>>(
-  promised: T
+  promised: T,
 ): <E = never>(
   ...args: Parameters<T>
-) => E extends never ? never : Promise<ErrorValue<ReturnType<T>, E>> {
+) => E extends never ? never : Promise<ErrorValue<Awaited<ReturnType<T>>, E>> {
   return (...args: Parameters<T>) => gowait(promised, ...args) as ExplicitAny
 }

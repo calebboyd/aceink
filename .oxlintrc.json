@@ -1,0 +1,20 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["typescript", "oxc", "unicorn", "vitest"],
+  "categories": {
+    "correctness": "error"
+  },
+  "rules": {
+    "typescript/consistent-type-imports": "error"
+  },
+  "overrides": [
+    {
+      "files": ["src/**/*.spec.ts"],
+      "rules": {
+        "typescript/no-this-alias": "off",
+        "unicorn/no-thenable": "off"
+      }
+    }
+  ],
+  "ignorePatterns": ["lib", "node_modules", "docs"]
+}

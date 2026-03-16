@@ -32,7 +32,7 @@ export class Deferred<T> {
     /**
      * Convenience placeholder for a value to resolve the deferred with
      */
-    public value?: T
+    public value?: T,
   ) {
     this.promise = new Promise((resolve, reject) => {
       this.resolve = resolve
