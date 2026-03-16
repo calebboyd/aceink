@@ -1,5 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { map } from './map.js'
+import { delay } from './lang.js'
+import { AbortError, TimeoutError } from './queue.js'
 
 describe('map', () => {
   it('should iterate, mapping concurrently', async () => {
@@ -58,5 +60,28 @@ describe('map', () => {
 
     expect(seen).toEqual([1, 2, 3])
     expect(result).toEqual([2, 3, 4])
+  })
+
+  it('should reject with a timeout error', async () => {
+    await expect(
+      map(
+        [1],
+        async () => {
+          await delay(20)
+          return 1
+        },
+        { timeout: 10 },
+      ),
+    ).rejects.toBeInstanceOf(TimeoutError)
+  })
+
+  it('should reject when aborted', async () => {
+    const controller = new AbortController()
+
+    controller.abort()
+
+    await expect(
+      map([1], async (value: number) => value + 1, { signal: controller.signal }),
+    ).rejects.toBeInstanceOf(AbortError)
   })
 })

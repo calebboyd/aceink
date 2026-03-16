@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { createDeferred } from './deferred.js'
 import { delay } from './lang.js'
-import { Queue } from './queue.js'
+import { AbortError, Queue, TimeoutError } from './queue.js'
 
 describe('queue', () => {
   const range = (num: number) => Array.from(Array(num).keys())
@@ -139,5 +139,111 @@ describe('queue', () => {
 
     third.resolve()
     await Promise.all([running, waiter1, waiter2])
+  })
+
+  it('should reject a running task when it exceeds the queue timeout', async () => {
+    const q = new Queue(1, { timeout: 10, settle: 'completion' })
+
+    await expect(q.add(() => delay(25))).rejects.toBeInstanceOf(TimeoutError)
+    expect(q.pending).toBe(0)
+    expect(q.size).toBe(0)
+    await expect(q.empty()).resolves.toBeUndefined()
+  })
+
+  it('should allow per-task timeout overrides', async () => {
+    const q = new Queue(1, { timeout: 50, settle: 'completion' })
+
+    await expect(q.add(() => delay(25), { timeout: 10 })).rejects.toBeInstanceOf(TimeoutError)
+    await expect(q.add(() => delay(10), { timeout: 30 })).resolves.toBeUndefined()
+  })
+
+  it('should remove aborted queued work and continue draining the queue', async () => {
+    const first = createDeferred<void>()
+    const q = new Queue(1, { settle: 'completion' })
+    const controller = new AbortController()
+    const ran: string[] = []
+
+    const running = q.add(() => first.promise)
+    const aborted = q.add(
+      () => {
+        ran.push('aborted')
+      },
+      { signal: controller.signal },
+    )
+    const next = q.add(() => {
+      ran.push('next')
+      return 'next'
+    })
+
+    controller.abort()
+
+    await expect(aborted).rejects.toBeInstanceOf(AbortError)
+    expect(q.pending).toBe(1)
+    expect(q.size).toBe(1)
+
+    first.resolve()
+
+    await expect(running).resolves.toBeUndefined()
+    await expect(next).resolves.toBe('next')
+    expect(ran).toEqual(['next'])
+  })
+
+  it('should reject a running task when its abort signal fires', async () => {
+    const q = new Queue(1, { settle: 'completion' })
+    const controller = new AbortController()
+    const work = createDeferred<void>()
+
+    const task = q.add(() => work.promise, { signal: controller.signal })
+
+    controller.abort()
+
+    await expect(task).rejects.toBeInstanceOf(AbortError)
+    expect(q.pending).toBe(0)
+
+    await expect(
+      Promise.race([q.add(() => Promise.resolve('ok')), delay(25, 'timeout')]),
+    ).resolves.toBe('ok')
+
+    work.resolve()
+  })
+
+  it('should support aborting ready waiters', async () => {
+    const q = new Queue(1, { settle: 'completion' })
+    const work = createDeferred<void>()
+    const controller = new AbortController()
+
+    const running = q.add(() => work.promise)
+    const ready = q.ready({ signal: controller.signal })
+
+    controller.abort()
+
+    await expect(ready).rejects.toBeInstanceOf(AbortError)
+
+    work.resolve()
+    await expect(running).resolves.toBeUndefined()
+    await expect(q.ready()).resolves.toBeUndefined()
+  })
+
+  it('should reject immediately when adding with an already aborted signal', async () => {
+    const q = new Queue(1, { settle: 'completion' })
+    const controller = new AbortController()
+
+    controller.abort()
+
+    await expect(
+      q.add(() => Promise.resolve('nope'), { signal: controller.signal }),
+    ).rejects.toBeInstanceOf(AbortError)
+    expect(q.pending).toBe(0)
+    expect(q.size).toBe(0)
+  })
+
+  it('should validate queue timeouts', () => {
+    expect(() => new Queue(1, { timeout: 0 })).toThrow(
+      'Expected `timeout` to be a positive finite number',
+    )
+    const q = new Queue(1)
+    expect(() => q.add(() => Promise.resolve(), { timeout: 0 })).toThrow(
+      'Expected `timeout` to be a positive finite number',
+    )
   })
 })

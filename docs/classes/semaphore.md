@@ -6,7 +6,7 @@
 
 # Class: Semaphore\<RefType\>
 
-Defined in: [semaphore.ts:14](https://github.com/calebboyd/aceink/blob/4ec8f3568f64aede2a4a837c4b806a8b46443a74/src/semaphore.ts#L14)
+Defined in: [src/semaphore.ts:14](https://github.com/calebboyd/aceink/blob/e5fe3eb1dd317c0d3ee63c52f1ea1f47db32407a/src/semaphore.ts#L14)
 
 Basic counting semaphore/lock
 
@@ -22,7 +22,7 @@ Basic counting semaphore/lock
 
 > **new Semaphore**\<`RefType`\>(`size?`, `bound?`): `Semaphore`\<`RefType`\>
 
-Defined in: [semaphore.ts:21](https://github.com/calebboyd/aceink/blob/4ec8f3568f64aede2a4a837c4b806a8b46443a74/src/semaphore.ts#L21)
+Defined in: [src/semaphore.ts:21](https://github.com/calebboyd/aceink/blob/e5fe3eb1dd317c0d3ee63c52f1ea1f47db32407a/src/semaphore.ts#L21)
 
 #### Parameters
 
@@ -44,7 +44,7 @@ Defined in: [semaphore.ts:21](https://github.com/calebboyd/aceink/blob/4ec8f3568
 
 > `readonly` **size**: `number`
 
-Defined in: [semaphore.ts:15](https://github.com/calebboyd/aceink/blob/4ec8f3568f64aede2a4a837c4b806a8b46443a74/src/semaphore.ts#L15)
+Defined in: [src/semaphore.ts:15](https://github.com/calebboyd/aceink/blob/e5fe3eb1dd317c0d3ee63c52f1ea1f47db32407a/src/semaphore.ts#L15)
 
 ## Accessors
 
@@ -54,7 +54,7 @@ Defined in: [semaphore.ts:15](https://github.com/calebboyd/aceink/blob/4ec8f3568
 
 > **get** **count**(): `number`
 
-Defined in: [semaphore.ts:32](https://github.com/calebboyd/aceink/blob/4ec8f3568f64aede2a4a837c4b806a8b46443a74/src/semaphore.ts#L32)
+Defined in: [src/semaphore.ts:32](https://github.com/calebboyd/aceink/blob/e5fe3eb1dd317c0d3ee63c52f1ea1f47db32407a/src/semaphore.ts#L32)
 
 ##### Returns
 
@@ -68,7 +68,7 @@ Defined in: [semaphore.ts:32](https://github.com/calebboyd/aceink/blob/4ec8f3568
 
 > **get** **pending**(): `number`
 
-Defined in: [semaphore.ts:35](https://github.com/calebboyd/aceink/blob/4ec8f3568f64aede2a4a837c4b806a8b46443a74/src/semaphore.ts#L35)
+Defined in: [src/semaphore.ts:35](https://github.com/calebboyd/aceink/blob/e5fe3eb1dd317c0d3ee63c52f1ea1f47db32407a/src/semaphore.ts#L35)
 
 ##### Returns
 
@@ -80,7 +80,7 @@ Defined in: [semaphore.ts:35](https://github.com/calebboyd/aceink/blob/4ec8f3568
 
 > **acquire**(`ref?`): `Promise`\<`RefType`\>
 
-Defined in: [semaphore.ts:42](https://github.com/calebboyd/aceink/blob/4ec8f3568f64aede2a4a837c4b806a8b46443a74/src/semaphore.ts#L42)
+Defined in: [src/semaphore.ts:42](https://github.com/calebboyd/aceink/blob/e5fe3eb1dd317c0d3ee63c52f1ea1f47db32407a/src/semaphore.ts#L42)
 
 Acquire a slot
 
@@ -100,7 +100,7 @@ Acquire a slot
 
 > **release**(): `void`
 
-Defined in: [semaphore.ts:57](https://github.com/calebboyd/aceink/blob/4ec8f3568f64aede2a4a837c4b806a8b46443a74/src/semaphore.ts#L57)
+Defined in: [src/semaphore.ts:57](https://github.com/calebboyd/aceink/blob/e5fe3eb1dd317c0d3ee63c52f1ea1f47db32407a/src/semaphore.ts#L57)
 
 Release a slot
 

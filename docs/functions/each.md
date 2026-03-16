@@ -8,7 +8,7 @@
 
 > **each**\<`T`, `K`\>(`this`, `list`, `iterator`, `__namedParameters?`): `Promise`\<`void`\>
 
-Defined in: [each.ts:16](https://github.com/calebboyd/aceink/blob/4ec8f3568f64aede2a4a837c4b806a8b46443a74/src/each.ts#L16)
+Defined in: [src/each.ts:50](https://github.com/calebboyd/aceink/blob/e5fe3eb1dd317c0d3ee63c52f1ea1f47db32407a/src/each.ts#L50)
 
 Iterate a list with optional concurrency
 
@@ -38,17 +38,7 @@ Iterate a list with optional concurrency
 
 ### \_\_namedParameters?
 
-#### concurrency?
-
-`number`
-
-#### context?
-
-`void` \| `K`
-
-#### onError?
-
-`"settle"` \| `"bail"` = `'bail'`
+[`EachOptions`](../interfaces/EachOptions.md)\<`K`\> = `...`
 
 ## Returns
 

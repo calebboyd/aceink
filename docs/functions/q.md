@@ -8,7 +8,7 @@
 
 > **q**(`size`, `options?`): [`Queue`](../classes/Queue.md)
 
-Defined in: [queue.ts:28](https://github.com/calebboyd/aceink/blob/4ec8f3568f64aede2a4a837c4b806a8b46443a74/src/queue.ts#L28)
+Defined in: [src/queue.ts:128](https://github.com/calebboyd/aceink/blob/e5fe3eb1dd317c0d3ee63c52f1ea1f47db32407a/src/queue.ts#L128)
 
 Create Queue with a specified size
 

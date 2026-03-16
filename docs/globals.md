@@ -6,13 +6,19 @@
 
 ## Classes
 
+- [AbortError](classes/AbortError.md)
 - [Deferred](classes/Deferred.md)
 - [Queue](classes/Queue.md)
 - [Semaphore](classes/Semaphore.md)
+- [TimeoutError](classes/TimeoutError.md)
 
 ## Interfaces
 
+- [EachOptions](interfaces/EachOptions.md)
+- [MapOptions](interfaces/MapOptions.md)
 - [QueueOptions](interfaces/QueueOptions.md)
+- [QueueTaskOptions](interfaces/QueueTaskOptions.md)
+- [QueueWaitOptions](interfaces/QueueWaitOptions.md)
 
 ## Type Aliases
 

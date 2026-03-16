@@ -1,6 +1,15 @@
-import type { IteratorFunc } from './each.js'
+import type { EachOptions, IteratorFunc } from './each.js'
 import type { ExplicitAny } from './lang.js'
 import { each } from './each.js'
+
+/**
+ * @public
+ * map() configuration.
+ */
+export interface MapOptions<K = ExplicitAny> extends Pick<
+  EachOptions<K>,
+  'concurrency' | 'context' | 'signal' | 'timeout'
+> {}
 /**
  * @public
  * Map over a list with optional concurrency
@@ -9,7 +18,7 @@ export function map<T, R, K = ExplicitAny>(
   this: K,
   list: Iterable<T>,
   iterator: IteratorFunc<T, R>,
-  { context, concurrency }: { context?: K; concurrency?: number } = {},
+  { context, concurrency, signal, timeout }: MapOptions<K> = {},
 ): Promise<Awaited<R>[]> {
   const results: Awaited<R>[] = []
   const thisArg = typeof context === 'undefined' ? this : context
@@ -21,6 +30,6 @@ export function map<T, R, K = ExplicitAny>(
         results[i] = result
       })
     },
-    { context: thisArg, concurrency },
+    { context: thisArg, concurrency, signal, timeout },
   ).then(() => results)
 }

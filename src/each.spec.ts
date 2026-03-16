@@ -1,6 +1,8 @@
 import { describe, it, expect } from 'vitest'
 import { each } from './each.js'
 import { delay } from './lang.js'
+import { createDeferred } from './deferred.js'
+import { AbortError, TimeoutError } from './queue.js'
 
 describe('each', () => {
   it('should iterate, concurrently', async () => {
@@ -104,5 +106,66 @@ describe('each', () => {
     ).rejects.toThrow('boom')
 
     expect(closed).toBe(true)
+  })
+
+  it('should apply queue timeouts while continuing in settle mode', async () => {
+    const visited: number[] = []
+
+    await expect(
+      each(
+        [1, 2, 3],
+        async (value: number) => {
+          visited.push(value)
+          await delay(value === 1 ? 20 : 1)
+        },
+        { concurrency: 1, onError: 'settle', timeout: 10 },
+      ),
+    ).resolves.toBeUndefined()
+
+    expect(visited).toEqual([1, 2, 3])
+  })
+
+  it('should reject with a timeout error by default', async () => {
+    await expect(
+      each(
+        [1],
+        async () => {
+          await delay(20)
+        },
+        { timeout: 10 },
+      ),
+    ).rejects.toBeInstanceOf(TimeoutError)
+  })
+
+  it('should abort iteration and close iterators', async () => {
+    let closed = false
+    const controller = new AbortController()
+    const blocked = createDeferred<void>()
+
+    function* values() {
+      try {
+        yield 1
+        yield 2
+      } finally {
+        closed = true
+      }
+    }
+
+    const running = each(
+      values(),
+      async (value: number) => {
+        if (value === 1) {
+          await blocked.promise
+        }
+      },
+      { concurrency: 1, signal: controller.signal },
+    )
+
+    controller.abort()
+
+    await expect(running).rejects.toBeInstanceOf(AbortError)
+    expect(closed).toBe(true)
+
+    blocked.resolve()
   })
 })
