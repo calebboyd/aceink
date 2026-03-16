@@ -75,7 +75,11 @@ describe('queue', () => {
 
   it('should allow disabling bound methods through options', async () => {
     expect(new Queue(1).add).not.toBe(Queue.prototype.add)
+    expect(new Queue(1).pause).not.toBe(Queue.prototype.pause)
+    expect(new Queue(1).start).not.toBe(Queue.prototype.start)
     expect(new Queue(1, { bound: false }).add).toBe(Queue.prototype.add)
+    expect(new Queue(1, { bound: false }).pause).toBe(Queue.prototype.pause)
+    expect(new Queue(1, { bound: false }).start).toBe(Queue.prototype.start)
   })
 
   it('should report running and queued work separately', async () => {
@@ -139,6 +143,81 @@ describe('queue', () => {
 
     third.resolve()
     await Promise.all([running, waiter1, waiter2])
+  })
+
+  it('should pause draining queued work until started', async () => {
+    const first = createDeferred<void>()
+    const q = new Queue(1, { settle: 'completion' })
+    const ran: string[] = []
+
+    const running = q.add(() =>
+      first.promise.then(() => {
+        ran.push('first')
+      }),
+    )
+
+    q.pause()
+
+    const queued = q.add(() => {
+      ran.push('second')
+    })
+
+    expect(q.pending).toBe(1)
+    expect(q.size).toBe(1)
+
+    first.resolve()
+    await expect(running).resolves.toBeUndefined()
+    await flush()
+
+    expect(q.pending).toBe(0)
+    expect(q.size).toBe(1)
+    expect(ran).toEqual(['first'])
+
+    q.start()
+
+    await expect(queued).resolves.toBeUndefined()
+    expect(ran).toEqual(['first', 'second'])
+  })
+
+  it('should not start new work while paused', async () => {
+    const q = new Queue(1, { settle: 'completion' })
+    let started = false
+
+    q.pause()
+
+    const task = q.add(() => {
+      started = true
+    })
+
+    await flush()
+
+    expect(started).toBe(false)
+    expect(q.pending).toBe(0)
+    expect(q.size).toBe(1)
+
+    q.start()
+
+    await expect(task).resolves.toBeUndefined()
+    expect(started).toBe(true)
+  })
+
+  it('should keep ready waiters blocked while paused', async () => {
+    const q = new Queue(1, { settle: 'completion' })
+
+    q.pause()
+
+    const ready = q.ready()
+
+    await expect(Promise.race([ready.then(() => 'ready'), delay(25, 'timeout')])).resolves.toBe(
+      'timeout',
+    )
+
+    q.start()
+
+    await expect(Promise.race([ready.then(() => 'ready'), delay(25, 'timeout')])).resolves.toBe(
+      'ready',
+    )
+    await expect(ready).resolves.toBeUndefined()
   })
 
   it('should reject a running task when it exceeds the queue timeout', async () => {

@@ -8,6 +8,7 @@ Useful async tools.
   - simple deferred promise
 - `q`
   - a concurrent work queue
+  - supports `pause()` / `start()` for temporarily halting queue drain
 - `each`, `map`
   - _optionally_ concurrent iteration functions
 - `timeout` and `signal` options
@@ -59,6 +60,18 @@ try {
 } catch (error) {
   if (!(error instanceof AbortError)) throw error
 }
+```
+
+Queues can also be paused and resumed without affecting work that is already running:
+
+```javascript
+const queue = q(2)
+
+queue.pause()
+const work = queue.add(async () => 'value')
+
+queue.start()
+await work
 ```
 
 ### Example (gowait)

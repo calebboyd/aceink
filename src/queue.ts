@@ -125,6 +125,7 @@ export function q(size: number, options: QueueOptions = {}): Queue {
  */
 export class Queue {
   private readonly concurrency: number
+  private paused = false
   private queued: Array<() => void> = []
   private tasks = new Set<Promise<void>>()
   private readyWaiters: ReadyWaiter[] = []
@@ -149,6 +150,8 @@ export class Queue {
       this.add = this.add.bind(this)
       this.ready = this.ready.bind(this)
       this.empty = this.empty.bind(this)
+      this.pause = this.pause.bind(this)
+      this.start = this.start.bind(this)
     }
   }
 
@@ -158,6 +161,22 @@ export class Queue {
 
   public get size(): number {
     return this.queued.length
+  }
+
+  /**
+   * Pause starting queued work. Running tasks continue until they settle.
+   */
+  public pause(): void {
+    this.paused = true
+  }
+
+  /**
+   * Resume draining queued work.
+   */
+  public start(): void {
+    this.paused = false
+    this.process()
+    this.flushReadyWaiters()
   }
 
   /**
@@ -358,7 +377,7 @@ export class Queue {
   }
 
   private process(): void {
-    while (this.pendingCount < this.concurrency && this.queued.length) {
+    while (!this.paused && this.pendingCount < this.concurrency && this.queued.length) {
       this.queued.shift()?.()
     }
   }
@@ -388,7 +407,11 @@ export class Queue {
   }
 
   private canGrantReady(): boolean {
-    return this.size === 0 && this.pendingCount + this.readyReservations.length < this.concurrency
+    return (
+      !this.paused &&
+      this.size === 0 &&
+      this.pendingCount + this.readyReservations.length < this.concurrency
+    )
   }
 
   private consumeReadyReservation(): void {

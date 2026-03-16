@@ -10,7 +10,7 @@
 
 > **gowait**\<`E`, `T`\>(`promised`, ...`args`): `Promise`\<[`ErrorValue`](../type-aliases/ErrorValue.md)\<`Awaited`\<`ReturnType`\<`T`\>\>, `E`\>\>
 
-Defined in: [src/gowait.ts:51](https://github.com/calebboyd/aceink/blob/6ba0ecb047d89b7e1bc92181cc12988be1bea1e3/src/gowait.ts#L51)
+Defined in: [src/gowait.ts:51](https://github.com/calebboyd/aceink/blob/3007a4f3edd9e5494f51c1dd28a108b89b517f8e/src/gowait.ts#L51)
 
 ### Type Parameters
 
@@ -40,7 +40,7 @@ Defined in: [src/gowait.ts:51](https://github.com/calebboyd/aceink/blob/6ba0ecb0
 
 > **gowait**\<`E`, `T`\>(`promised`): `Promise`\<[`ErrorValue`](../type-aliases/ErrorValue.md)\<`Awaited`\<`T`\>, `E`\>\>
 
-Defined in: [src/gowait.ts:56](https://github.com/calebboyd/aceink/blob/6ba0ecb047d89b7e1bc92181cc12988be1bea1e3/src/gowait.ts#L56)
+Defined in: [src/gowait.ts:56](https://github.com/calebboyd/aceink/blob/3007a4f3edd9e5494f51c1dd28a108b89b517f8e/src/gowait.ts#L56)
 
 ### Type Parameters
 

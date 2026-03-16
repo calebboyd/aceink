@@ -8,7 +8,7 @@
 
 > **map**\<`T`, `R`, `K`\>(`this`, `list`, `iterator`, `__namedParameters?`): `Promise`\<`Awaited`\<`R`\>[]\>
 
-Defined in: [src/map.ts:17](https://github.com/calebboyd/aceink/blob/6ba0ecb047d89b7e1bc92181cc12988be1bea1e3/src/map.ts#L17)
+Defined in: [src/map.ts:17](https://github.com/calebboyd/aceink/blob/3007a4f3edd9e5494f51c1dd28a108b89b517f8e/src/map.ts#L17)
 
 Map over a list with optional concurrency
 

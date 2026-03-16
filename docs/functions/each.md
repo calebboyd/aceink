@@ -8,7 +8,7 @@
 
 > **each**\<`T`, `K`\>(`this`, `list`, `iterator`, `__namedParameters?`): `Promise`\<`void`\>
 
-Defined in: [src/each.ts:34](https://github.com/calebboyd/aceink/blob/6ba0ecb047d89b7e1bc92181cc12988be1bea1e3/src/each.ts#L34)
+Defined in: [src/each.ts:34](https://github.com/calebboyd/aceink/blob/3007a4f3edd9e5494f51c1dd28a108b89b517f8e/src/each.ts#L34)
 
 Iterate a list with optional concurrency
 

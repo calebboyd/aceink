@@ -40,6 +40,7 @@ All notable changes to this project will be documented in this file. See
 ### Features
 
 - add queue task timeouts and abort signals, and thread them through `each()` and `map()`
+- add queue `pause()` and `start()` controls for temporarily halting queue drain
 
 # [2.0.0](https://github.com/calebboyd/async/compare/v1.3.0...v2.0.0) (2026-03-16)
 
