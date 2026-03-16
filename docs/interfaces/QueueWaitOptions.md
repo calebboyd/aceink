@@ -6,7 +6,7 @@
 
 # Interface: QueueWaitOptions
 
-Defined in: [src/queue.ts:89](https://github.com/calebboyd/aceink/blob/42a74d970a04ce9c8fa0a039da404dafccda8cf7/src/queue.ts#L89)
+Defined in: [src/queue.ts:105](https://github.com/calebboyd/aceink/blob/f698b0774dd849824fffedf1fa982747f796bca1/src/queue.ts#L105)
 
 Queue wait options.
 
@@ -16,6 +16,6 @@ Queue wait options.
 
 > `optional` **signal**: `AbortSignal`
 
-Defined in: [src/queue.ts:93](https://github.com/calebboyd/aceink/blob/42a74d970a04ce9c8fa0a039da404dafccda8cf7/src/queue.ts#L93)
+Defined in: [src/queue.ts:109](https://github.com/calebboyd/aceink/blob/f698b0774dd849824fffedf1fa982747f796bca1/src/queue.ts#L109)
 
 Abort waiting for the queue to become ready.

@@ -9,6 +9,7 @@
 - [AbortError](classes/AbortError.md)
 - [Deferred](classes/Deferred.md)
 - [Queue](classes/Queue.md)
+- [QueueClearedError](classes/QueueClearedError.md)
 - [Semaphore](classes/Semaphore.md)
 - [TimeoutError](classes/TimeoutError.md)
 

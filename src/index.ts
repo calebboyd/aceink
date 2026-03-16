@@ -7,6 +7,7 @@ export {
   AbortError,
   getAbortReason,
   Queue,
+  QueueClearedError,
   q,
   QueueOptions,
   QueueSettleMode,

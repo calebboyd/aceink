@@ -2,13 +2,13 @@
 
 ***
 
-[aceink](../globals.md) / TimeoutError
+[aceink](../globals.md) / QueueClearedError
 
-# Class: TimeoutError
+# Class: QueueClearedError
 
-Defined in: [src/queue.ts:53](https://github.com/calebboyd/aceink/blob/f698b0774dd849824fffedf1fa982747f796bca1/src/queue.ts#L53)
+Defined in: [src/queue.ts:78](https://github.com/calebboyd/aceink/blob/f698b0774dd849824fffedf1fa982747f796bca1/src/queue.ts#L78)
 
-Error raised when queued work exceeds its configured runtime limit.
+Error raised when queued work is cleared before it starts.
 
 ## Extends
 
@@ -18,23 +18,19 @@ Error raised when queued work exceeds its configured runtime limit.
 
 ### Constructor
 
-> **new TimeoutError**(`timeout`, `message?`): `TimeoutError`
+> **new QueueClearedError**(`message?`): `QueueClearedError`
 
-Defined in: [src/queue.ts:56](https://github.com/calebboyd/aceink/blob/f698b0774dd849824fffedf1fa982747f796bca1/src/queue.ts#L56)
+Defined in: [src/queue.ts:79](https://github.com/calebboyd/aceink/blob/f698b0774dd849824fffedf1fa982747f796bca1/src/queue.ts#L79)
 
 #### Parameters
 
-##### timeout
-
-`number`
-
 ##### message?
 
-`string` = `...`
+`string` = `'Task was cleared before it started'`
 
 #### Returns
 
-`TimeoutError`
+`QueueClearedError`
 
 #### Overrides
 
@@ -87,14 +83,6 @@ Defined in: node\_modules/typescript/lib/lib.es5.d.ts:1078
 #### Inherited from
 
 `Error.stack`
-
-***
-
-### timeout
-
-> `readonly` **timeout**: `number`
-
-Defined in: [src/queue.ts:54](https://github.com/calebboyd/aceink/blob/f698b0774dd849824fffedf1fa982747f796bca1/src/queue.ts#L54)
 
 ***
 

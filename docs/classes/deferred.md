@@ -6,7 +6,7 @@
 
 # Class: Deferred\<T\>
 
-Defined in: [src/deferred.ts:18](https://github.com/calebboyd/aceink/blob/42a74d970a04ce9c8fa0a039da404dafccda8cf7/src/deferred.ts#L18)
+Defined in: [src/deferred.ts:18](https://github.com/calebboyd/aceink/blob/f698b0774dd849824fffedf1fa982747f796bca1/src/deferred.ts#L18)
 
 A Basic Deferred class, exposing the promise, resolve and reject methods.
 Use of a deferred is generally an anti-pattern, use with discretion.
@@ -23,7 +23,7 @@ Use of a deferred is generally an anti-pattern, use with discretion.
 
 > **new Deferred**\<`T`\>(`value?`): `Deferred`\<`T`\>
 
-Defined in: [src/deferred.ts:31](https://github.com/calebboyd/aceink/blob/42a74d970a04ce9c8fa0a039da404dafccda8cf7/src/deferred.ts#L31)
+Defined in: [src/deferred.ts:31](https://github.com/calebboyd/aceink/blob/f698b0774dd849824fffedf1fa982747f796bca1/src/deferred.ts#L31)
 
 #### Parameters
 
@@ -43,7 +43,7 @@ Convenience placeholder for a value to resolve the deferred with
 
 > **promise**: `Promise`\<`T`\>
 
-Defined in: [src/deferred.ts:30](https://github.com/calebboyd/aceink/blob/42a74d970a04ce9c8fa0a039da404dafccda8cf7/src/deferred.ts#L30)
+Defined in: [src/deferred.ts:30](https://github.com/calebboyd/aceink/blob/f698b0774dd849824fffedf1fa982747f796bca1/src/deferred.ts#L30)
 
 The Promise instance
 
@@ -53,7 +53,7 @@ The Promise instance
 
 > **reject**: (`reason?`) => `void`
 
-Defined in: [src/deferred.ts:26](https://github.com/calebboyd/aceink/blob/42a74d970a04ce9c8fa0a039da404dafccda8cf7/src/deferred.ts#L26)
+Defined in: [src/deferred.ts:26](https://github.com/calebboyd/aceink/blob/f698b0774dd849824fffedf1fa982747f796bca1/src/deferred.ts#L26)
 
 Reject the promise with some reason
 
@@ -73,7 +73,7 @@ Reject the promise with some reason
 
 > **resolve**: (`value`) => `void`
 
-Defined in: [src/deferred.ts:22](https://github.com/calebboyd/aceink/blob/42a74d970a04ce9c8fa0a039da404dafccda8cf7/src/deferred.ts#L22)
+Defined in: [src/deferred.ts:22](https://github.com/calebboyd/aceink/blob/f698b0774dd849824fffedf1fa982747f796bca1/src/deferred.ts#L22)
 
 resolve the Promise with the stored value
 
@@ -93,6 +93,6 @@ resolve the Promise with the stored value
 
 > `optional` **value**: `T`
 
-Defined in: [src/deferred.ts:35](https://github.com/calebboyd/aceink/blob/42a74d970a04ce9c8fa0a039da404dafccda8cf7/src/deferred.ts#L35)
+Defined in: [src/deferred.ts:35](https://github.com/calebboyd/aceink/blob/f698b0774dd849824fffedf1fa982747f796bca1/src/deferred.ts#L35)
 
 Convenience placeholder for a value to resolve the deferred with

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { createDeferred } from './deferred.js'
 import { delay } from './lang.js'
-import { AbortError, Queue, TimeoutError } from './queue.js'
+import { AbortError, Queue, QueueClearedError, TimeoutError } from './queue.js'
 
 describe('queue', () => {
   const range = (num: number) => Array.from(Array(num).keys())
@@ -75,9 +75,11 @@ describe('queue', () => {
 
   it('should allow disabling bound methods through options', async () => {
     expect(new Queue(1).add).not.toBe(Queue.prototype.add)
+    expect(new Queue(1).clear).not.toBe(Queue.prototype.clear)
     expect(new Queue(1).pause).not.toBe(Queue.prototype.pause)
     expect(new Queue(1).start).not.toBe(Queue.prototype.start)
     expect(new Queue(1, { bound: false }).add).toBe(Queue.prototype.add)
+    expect(new Queue(1, { bound: false }).clear).toBe(Queue.prototype.clear)
     expect(new Queue(1, { bound: false }).pause).toBe(Queue.prototype.pause)
     expect(new Queue(1, { bound: false }).start).toBe(Queue.prototype.start)
   })
@@ -218,6 +220,60 @@ describe('queue', () => {
       'ready',
     )
     await expect(ready).resolves.toBeUndefined()
+  })
+
+  it('should reject queued work when cleared', async () => {
+    const first = createDeferred<void>()
+    const q = new Queue(1, { settle: 'completion' })
+
+    const running = q.add(() => first.promise)
+    const queued = q.add(() => 'queued')
+
+    expect(q.pending).toBe(1)
+    expect(q.size).toBe(1)
+
+    q.clear()
+
+    await expect(queued).rejects.toBeInstanceOf(QueueClearedError)
+    expect(q.pending).toBe(1)
+    expect(q.size).toBe(0)
+
+    first.resolve()
+
+    await expect(running).resolves.toBeUndefined()
+    await expect(q.empty()).resolves.toBeUndefined()
+  })
+
+  it('should not affect running work when cleared', async () => {
+    const first = createDeferred<string>()
+    const q = new Queue(1, { settle: 'completion' })
+
+    const running = q.add(() => first.promise)
+
+    q.clear()
+
+    first.resolve('done')
+
+    await expect(running).resolves.toBe('done')
+  })
+
+  it('should continue accepting work after clearing queued tasks', async () => {
+    const first = createDeferred<void>()
+    const q = new Queue(1, { settle: 'completion' })
+
+    const running = q.add(() => first.promise)
+    const cleared = q.add(() => 'cleared')
+
+    q.clear()
+
+    const next = q.add(() => 'next')
+
+    await expect(cleared).rejects.toBeInstanceOf(QueueClearedError)
+
+    first.resolve()
+
+    await expect(running).resolves.toBeUndefined()
+    await expect(next).resolves.toBe('next')
   })
 
   it('should reject a running task when it exceeds the queue timeout', async () => {

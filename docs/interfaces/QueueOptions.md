@@ -6,7 +6,7 @@
 
 # Interface: QueueOptions
 
-Defined in: [src/queue.ts:100](https://github.com/calebboyd/aceink/blob/42a74d970a04ce9c8fa0a039da404dafccda8cf7/src/queue.ts#L100)
+Defined in: [src/queue.ts:116](https://github.com/calebboyd/aceink/blob/f698b0774dd849824fffedf1fa982747f796bca1/src/queue.ts#L116)
 
 Queue configuration
 
@@ -16,7 +16,7 @@ Queue configuration
 
 > `optional` **bound**: `boolean`
 
-Defined in: [src/queue.ts:104](https://github.com/calebboyd/aceink/blob/42a74d970a04ce9c8fa0a039da404dafccda8cf7/src/queue.ts#L104)
+Defined in: [src/queue.ts:120](https://github.com/calebboyd/aceink/blob/f698b0774dd849824fffedf1fa982747f796bca1/src/queue.ts#L120)
 
 Bind queue methods to the queue instance.
 
@@ -26,7 +26,7 @@ Bind queue methods to the queue instance.
 
 > `optional` **settle**: [`QueueSettleMode`](../type-aliases/QueueSettleMode.md)
 
-Defined in: [src/queue.ts:108](https://github.com/calebboyd/aceink/blob/42a74d970a04ce9c8fa0a039da404dafccda8cf7/src/queue.ts#L108)
+Defined in: [src/queue.ts:124](https://github.com/calebboyd/aceink/blob/f698b0774dd849824fffedf1fa982747f796bca1/src/queue.ts#L124)
 
 Control whether returned task promises settle in queue order or completion order.
 
@@ -36,6 +36,6 @@ Control whether returned task promises settle in queue order or completion order
 
 > `optional` **timeout**: `number`
 
-Defined in: [src/queue.ts:112](https://github.com/calebboyd/aceink/blob/42a74d970a04ce9c8fa0a039da404dafccda8cf7/src/queue.ts#L112)
+Defined in: [src/queue.ts:128](https://github.com/calebboyd/aceink/blob/f698b0774dd849824fffedf1fa982747f796bca1/src/queue.ts#L128)
 
 Default per-task timeout in milliseconds once queued work begins executing.

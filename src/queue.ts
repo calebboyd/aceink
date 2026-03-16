@@ -4,6 +4,11 @@ interface ReadyReservation {
   active: boolean
 }
 
+interface QueuedTask {
+  clear: () => void
+  start: () => void
+}
+
 interface ReadyWaiter {
   cleanup?: () => void
   reject: (reason?: unknown) => void
@@ -68,6 +73,17 @@ export class AbortError extends Error {
 
 /**
  * @public
+ * Error raised when queued work is cleared before it starts.
+ */
+export class QueueClearedError extends Error {
+  constructor(message = 'Task was cleared before it started') {
+    super(message)
+    this.name = 'QueueClearedError'
+  }
+}
+
+/**
+ * @public
  * Per-task queue execution options.
  */
 export interface QueueTaskOptions {
@@ -126,7 +142,7 @@ export function q(size: number, options: QueueOptions = {}): Queue {
 export class Queue {
   private readonly concurrency: number
   private paused = false
-  private queued: Array<() => void> = []
+  private queued: QueuedTask[] = []
   private tasks = new Set<Promise<void>>()
   private readyWaiters: ReadyWaiter[] = []
   private readyReservations: ReadyReservation[] = []
@@ -152,6 +168,7 @@ export class Queue {
       this.empty = this.empty.bind(this)
       this.pause = this.pause.bind(this)
       this.start = this.start.bind(this)
+      this.clear = this.clear.bind(this)
     }
   }
 
@@ -176,6 +193,20 @@ export class Queue {
   public start(): void {
     this.paused = false
     this.process()
+    this.flushReadyWaiters()
+  }
+
+  /**
+   * Clear queued work that has not started yet.
+   */
+  public clear(): void {
+    const queued = this.queued
+    this.queued = []
+
+    for (const task of queued) {
+      task.clear()
+    }
+
     this.flushReadyWaiters()
   }
 
@@ -253,6 +284,7 @@ export class Queue {
       })
     }
 
+    let task!: QueuedTask
     const start = () => {
       if (settled) return
 
@@ -288,7 +320,7 @@ export class Queue {
       const { signal } = options
       const onAbort = () => {
         if (!started) {
-          const index = this.queued.indexOf(start)
+          const index = this.queued.indexOf(task)
           if (index !== -1) {
             this.queued.splice(index, 1)
           }
@@ -303,7 +335,14 @@ export class Queue {
       }
     }
 
-    this.queued.push(start)
+    task = {
+      clear: () => {
+        finish(() => rejectOperation(new QueueClearedError()))
+      },
+      start,
+    }
+
+    this.queued.push(task)
     this.process()
     this.flushReadyWaiters()
 
@@ -378,7 +417,7 @@ export class Queue {
 
   private process(): void {
     while (!this.paused && this.pendingCount < this.concurrency && this.queued.length) {
-      this.queued.shift()?.()
+      this.queued.shift()?.start()
     }
   }
 

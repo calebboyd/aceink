@@ -8,4 +8,4 @@
 
 > **QueueSettleMode** = `"ordered"` \| `"completion"`
 
-Defined in: [src/queue.ts:42](https://github.com/calebboyd/aceink/blob/42a74d970a04ce9c8fa0a039da404dafccda8cf7/src/queue.ts#L42)
+Defined in: [src/queue.ts:47](https://github.com/calebboyd/aceink/blob/f698b0774dd849824fffedf1fa982747f796bca1/src/queue.ts#L47)

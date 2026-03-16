@@ -6,7 +6,7 @@
 
 # Class: Queue
 
-Defined in: [src/queue.ts:126](https://github.com/calebboyd/aceink/blob/42a74d970a04ce9c8fa0a039da404dafccda8cf7/src/queue.ts#L126)
+Defined in: [src/queue.ts:142](https://github.com/calebboyd/aceink/blob/f698b0774dd849824fffedf1fa982747f796bca1/src/queue.ts#L142)
 
 Work queue abstraction with concurrency control
 
@@ -16,7 +16,7 @@ Work queue abstraction with concurrency control
 
 > **new Queue**(`concurrency`, `options?`): `Queue`
 
-Defined in: [src/queue.ts:137](https://github.com/calebboyd/aceink/blob/42a74d970a04ce9c8fa0a039da404dafccda8cf7/src/queue.ts#L137)
+Defined in: [src/queue.ts:153](https://github.com/calebboyd/aceink/blob/f698b0774dd849824fffedf1fa982747f796bca1/src/queue.ts#L153)
 
 #### Parameters
 
@@ -40,7 +40,7 @@ Defined in: [src/queue.ts:137](https://github.com/calebboyd/aceink/blob/42a74d97
 
 > **get** **pending**(): `number`
 
-Defined in: [src/queue.ts:158](https://github.com/calebboyd/aceink/blob/42a74d970a04ce9c8fa0a039da404dafccda8cf7/src/queue.ts#L158)
+Defined in: [src/queue.ts:175](https://github.com/calebboyd/aceink/blob/f698b0774dd849824fffedf1fa982747f796bca1/src/queue.ts#L175)
 
 ##### Returns
 
@@ -54,7 +54,7 @@ Defined in: [src/queue.ts:158](https://github.com/calebboyd/aceink/blob/42a74d97
 
 > **get** **size**(): `number`
 
-Defined in: [src/queue.ts:162](https://github.com/calebboyd/aceink/blob/42a74d970a04ce9c8fa0a039da404dafccda8cf7/src/queue.ts#L162)
+Defined in: [src/queue.ts:179](https://github.com/calebboyd/aceink/blob/f698b0774dd849824fffedf1fa982747f796bca1/src/queue.ts#L179)
 
 ##### Returns
 
@@ -66,7 +66,7 @@ Defined in: [src/queue.ts:162](https://github.com/calebboyd/aceink/blob/42a74d97
 
 > **add**\<`T`\>(`work`, `arg?`, `options?`): `Promise`\<`Awaited`\<`ReturnType`\<`T`\>\>\>
 
-Defined in: [src/queue.ts:189](https://github.com/calebboyd/aceink/blob/42a74d970a04ce9c8fa0a039da404dafccda8cf7/src/queue.ts#L189)
+Defined in: [src/queue.ts:220](https://github.com/calebboyd/aceink/blob/f698b0774dd849824fffedf1fa982747f796bca1/src/queue.ts#L220)
 
 Add work to the Queue. By default the returned promise settles in queue order.
 Pass `settle: 'completion'` to settle each promise as soon as its work settles.
@@ -103,11 +103,25 @@ per-task options (signal, timeout)
 
 ***
 
+### clear()
+
+> **clear**(): `void`
+
+Defined in: [src/queue.ts:202](https://github.com/calebboyd/aceink/blob/f698b0774dd849824fffedf1fa982747f796bca1/src/queue.ts#L202)
+
+Clear queued work that has not started yet.
+
+#### Returns
+
+`void`
+
+***
+
 ### empty()
 
 > **empty**(): `Promise`\<`void`\>
 
-Defined in: [src/queue.ts:349](https://github.com/calebboyd/aceink/blob/42a74d970a04ce9c8fa0a039da404dafccda8cf7/src/queue.ts#L349)
+Defined in: [src/queue.ts:388](https://github.com/calebboyd/aceink/blob/f698b0774dd849824fffedf1fa982747f796bca1/src/queue.ts#L388)
 
 Wait for all queued work to settle.
 
@@ -121,7 +135,7 @@ Wait for all queued work to settle.
 
 > **pause**(): `void`
 
-Defined in: [src/queue.ts:169](https://github.com/calebboyd/aceink/blob/42a74d970a04ce9c8fa0a039da404dafccda8cf7/src/queue.ts#L169)
+Defined in: [src/queue.ts:186](https://github.com/calebboyd/aceink/blob/f698b0774dd849824fffedf1fa982747f796bca1/src/queue.ts#L186)
 
 Pause starting queued work. Running tasks continue until they settle.
 
@@ -135,7 +149,7 @@ Pause starting queued work. Running tasks continue until they settle.
 
 > **ready**(`options?`): `Promise`\<`void`\>
 
-Defined in: [src/queue.ts:316](https://github.com/calebboyd/aceink/blob/42a74d970a04ce9c8fa0a039da404dafccda8cf7/src/queue.ts#L316)
+Defined in: [src/queue.ts:355](https://github.com/calebboyd/aceink/blob/f698b0774dd849824fffedf1fa982747f796bca1/src/queue.ts#L355)
 
 Wait for the queue to be able to start another task immediately.
 
@@ -155,7 +169,7 @@ Wait for the queue to be able to start another task immediately.
 
 > **start**(): `void`
 
-Defined in: [src/queue.ts:176](https://github.com/calebboyd/aceink/blob/42a74d970a04ce9c8fa0a039da404dafccda8cf7/src/queue.ts#L176)
+Defined in: [src/queue.ts:193](https://github.com/calebboyd/aceink/blob/f698b0774dd849824fffedf1fa982747f796bca1/src/queue.ts#L193)
 
 Resume draining queued work.
 
