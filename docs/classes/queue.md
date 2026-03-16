@@ -6,7 +6,7 @@
 
 # Class: Queue
 
-Defined in: [src/queue.ts:135](https://github.com/calebboyd/aceink/blob/e5fe3eb1dd317c0d3ee63c52f1ea1f47db32407a/src/queue.ts#L135)
+Defined in: [src/queue.ts:126](https://github.com/calebboyd/aceink/blob/6ba0ecb047d89b7e1bc92181cc12988be1bea1e3/src/queue.ts#L126)
 
 Work queue abstraction with concurrency control
 
@@ -16,7 +16,7 @@ Work queue abstraction with concurrency control
 
 > **new Queue**(`concurrency`, `options?`): `Queue`
 
-Defined in: [src/queue.ts:145](https://github.com/calebboyd/aceink/blob/e5fe3eb1dd317c0d3ee63c52f1ea1f47db32407a/src/queue.ts#L145)
+Defined in: [src/queue.ts:136](https://github.com/calebboyd/aceink/blob/6ba0ecb047d89b7e1bc92181cc12988be1bea1e3/src/queue.ts#L136)
 
 #### Parameters
 
@@ -40,7 +40,7 @@ Defined in: [src/queue.ts:145](https://github.com/calebboyd/aceink/blob/e5fe3eb1
 
 > **get** **pending**(): `number`
 
-Defined in: [src/queue.ts:164](https://github.com/calebboyd/aceink/blob/e5fe3eb1dd317c0d3ee63c52f1ea1f47db32407a/src/queue.ts#L164)
+Defined in: [src/queue.ts:155](https://github.com/calebboyd/aceink/blob/6ba0ecb047d89b7e1bc92181cc12988be1bea1e3/src/queue.ts#L155)
 
 ##### Returns
 
@@ -54,7 +54,7 @@ Defined in: [src/queue.ts:164](https://github.com/calebboyd/aceink/blob/e5fe3eb1
 
 > **get** **size**(): `number`
 
-Defined in: [src/queue.ts:168](https://github.com/calebboyd/aceink/blob/e5fe3eb1dd317c0d3ee63c52f1ea1f47db32407a/src/queue.ts#L168)
+Defined in: [src/queue.ts:159](https://github.com/calebboyd/aceink/blob/6ba0ecb047d89b7e1bc92181cc12988be1bea1e3/src/queue.ts#L159)
 
 ##### Returns
 
@@ -64,71 +64,40 @@ Defined in: [src/queue.ts:168](https://github.com/calebboyd/aceink/blob/e5fe3eb1
 
 ### add()
 
-#### Call Signature
-
-> **add**\<`T`\>(`work`, `options?`): `Promise`\<`Awaited`\<`ReturnType`\<`T`\>\>\>
-
-Defined in: [src/queue.ts:179](https://github.com/calebboyd/aceink/blob/e5fe3eb1dd317c0d3ee63c52f1ea1f47db32407a/src/queue.ts#L179)
-
-Add work to the Queue. By default the returned promise settles in queue order.
-Pass `settle: 'completion'` to settle each promise as soon as its work settles.
-
-##### Type Parameters
-
-###### T
-
-`T` *extends* () => `unknown`
-
-##### Parameters
-
-###### work
-
-`T`
-
-work function
-
-###### options?
-
-[`QueueTaskOptions`](../interfaces/QueueTaskOptions.md)
-
-##### Returns
-
-`Promise`\<`Awaited`\<`ReturnType`\<`T`\>\>\>
-
-#### Call Signature
-
 > **add**\<`T`\>(`work`, `arg?`, `options?`): `Promise`\<`Awaited`\<`ReturnType`\<`T`\>\>\>
 
-Defined in: [src/queue.ts:183](https://github.com/calebboyd/aceink/blob/e5fe3eb1dd317c0d3ee63c52f1ea1f47db32407a/src/queue.ts#L183)
+Defined in: [src/queue.ts:170](https://github.com/calebboyd/aceink/blob/6ba0ecb047d89b7e1bc92181cc12988be1bea1e3/src/queue.ts#L170)
 
 Add work to the Queue. By default the returned promise settles in queue order.
 Pass `settle: 'completion'` to settle each promise as soon as its work settles.
 
-##### Type Parameters
+#### Type Parameters
 
-###### T
+##### T
 
 `T` *extends* [`Func`](../type-aliases/Func.md)
 
-##### Parameters
+#### Parameters
 
-###### work
+##### work
 
 `T`
 
 work function
 
-###### arg?
+##### arg?
 
 `Parameters`\<`T`\>\[`0`\]
 
 single argument that will be passed to the work function
 
-###### options?
+##### options?
 
-[`QueueTaskOptions`](../interfaces/QueueTaskOptions.md)
+[`QueueTaskOptions`](../interfaces/QueueTaskOptions.md) = `{}`
 
-##### Returns
+per-task options (signal, timeout)
+
+#### Returns
 
 `Promise`\<`Awaited`\<`ReturnType`\<`T`\>\>\>
 
@@ -138,7 +107,7 @@ single argument that will be passed to the work function
 
 > **empty**(): `Promise`\<`void`\>
 
-Defined in: [src/queue.ts:349](https://github.com/calebboyd/aceink/blob/e5fe3eb1dd317c0d3ee63c52f1ea1f47db32407a/src/queue.ts#L349)
+Defined in: [src/queue.ts:330](https://github.com/calebboyd/aceink/blob/6ba0ecb047d89b7e1bc92181cc12988be1bea1e3/src/queue.ts#L330)
 
 Wait for all queued work to settle.
 
@@ -152,7 +121,7 @@ Wait for all queued work to settle.
 
 > **ready**(`options?`): `Promise`\<`void`\>
 
-Defined in: [src/queue.ts:316](https://github.com/calebboyd/aceink/blob/e5fe3eb1dd317c0d3ee63c52f1ea1f47db32407a/src/queue.ts#L316)
+Defined in: [src/queue.ts:297](https://github.com/calebboyd/aceink/blob/6ba0ecb047d89b7e1bc92181cc12988be1bea1e3/src/queue.ts#L297)
 
 Wait for the queue to be able to start another task immediately.
 

@@ -52,7 +52,7 @@ const queue = q(2, { timeout: 5000 })
 const controller = new AbortController()
 
 try {
-  const work = queue.add(() => fetch('https://example.com'), { signal: controller.signal })
+  const work = queue.add(() => fetch('https://example.com'), undefined, { signal: controller.signal })
 
   controller.abort()
   await work

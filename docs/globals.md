@@ -32,6 +32,7 @@
 - [createLock](functions/createLock.md)
 - [delay](functions/delay.md)
 - [each](functions/each.md)
+- [getAbortReason](functions/getAbortReason.md)
 - [gowait](functions/gowait.md)
 - [identity](functions/identity.md)
 - [map](functions/map.md)

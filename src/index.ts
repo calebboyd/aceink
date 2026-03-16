@@ -5,6 +5,7 @@ export { gowait, ErrorValue } from './gowait.js'
 export { Semaphore, createLock } from './semaphore.js'
 export {
   AbortError,
+  getAbortReason,
   Queue,
   q,
   QueueOptions,

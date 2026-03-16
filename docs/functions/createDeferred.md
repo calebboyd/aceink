@@ -8,7 +8,7 @@
 
 > **createDeferred**\<`T`\>(`value?`): [`Deferred`](../classes/Deferred.md)\<`T`\>
 
-Defined in: [src/deferred.ts:9](https://github.com/calebboyd/aceink/blob/e5fe3eb1dd317c0d3ee63c52f1ea1f47db32407a/src/deferred.ts#L9)
+Defined in: [src/deferred.ts:9](https://github.com/calebboyd/aceink/blob/6ba0ecb047d89b7e1bc92181cc12988be1bea1e3/src/deferred.ts#L9)
 
 Create a new Deferred instance
 

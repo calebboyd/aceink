@@ -4,5 +4,5 @@
   "singleQuote": true,
   "printWidth": 100,
   "sortPackageJson": false,
-  "ignorePatterns": ["lib", "node_modules"]
+  "ignorePatterns": ["lib", "node_modules", "**/*.md"]
 }

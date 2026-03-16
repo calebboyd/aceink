@@ -1,6 +1,6 @@
 import type { ExplicitAny } from './lang.js'
 import { noop } from './lang.js'
-import { AbortError, Queue } from './queue.js'
+import { getAbortReason, Queue } from './queue.js'
 /**
  * @public
  */
@@ -19,22 +19,6 @@ export interface EachOptions<K = ExplicitAny> {
   onError?: 'settle' | 'bail'
   signal?: AbortSignal
   timeout?: number
-}
-
-const getAbortReason = (signal: AbortSignal): unknown => {
-  if (typeof signal.reason === 'undefined') {
-    return new AbortError()
-  }
-
-  if (
-    typeof DOMException !== 'undefined' &&
-    signal.reason instanceof DOMException &&
-    signal.reason.name === 'AbortError'
-  ) {
-    return new AbortError(signal.reason.message)
-  }
-
-  return signal.reason
 }
 
 const throwIfAborted = (signal?: AbortSignal): void => {

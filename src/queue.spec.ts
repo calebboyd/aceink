@@ -153,8 +153,10 @@ describe('queue', () => {
   it('should allow per-task timeout overrides', async () => {
     const q = new Queue(1, { timeout: 50, settle: 'completion' })
 
-    await expect(q.add(() => delay(25), { timeout: 10 })).rejects.toBeInstanceOf(TimeoutError)
-    await expect(q.add(() => delay(10), { timeout: 30 })).resolves.toBeUndefined()
+    await expect(q.add(() => delay(25), undefined, { timeout: 10 })).rejects.toBeInstanceOf(
+      TimeoutError,
+    )
+    await expect(q.add(() => delay(10), undefined, { timeout: 30 })).resolves.toBeUndefined()
   })
 
   it('should remove aborted queued work and continue draining the queue', async () => {
@@ -168,6 +170,7 @@ describe('queue', () => {
       () => {
         ran.push('aborted')
       },
+      undefined,
       { signal: controller.signal },
     )
     const next = q.add(() => {
@@ -193,7 +196,7 @@ describe('queue', () => {
     const controller = new AbortController()
     const work = createDeferred<void>()
 
-    const task = q.add(() => work.promise, { signal: controller.signal })
+    const task = q.add(() => work.promise, undefined, { signal: controller.signal })
 
     controller.abort()
 
@@ -231,7 +234,7 @@ describe('queue', () => {
     controller.abort()
 
     await expect(
-      q.add(() => Promise.resolve('nope'), { signal: controller.signal }),
+      q.add(() => Promise.resolve('nope'), undefined, { signal: controller.signal }),
     ).rejects.toBeInstanceOf(AbortError)
     expect(q.pending).toBe(0)
     expect(q.size).toBe(0)
@@ -242,7 +245,7 @@ describe('queue', () => {
       'Expected `timeout` to be a positive finite number',
     )
     const q = new Queue(1)
-    expect(() => q.add(() => Promise.resolve(), { timeout: 0 })).toThrow(
+    expect(() => q.add(() => Promise.resolve(), undefined, { timeout: 0 })).toThrow(
       'Expected `timeout` to be a positive finite number',
     )
   })

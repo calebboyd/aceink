@@ -6,7 +6,7 @@
 
 # Class: AbortError
 
-Defined in: [src/queue.ts:71](https://github.com/calebboyd/aceink/blob/e5fe3eb1dd317c0d3ee63c52f1ea1f47db32407a/src/queue.ts#L71)
+Defined in: [src/queue.ts:62](https://github.com/calebboyd/aceink/blob/6ba0ecb047d89b7e1bc92181cc12988be1bea1e3/src/queue.ts#L62)
 
 Error raised when queued work is aborted without a custom abort reason.
 
@@ -20,7 +20,7 @@ Error raised when queued work is aborted without a custom abort reason.
 
 > **new AbortError**(`message?`): `AbortError`
 
-Defined in: [src/queue.ts:72](https://github.com/calebboyd/aceink/blob/e5fe3eb1dd317c0d3ee63c52f1ea1f47db32407a/src/queue.ts#L72)
+Defined in: [src/queue.ts:63](https://github.com/calebboyd/aceink/blob/6ba0ecb047d89b7e1bc92181cc12988be1bea1e3/src/queue.ts#L63)
 
 #### Parameters
 

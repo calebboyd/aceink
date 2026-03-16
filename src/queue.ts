@@ -10,20 +10,11 @@ interface ReadyWaiter {
   resolve: () => void
 }
 
-const isQueueTaskOptions = (value: unknown): value is QueueTaskOptions => {
-  if (typeof value === 'undefined') return true
-  if (typeof value !== 'object' || value === null) return false
-
-  const prototype = Object.getPrototypeOf(value)
-  if (prototype !== Object.prototype && prototype !== null) return false
-
-  const keys = Object.keys(value as Record<string, unknown>)
-  if (keys.length === 0) return false
-
-  return keys.every((key) => key === 'signal' || key === 'timeout')
-}
-
-const getAbortReason = (signal: AbortSignal): unknown => {
+/**
+ * @public
+ * Extract the abort reason from a signal, wrapping bare DOMException AbortErrors.
+ */
+export const getAbortReason = (signal: AbortSignal): unknown => {
   if (typeof signal.reason === 'undefined') {
     return new AbortError()
   }
@@ -174,25 +165,15 @@ export class Queue {
    * Pass `settle: 'completion'` to settle each promise as soon as its work settles.
    * @param work work function
    * @param arg single argument that will be passed to the work function
-   * @returns
+   * @param options per-task options (signal, timeout)
    */
-  public add<T extends () => unknown>(
-    work: T,
-    options?: QueueTaskOptions,
-  ): Promise<Awaited<ReturnType<T>>>
   public add<T extends Func>(
     work: T,
     arg?: Parameters<T>[0],
-    options?: QueueTaskOptions,
-  ): Promise<Awaited<ReturnType<T>>>
-  public add<T extends Func>(
-    work: T,
-    argOrOptions?: Parameters<T>[0] | QueueTaskOptions,
-    maybeOptions?: QueueTaskOptions,
+    options: QueueTaskOptions = {},
   ): Promise<Awaited<ReturnType<T>>> {
     this.consumeReadyReservation()
 
-    const [arg, options] = this.parseAddArguments(work, argOrOptions, maybeOptions)
     const timeout = options.timeout ?? this.timeout
 
     assertValidTimeout(timeout)
@@ -205,21 +186,21 @@ export class Queue {
     })
     const result = this.createResult(operation)
 
-    let resolveTask!: () => void
-    const completion = new Promise<void>((resolve) => {
-      resolveTask = resolve
+    let resolveDone!: () => void
+    const done = new Promise<void>((resolve) => {
+      resolveDone = resolve
     })
 
-    let tracked!: Promise<void>
-    tracked = completion.finally(() => {
-      this.tasks.delete(tracked)
+    let lifecycle!: Promise<void>
+    lifecycle = done.finally(() => {
+      this.tasks.delete(lifecycle)
     })
 
-    this.tasks.add(tracked)
+    this.tasks.add(lifecycle)
 
     if (options.signal?.aborted) {
       rejectOperation(getAbortReason(options.signal))
-      resolveTask()
+      resolveDone()
       queueMicrotask(() => {
         this.flushReadyWaiters()
       })
@@ -241,7 +222,7 @@ export class Queue {
 
       cleanupAbort()
       settle()
-      resolveTask()
+      resolveDone()
 
       if (started) {
         this.pendingCount -= 1
@@ -352,22 +333,6 @@ export class Queue {
     }
 
     await this.last
-  }
-
-  private parseAddArguments<T extends Func>(
-    work: T,
-    argOrOptions?: Parameters<T>[0] | QueueTaskOptions,
-    maybeOptions?: QueueTaskOptions,
-  ): [Parameters<T>[0] | undefined, QueueTaskOptions] {
-    if (
-      typeof maybeOptions === 'undefined' &&
-      work.length === 0 &&
-      isQueueTaskOptions(argOrOptions)
-    ) {
-      return [undefined, argOrOptions ?? {}]
-    }
-
-    return [argOrOptions as Parameters<T>[0], maybeOptions ?? {}]
   }
 
   private createResult<T>(operation: Promise<T>): Promise<T> {
