@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0](https://github.com/calebboyd/aceink/compare/v2.0.0...v2.1.0) (2026-03-16)
+
+
+### Features
+
+* add queue clear control ([9112a11](https://github.com/calebboyd/aceink/commit/9112a115491d18cb47e37a338e3200096f27ac1e))
+* add queue onEmpty helper ([cf164a3](https://github.com/calebboyd/aceink/commit/cf164a32b5bf6fb631f77ccc2e5cf9e05966ff38))
+* add queue pause and start controls ([e0510cf](https://github.com/calebboyd/aceink/commit/e0510cffe802965d7aac15903aa25a1339b3d094))
+
 # [2.0.0](https://github.com/calebboyd/aceink/compare/v1.3.1...v2.0.0) (2026-03-16)
 
 
