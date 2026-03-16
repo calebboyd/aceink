@@ -6,7 +6,7 @@
 
 # Class: QueueClearedError
 
-Defined in: [src/queue.ts:78](https://github.com/calebboyd/aceink/blob/f698b0774dd849824fffedf1fa982747f796bca1/src/queue.ts#L78)
+Defined in: [src/queue.ts:78](https://github.com/calebboyd/aceink/blob/6619317f0c8308e5cdc387b8b8c411daf4194de4/src/queue.ts#L78)
 
 Error raised when queued work is cleared before it starts.
 
@@ -20,7 +20,7 @@ Error raised when queued work is cleared before it starts.
 
 > **new QueueClearedError**(`message?`): `QueueClearedError`
 
-Defined in: [src/queue.ts:79](https://github.com/calebboyd/aceink/blob/f698b0774dd849824fffedf1fa982747f796bca1/src/queue.ts#L79)
+Defined in: [src/queue.ts:79](https://github.com/calebboyd/aceink/blob/6619317f0c8308e5cdc387b8b8c411daf4194de4/src/queue.ts#L79)
 
 #### Parameters
 

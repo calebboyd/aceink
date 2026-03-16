@@ -6,7 +6,7 @@
 
 # Interface: MapOptions\<K\>
 
-Defined in: [src/map.ts:9](https://github.com/calebboyd/aceink/blob/f698b0774dd849824fffedf1fa982747f796bca1/src/map.ts#L9)
+Defined in: [src/map.ts:9](https://github.com/calebboyd/aceink/blob/6619317f0c8308e5cdc387b8b8c411daf4194de4/src/map.ts#L9)
 
 map() configuration.
 
@@ -26,7 +26,7 @@ map() configuration.
 
 > `optional` **concurrency**: `number`
 
-Defined in: [src/each.ts:18](https://github.com/calebboyd/aceink/blob/f698b0774dd849824fffedf1fa982747f796bca1/src/each.ts#L18)
+Defined in: [src/each.ts:18](https://github.com/calebboyd/aceink/blob/6619317f0c8308e5cdc387b8b8c411daf4194de4/src/each.ts#L18)
 
 #### Inherited from
 
@@ -38,7 +38,7 @@ Defined in: [src/each.ts:18](https://github.com/calebboyd/aceink/blob/f698b0774d
 
 > `optional` **context**: `void` \| `K`
 
-Defined in: [src/each.ts:17](https://github.com/calebboyd/aceink/blob/f698b0774dd849824fffedf1fa982747f796bca1/src/each.ts#L17)
+Defined in: [src/each.ts:17](https://github.com/calebboyd/aceink/blob/6619317f0c8308e5cdc387b8b8c411daf4194de4/src/each.ts#L17)
 
 #### Inherited from
 
@@ -50,7 +50,7 @@ Defined in: [src/each.ts:17](https://github.com/calebboyd/aceink/blob/f698b0774d
 
 > `optional` **signal**: `AbortSignal`
 
-Defined in: [src/each.ts:20](https://github.com/calebboyd/aceink/blob/f698b0774dd849824fffedf1fa982747f796bca1/src/each.ts#L20)
+Defined in: [src/each.ts:20](https://github.com/calebboyd/aceink/blob/6619317f0c8308e5cdc387b8b8c411daf4194de4/src/each.ts#L20)
 
 #### Inherited from
 
@@ -62,7 +62,7 @@ Defined in: [src/each.ts:20](https://github.com/calebboyd/aceink/blob/f698b0774d
 
 > `optional` **timeout**: `number`
 
-Defined in: [src/each.ts:21](https://github.com/calebboyd/aceink/blob/f698b0774dd849824fffedf1fa982747f796bca1/src/each.ts#L21)
+Defined in: [src/each.ts:21](https://github.com/calebboyd/aceink/blob/6619317f0c8308e5cdc387b8b8c411daf4194de4/src/each.ts#L21)
 
 #### Inherited from
 

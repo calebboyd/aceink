@@ -6,7 +6,7 @@
 
 # Interface: QueueTaskOptions
 
-Defined in: [src/queue.ts:89](https://github.com/calebboyd/aceink/blob/f698b0774dd849824fffedf1fa982747f796bca1/src/queue.ts#L89)
+Defined in: [src/queue.ts:89](https://github.com/calebboyd/aceink/blob/6619317f0c8308e5cdc387b8b8c411daf4194de4/src/queue.ts#L89)
 
 Per-task queue execution options.
 
@@ -16,7 +16,7 @@ Per-task queue execution options.
 
 > `optional` **signal**: `AbortSignal`
 
-Defined in: [src/queue.ts:94](https://github.com/calebboyd/aceink/blob/f698b0774dd849824fffedf1fa982747f796bca1/src/queue.ts#L94)
+Defined in: [src/queue.ts:94](https://github.com/calebboyd/aceink/blob/6619317f0c8308e5cdc387b8b8c411daf4194de4/src/queue.ts#L94)
 
 Abort queued or running work. Aborting a running task releases queue bookkeeping,
 but does not force the underlying work to stop.
@@ -27,6 +27,6 @@ but does not force the underlying work to stop.
 
 > `optional` **timeout**: `number`
 
-Defined in: [src/queue.ts:98](https://github.com/calebboyd/aceink/blob/f698b0774dd849824fffedf1fa982747f796bca1/src/queue.ts#L98)
+Defined in: [src/queue.ts:98](https://github.com/calebboyd/aceink/blob/6619317f0c8308e5cdc387b8b8c411daf4194de4/src/queue.ts#L98)
 
 Maximum runtime in milliseconds once the task starts executing.

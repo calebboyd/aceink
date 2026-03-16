@@ -8,7 +8,7 @@ Useful async tools.
   - simple deferred promise
 - `q`
   - a concurrent work queue
-  - supports `pause()`, `start()`, and `clear()` for queue control
+  - supports `pause()`, `start()`, `clear()`, and `onEmpty()` for queue control
 - `each`, `map`
   - _optionally_ concurrent iteration functions
 - `timeout` and `signal` options
@@ -83,6 +83,8 @@ try {
 } catch (error) {
   if (!(error instanceof QueueClearedError)) throw error
 }
+
+await queue.onEmpty() // queued work has been dequeued; running work may still settle
 ```
 
 ### Example (gowait)

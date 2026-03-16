@@ -76,10 +76,12 @@ describe('queue', () => {
   it('should allow disabling bound methods through options', async () => {
     expect(new Queue(1).add).not.toBe(Queue.prototype.add)
     expect(new Queue(1).clear).not.toBe(Queue.prototype.clear)
+    expect(new Queue(1).onEmpty).not.toBe(Queue.prototype.onEmpty)
     expect(new Queue(1).pause).not.toBe(Queue.prototype.pause)
     expect(new Queue(1).start).not.toBe(Queue.prototype.start)
     expect(new Queue(1, { bound: false }).add).toBe(Queue.prototype.add)
     expect(new Queue(1, { bound: false }).clear).toBe(Queue.prototype.clear)
+    expect(new Queue(1, { bound: false }).onEmpty).toBe(Queue.prototype.onEmpty)
     expect(new Queue(1, { bound: false }).pause).toBe(Queue.prototype.pause)
     expect(new Queue(1, { bound: false }).start).toBe(Queue.prototype.start)
   })
@@ -220,6 +222,61 @@ describe('queue', () => {
       'ready',
     )
     await expect(ready).resolves.toBeUndefined()
+  })
+
+  it('should resolve onEmpty when queued work has been dequeued', async () => {
+    const first = createDeferred<void>()
+    const second = createDeferred<void>()
+    const q = new Queue(1, { settle: 'completion' })
+
+    const running = q.add(() => first.promise)
+    const queued = q.add(() => second.promise)
+    const empty = q.onEmpty()
+
+    await expect(Promise.race([empty.then(() => 'empty'), delay(25, 'timeout')])).resolves.toBe(
+      'timeout',
+    )
+
+    first.resolve()
+    await flush()
+
+    await expect(empty).resolves.toBeUndefined()
+    expect(q.size).toBe(0)
+    expect(q.pending).toBe(1)
+
+    second.resolve()
+    await Promise.all([running, queued])
+  })
+
+  it('should resolve onEmpty after clearing queued work', async () => {
+    const q = new Queue(1, { settle: 'completion' })
+
+    q.pause()
+
+    const task = q.add(() => 'queued')
+    const empty = q.onEmpty()
+
+    q.clear()
+
+    await expect(task).rejects.toBeInstanceOf(QueueClearedError)
+    await expect(empty).resolves.toBeUndefined()
+  })
+
+  it('should support aborting onEmpty waiters', async () => {
+    const controller = new AbortController()
+    const q = new Queue(1, { settle: 'completion' })
+
+    q.pause()
+    const task = q.add(() => 'queued')
+
+    const empty = q.onEmpty({ signal: controller.signal })
+
+    controller.abort()
+
+    await expect(empty).rejects.toBeInstanceOf(AbortError)
+
+    q.clear()
+    await expect(task).rejects.toBeInstanceOf(QueueClearedError)
   })
 
   it('should reject queued work when cleared', async () => {

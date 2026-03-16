@@ -42,6 +42,7 @@ All notable changes to this project will be documented in this file. See
 - add queue task timeouts and abort signals, and thread them through `each()` and `map()`
 - add queue `pause()` and `start()` controls for temporarily halting queue drain
 - add queue `clear()` and reject removed queued tasks with `QueueClearedError`
+- add queue `onEmpty()` to wait for queued work to drain separately from `empty()`
 
 # [2.0.0](https://github.com/calebboyd/async/compare/v1.3.0...v2.0.0) (2026-03-16)
 

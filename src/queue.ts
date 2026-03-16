@@ -9,7 +9,7 @@ interface QueuedTask {
   start: () => void
 }
 
-interface ReadyWaiter {
+interface QueueWaiter {
   cleanup?: () => void
   reject: (reason?: unknown) => void
   resolve: () => void
@@ -104,7 +104,7 @@ export interface QueueTaskOptions {
  */
 export interface QueueWaitOptions {
   /**
-   * Abort waiting for the queue to become ready.
+   * Abort waiting for a queue condition.
    */
   signal?: AbortSignal
 }
@@ -144,7 +144,8 @@ export class Queue {
   private paused = false
   private queued: QueuedTask[] = []
   private tasks = new Set<Promise<void>>()
-  private readyWaiters: ReadyWaiter[] = []
+  private emptyWaiters: QueueWaiter[] = []
+  private readyWaiters: QueueWaiter[] = []
   private readyReservations: ReadyReservation[] = []
   private pendingCount = 0
   private last: Promise<void> = Promise.resolve()
@@ -166,6 +167,7 @@ export class Queue {
       this.add = this.add.bind(this)
       this.ready = this.ready.bind(this)
       this.empty = this.empty.bind(this)
+      this.onEmpty = this.onEmpty.bind(this)
       this.pause = this.pause.bind(this)
       this.start = this.start.bind(this)
       this.clear = this.clear.bind(this)
@@ -193,6 +195,7 @@ export class Queue {
   public start(): void {
     this.paused = false
     this.process()
+    this.flushEmptyWaiters()
     this.flushReadyWaiters()
   }
 
@@ -207,6 +210,7 @@ export class Queue {
       task.clear()
     }
 
+    this.flushEmptyWaiters()
     this.flushReadyWaiters()
   }
 
@@ -252,6 +256,7 @@ export class Queue {
       rejectOperation(getAbortReason(options.signal))
       resolveDone()
       queueMicrotask(() => {
+        this.flushEmptyWaiters()
         this.flushReadyWaiters()
       })
       return result
@@ -280,6 +285,7 @@ export class Queue {
 
       queueMicrotask(() => {
         this.process()
+        this.flushEmptyWaiters()
         this.flushReadyWaiters()
       })
     }
@@ -344,46 +350,43 @@ export class Queue {
 
     this.queued.push(task)
     this.process()
+    this.flushEmptyWaiters()
     this.flushReadyWaiters()
 
     return result
   }
 
   /**
+   * Wait for queued work to be fully dequeued, even if running tasks are still settling.
+   */
+  public onEmpty(options: QueueWaitOptions = {}): Promise<void> {
+    if (this.size === 0) {
+      if (options.signal?.aborted) {
+        return Promise.reject(getAbortReason(options.signal))
+      }
+
+      return Promise.resolve()
+    }
+
+    return this.waitFor(this.emptyWaiters, options)
+  }
+
+  /**
    * Wait for the queue to be able to start another task immediately.
    */
   public ready(options: QueueWaitOptions = {}): Promise<void> {
-    if (options.signal?.aborted) {
-      return Promise.reject(getAbortReason(options.signal))
-    }
-
-    return new Promise((resolve, reject) => {
-      const waiter: ReadyWaiter = { resolve, reject }
-
-      if (options.signal) {
-        const { signal } = options
-        const onAbort = () => {
-          const index = this.readyWaiters.indexOf(waiter)
-          if (index === -1) return
-
-          this.readyWaiters.splice(index, 1)
-          waiter.cleanup?.()
-          reject(getAbortReason(signal))
-          this.flushReadyWaiters()
-        }
-
-        signal.addEventListener('abort', onAbort, { once: true })
-        waiter.cleanup = () => {
-          signal.removeEventListener('abort', onAbort)
-        }
+    if (this.canGrantReady()) {
+      if (options.signal?.aborted) {
+        return Promise.reject(getAbortReason(options.signal))
       }
 
-      this.readyWaiters.push(waiter)
-      this.flushReadyWaiters()
-    })
+      return Promise.resolve()
+    }
+
+    return this.waitFor(this.readyWaiters, options)
   }
   /**
-   * Wait for all queued work to settle.
+   * Wait for all queued and running work to settle.
    */
   public async empty(): Promise<void> {
     while (this.tasks.size) {
@@ -418,6 +421,49 @@ export class Queue {
   private process(): void {
     while (!this.paused && this.pendingCount < this.concurrency && this.queued.length) {
       this.queued.shift()?.start()
+    }
+  }
+
+  private waitFor(waiters: QueueWaiter[], options: QueueWaitOptions): Promise<void> {
+    if (options.signal?.aborted) {
+      return Promise.reject(getAbortReason(options.signal))
+    }
+
+    return new Promise((resolve, reject) => {
+      const waiter: QueueWaiter = { resolve, reject }
+
+      if (options.signal) {
+        const { signal } = options
+        const onAbort = () => {
+          const index = waiters.indexOf(waiter)
+          if (index === -1) return
+
+          waiters.splice(index, 1)
+          waiter.cleanup?.()
+          reject(getAbortReason(signal))
+          this.flushEmptyWaiters()
+          this.flushReadyWaiters()
+        }
+
+        signal.addEventListener('abort', onAbort, { once: true })
+        waiter.cleanup = () => {
+          signal.removeEventListener('abort', onAbort)
+        }
+      }
+
+      waiters.push(waiter)
+      this.flushEmptyWaiters()
+      this.flushReadyWaiters()
+    })
+  }
+
+  private flushEmptyWaiters(): void {
+    while (this.emptyWaiters.length && this.size === 0) {
+      const waiter = this.emptyWaiters.shift()
+      if (!waiter) return
+
+      waiter.cleanup?.()
+      waiter.resolve()
     }
   }
 

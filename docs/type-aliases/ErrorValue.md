@@ -8,7 +8,7 @@
 
 > **ErrorValue**\<`T`, `E`\> = \[`E`, `undefined`\] \| \[`null`, `T`\]
 
-Defined in: [src/gowait.ts:28](https://github.com/calebboyd/aceink/blob/f698b0774dd849824fffedf1fa982747f796bca1/src/gowait.ts#L28)
+Defined in: [src/gowait.ts:28](https://github.com/calebboyd/aceink/blob/6619317f0c8308e5cdc387b8b8c411daf4194de4/src/gowait.ts#L28)
 
 ## Type Parameters
 
