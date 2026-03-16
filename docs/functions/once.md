@@ -8,7 +8,7 @@
 
 > **once**\<`T`\>(`fn`, `after?`): `T`
 
-Defined in: [src/lang.ts:31](https://github.com/calebboyd/aceink/blob/3007a4f3edd9e5494f51c1dd28a108b89b517f8e/src/lang.ts#L31)
+Defined in: [src/lang.ts:31](https://github.com/calebboyd/aceink/blob/42a74d970a04ce9c8fa0a039da404dafccda8cf7/src/lang.ts#L31)
 
 Execute fn one time and [after=noop] for every subsequent invocation
 

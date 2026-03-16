@@ -6,7 +6,7 @@
 
 # Class: TimeoutError
 
-Defined in: [src/queue.ts:48](https://github.com/calebboyd/aceink/blob/3007a4f3edd9e5494f51c1dd28a108b89b517f8e/src/queue.ts#L48)
+Defined in: [src/queue.ts:48](https://github.com/calebboyd/aceink/blob/42a74d970a04ce9c8fa0a039da404dafccda8cf7/src/queue.ts#L48)
 
 Error raised when queued work exceeds its configured runtime limit.
 
@@ -20,7 +20,7 @@ Error raised when queued work exceeds its configured runtime limit.
 
 > **new TimeoutError**(`timeout`, `message?`): `TimeoutError`
 
-Defined in: [src/queue.ts:51](https://github.com/calebboyd/aceink/blob/3007a4f3edd9e5494f51c1dd28a108b89b517f8e/src/queue.ts#L51)
+Defined in: [src/queue.ts:51](https://github.com/calebboyd/aceink/blob/42a74d970a04ce9c8fa0a039da404dafccda8cf7/src/queue.ts#L51)
 
 #### Parameters
 
@@ -94,7 +94,7 @@ Defined in: node\_modules/typescript/lib/lib.es5.d.ts:1078
 
 > `readonly` **timeout**: `number`
 
-Defined in: [src/queue.ts:49](https://github.com/calebboyd/aceink/blob/3007a4f3edd9e5494f51c1dd28a108b89b517f8e/src/queue.ts#L49)
+Defined in: [src/queue.ts:49](https://github.com/calebboyd/aceink/blob/42a74d970a04ce9c8fa0a039da404dafccda8cf7/src/queue.ts#L49)
 
 ***
 
