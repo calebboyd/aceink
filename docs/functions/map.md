@@ -1,6 +1,6 @@
 [**aceink**](../README.md)
 
-***
+---
 
 [aceink](../globals.md) / map
 
@@ -8,7 +8,7 @@
 
 > **map**\<`T`, `R`, `K`\>(`this`, `list`, `iterator`, `__namedParameters?`): `Promise`\<`Awaited`\<`R`\>[]\>
 
-Defined in: [map.ts:8](https://github.com/calebboyd/aceink/blob/eb54a3ee0f1bb74f7956e61b5d881bbc7b81ff38/src/map.ts#L8)
+Defined in: [map.ts:8](https://github.com/calebboyd/aceink/blob/3fe197793f511a5c043f97803e108cc5b918f894/src/map.ts#L8)
 
 Map over a list with optional concurrency
 

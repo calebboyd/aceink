@@ -1,9 +1,16 @@
 import { describe, expect, it } from 'vitest'
+import { createDeferred } from './deferred.js'
 import { delay } from './lang.js'
 import { Queue } from './queue.js'
 
 describe('queue', () => {
   const range = (num: number) => Array.from(Array(num).keys())
+  const flush = async (times = 5) => {
+    while (times--) {
+      await Promise.resolve()
+    }
+  }
+
   it('should process results concurrently', async () => {
     const q = new Queue(10),
       results: number[] = []
@@ -69,5 +76,68 @@ describe('queue', () => {
   it('should allow disabling bound methods through options', async () => {
     expect(new Queue(1).add).not.toBe(Queue.prototype.add)
     expect(new Queue(1, { bound: false }).add).toBe(Queue.prototype.add)
+  })
+
+  it('should report running and queued work separately', async () => {
+    const first = createDeferred<string>()
+    const second = createDeferred<string>()
+    const q = new Queue(1, { settle: 'completion' })
+
+    const runFirst = q.add(() => first.promise)
+    const runSecond = q.add(() => second.promise)
+
+    expect(q.pending).toBe(1)
+    expect(q.size).toBe(1)
+
+    first.resolve('first')
+    await flush()
+
+    expect(q.pending).toBe(1)
+    expect(q.size).toBe(0)
+
+    second.resolve('second')
+    await Promise.all([runFirst, runSecond])
+
+    expect(q.pending).toBe(0)
+    expect(q.size).toBe(0)
+  })
+
+  it('should only release one ready waiter per available slot', async () => {
+    const first = createDeferred<void>()
+    const second = createDeferred<void>()
+    const third = createDeferred<void>()
+    const q = new Queue(1, { settle: 'completion' })
+    const ready: string[] = []
+
+    const running = q.add(() => first.promise)
+    let waiter1!: Promise<void>
+    const ready1 = q.ready().then(() => {
+      ready.push('waiter1')
+      waiter1 = q.add(() => second.promise)
+    })
+    let waiter2!: Promise<void>
+    const ready2 = q.ready().then(() => {
+      ready.push('waiter2')
+      waiter2 = q.add(() => third.promise)
+    })
+
+    expect(ready).toEqual([])
+
+    first.resolve()
+    await expect(Promise.race([ready1.then(() => 'ready'), delay(25, 'timeout')])).resolves.toBe(
+      'ready',
+    )
+
+    expect(ready).toHaveLength(1)
+
+    second.resolve()
+    await expect(Promise.race([ready2.then(() => 'ready'), delay(25, 'timeout')])).resolves.toBe(
+      'ready',
+    )
+
+    expect(ready).toEqual(['waiter1', 'waiter2'])
+
+    third.resolve()
+    await Promise.all([running, waiter1, waiter2])
   })
 })

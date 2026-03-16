@@ -1,6 +1,6 @@
 [**aceink**](../README.md)
 
-***
+---
 
 [aceink](../globals.md) / Func
 
@@ -8,7 +8,7 @@
 
 > **Func**\<`Result`, `Args`\> = (...`args`) => `Result`
 
-Defined in: [lang.ts:16](https://github.com/calebboyd/aceink/blob/eb54a3ee0f1bb74f7956e61b5d881bbc7b81ff38/src/lang.ts#L16)
+Defined in: [lang.ts:16](https://github.com/calebboyd/aceink/blob/3fe197793f511a5c043f97803e108cc5b918f894/src/lang.ts#L16)
 
 Anonymous Function definition
 
@@ -20,7 +20,7 @@ Anonymous Function definition
 
 ### Args
 
-`Args` *extends* `ExplicitAny`[] = `ExplicitAny`[]
+`Args` _extends_ `ExplicitAny`[] = `ExplicitAny`[]
 
 ## Parameters
 

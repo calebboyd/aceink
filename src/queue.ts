@@ -1,5 +1,8 @@
-import { Semaphore } from './semaphore.js'
 import type { Func } from './lang.js'
+
+interface ReadyReservation {
+  active: boolean
+}
 
 export type QueueSettleMode = 'ordered' | 'completion'
 
@@ -27,16 +30,25 @@ export function q(size: number, options: QueueOptions = {}): Queue {
 }
 /**
  * @public
- * Work queue abstraction around a semaphore
+ * Work queue abstraction with concurrency control
  */
 export class Queue {
-  private lock: Semaphore
+  private readonly concurrency: number
+  private queued: Array<() => void> = []
   private running = new Set<Promise<void>>()
+  private readyWaiters: Array<() => void> = []
+  private readyReservations: ReadyReservation[] = []
+  private pendingCount = 0
   private last: Promise<void> = Promise.resolve()
   private readonly settle: QueueSettleMode
   constructor(concurrency: number, options: QueueOptions = {}) {
     const { bound = true, settle = 'ordered' } = options
-    this.lock = new Semaphore(concurrency)
+    concurrency = Number(concurrency)
+    if (!concurrency || concurrency < 1) {
+      throw new Error('Cannot create Queue with size of "' + concurrency + '"')
+    }
+
+    this.concurrency = concurrency
     this.settle = settle
     if (bound) {
       this.add = this.add.bind(this)
@@ -46,7 +58,11 @@ export class Queue {
   }
 
   public get pending(): number {
-    return this.lock.pending
+    return this.pendingCount
+  }
+
+  public get size(): number {
+    return this.queued.length
   }
 
   /**
@@ -57,31 +73,15 @@ export class Queue {
    * @returns
    */
   public add<T extends Func>(work: T, arg?: Parameters<T>[0]): Promise<Awaited<ReturnType<T>>> {
-    const run = this.lock.acquire(arg).then(async (value) => {
-      try {
-        return await work(value)
-      } finally {
-        this.lock.release()
-      }
+    this.consumeReadyReservation()
+
+    let resolveOperation!: (value: Awaited<ReturnType<T>>) => void
+    let rejectOperation!: (reason?: unknown) => void
+    const operation = new Promise<Awaited<ReturnType<T>>>((resolve, reject) => {
+      resolveOperation = resolve
+      rejectOperation = reject
     })
-
-    const result =
-      this.settle === 'completion'
-        ? run
-        : Promise.allSettled([this.last, run]).then(([, current]) => {
-            if (current.status === 'rejected') {
-              throw current.reason
-            }
-
-            return current.value as Awaited<ReturnType<T>>
-          })
-
-    if (this.settle === 'ordered') {
-      this.last = result.then(
-        () => undefined,
-        () => undefined,
-      )
-    }
+    const result = this.createResult(operation)
 
     let tracked!: Promise<void>
     tracked = result.then(
@@ -94,14 +94,35 @@ export class Queue {
 
     this.running.add(tracked)
 
+    this.queued.push(() => {
+      this.pendingCount += 1
+
+      Promise.resolve()
+        .then(() => work(arg as Parameters<T>[0]))
+        .then(resolveOperation, rejectOperation)
+        .finally(() => {
+          this.pendingCount -= 1
+          queueMicrotask(() => {
+            this.process()
+            this.flushReadyWaiters()
+          })
+        })
+    })
+
+    this.process()
+    this.flushReadyWaiters()
+
     return result
   }
 
   /**
-   * Wait for the queue to have at least one empty slot
+   * Wait for the queue to be able to start another task immediately.
    */
   public ready(): Promise<void> {
-    return this.lock.acquire().then(this.lock.release)
+    return new Promise((resolve) => {
+      this.readyWaiters.push(resolve)
+      this.flushReadyWaiters()
+    })
   }
   /**
    * Wait for all queued work to settle.
@@ -109,6 +130,65 @@ export class Queue {
   public async empty(): Promise<void> {
     while (this.running.size) {
       await Promise.all(this.running)
+    }
+  }
+
+  private createResult<T>(operation: Promise<T>): Promise<T> {
+    const result =
+      this.settle === 'completion'
+        ? operation
+        : Promise.allSettled([this.last, operation]).then(([, current]) => {
+            if (current.status === 'rejected') {
+              throw current.reason
+            }
+
+            return current.value
+          })
+
+    if (this.settle === 'ordered') {
+      this.last = result.then(
+        () => undefined,
+        () => undefined,
+      )
+    }
+
+    return result
+  }
+
+  private process(): void {
+    while (this.pendingCount < this.concurrency && this.queued.length) {
+      this.queued.shift()?.()
+    }
+  }
+
+  private flushReadyWaiters(): void {
+    while (this.readyWaiters.length && this.canGrantReady()) {
+      const reservation: ReadyReservation = { active: true }
+      this.readyReservations.push(reservation)
+
+      this.readyWaiters.shift()?.()
+
+      queueMicrotask(() => {
+        if (!reservation.active) return
+
+        const index = this.readyReservations.indexOf(reservation)
+        if (index === -1) return
+
+        reservation.active = false
+        this.readyReservations.splice(index, 1)
+        this.flushReadyWaiters()
+      })
+    }
+  }
+
+  private canGrantReady(): boolean {
+    return this.size === 0 && this.pendingCount + this.readyReservations.length < this.concurrency
+  }
+
+  private consumeReadyReservation(): void {
+    const reservation = this.readyReservations.shift()
+    if (reservation) {
+      reservation.active = false
     }
   }
 }

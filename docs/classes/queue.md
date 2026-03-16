@@ -1,14 +1,14 @@
 [**aceink**](../README.md)
 
-***
+---
 
 [aceink](../globals.md) / Queue
 
 # Class: Queue
 
-Defined in: [queue.ts:32](https://github.com/calebboyd/aceink/blob/eb54a3ee0f1bb74f7956e61b5d881bbc7b81ff38/src/queue.ts#L32)
+Defined in: [queue.ts:35](https://github.com/calebboyd/aceink/blob/3fe197793f511a5c043f97803e108cc5b918f894/src/queue.ts#L35)
 
-Work queue abstraction around a semaphore
+Work queue abstraction with concurrency control
 
 ## Constructors
 
@@ -16,7 +16,7 @@ Work queue abstraction around a semaphore
 
 > **new Queue**(`concurrency`, `options?`): `Queue`
 
-Defined in: [queue.ts:37](https://github.com/calebboyd/aceink/blob/eb54a3ee0f1bb74f7956e61b5d881bbc7b81ff38/src/queue.ts#L37)
+Defined in: [queue.ts:44](https://github.com/calebboyd/aceink/blob/3fe197793f511a5c043f97803e108cc5b918f894/src/queue.ts#L44)
 
 #### Parameters
 
@@ -40,7 +40,21 @@ Defined in: [queue.ts:37](https://github.com/calebboyd/aceink/blob/eb54a3ee0f1bb
 
 > **get** **pending**(): `number`
 
-Defined in: [queue.ts:48](https://github.com/calebboyd/aceink/blob/eb54a3ee0f1bb74f7956e61b5d881bbc7b81ff38/src/queue.ts#L48)
+Defined in: [queue.ts:60](https://github.com/calebboyd/aceink/blob/3fe197793f511a5c043f97803e108cc5b918f894/src/queue.ts#L60)
+
+##### Returns
+
+`number`
+
+---
+
+### size
+
+#### Get Signature
+
+> **get** **size**(): `number`
+
+Defined in: [queue.ts:64](https://github.com/calebboyd/aceink/blob/3fe197793f511a5c043f97803e108cc5b918f894/src/queue.ts#L64)
 
 ##### Returns
 
@@ -52,7 +66,7 @@ Defined in: [queue.ts:48](https://github.com/calebboyd/aceink/blob/eb54a3ee0f1bb
 
 > **add**\<`T`\>(`work`, `arg?`): `Promise`\<`Awaited`\<`ReturnType`\<`T`\>\>\>
 
-Defined in: [queue.ts:59](https://github.com/calebboyd/aceink/blob/eb54a3ee0f1bb74f7956e61b5d881bbc7b81ff38/src/queue.ts#L59)
+Defined in: [queue.ts:75](https://github.com/calebboyd/aceink/blob/3fe197793f511a5c043f97803e108cc5b918f894/src/queue.ts#L75)
 
 Add work to the Queue. By default the returned promise settles in queue order.
 Pass `settle: 'completion'` to settle each promise as soon as its work settles.
@@ -61,7 +75,7 @@ Pass `settle: 'completion'` to settle each promise as soon as its work settles.
 
 ##### T
 
-`T` *extends* [`Func`](../type-aliases/Func.md)
+`T` _extends_ [`Func`](../type-aliases/Func.md)
 
 #### Parameters
 
@@ -81,13 +95,13 @@ single argument that will be passed to the work function
 
 `Promise`\<`Awaited`\<`ReturnType`\<`T`\>\>\>
 
-***
+---
 
 ### empty()
 
 > **empty**(): `Promise`\<`void`\>
 
-Defined in: [queue.ts:109](https://github.com/calebboyd/aceink/blob/eb54a3ee0f1bb74f7956e61b5d881bbc7b81ff38/src/queue.ts#L109)
+Defined in: [queue.ts:130](https://github.com/calebboyd/aceink/blob/3fe197793f511a5c043f97803e108cc5b918f894/src/queue.ts#L130)
 
 Wait for all queued work to settle.
 
@@ -95,15 +109,15 @@ Wait for all queued work to settle.
 
 `Promise`\<`void`\>
 
-***
+---
 
 ### ready()
 
 > **ready**(): `Promise`\<`void`\>
 
-Defined in: [queue.ts:103](https://github.com/calebboyd/aceink/blob/eb54a3ee0f1bb74f7956e61b5d881bbc7b81ff38/src/queue.ts#L103)
+Defined in: [queue.ts:121](https://github.com/calebboyd/aceink/blob/3fe197793f511a5c043f97803e108cc5b918f894/src/queue.ts#L121)
 
-Wait for the queue to have at least one empty slot
+Wait for the queue to be able to start another task immediately.
 
 #### Returns
 
