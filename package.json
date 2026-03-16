@@ -58,7 +58,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/calebboyd/async.git"
+    "url": "git://github.com/calebboyd/aceink.git"
   },
   "scripts": {
     "lint": "oxlint src build.mjs --fix",
