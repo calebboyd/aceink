@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0](https://github.com/calebboyd/aceink/compare/v1.3.1...v2.0.0) (2026-03-16)
+
+
+* feat!: move queue bound into QueueOptions ([3fe1977](https://github.com/calebboyd/aceink/commit/3fe197793f511a5c043f97803e108cc5b918f894))
+
+
+### Bug Fixes
+
+* close iterators on early bail ([e5fe3eb](https://github.com/calebboyd/aceink/commit/e5fe3eb1dd317c0d3ee63c52f1ea1f47db32407a))
+* tighten queue backpressure and state tracking ([4ec8f35](https://github.com/calebboyd/aceink/commit/4ec8f3568f64aede2a4a837c4b806a8b46443a74))
+
+
+### Features
+
+* add queue timeout and abort support ([6ba0ecb](https://github.com/calebboyd/aceink/commit/6ba0ecb047d89b7e1bc92181cc12988be1bea1e3))
+
+
+### BREAKING CHANGES
+
+* Queue and q now accept bound through QueueOptions instead of a positional boolean argument.
+
 ## [1.3.1](https://github.com/calebboyd/aceink/compare/v1.3.0...v1.3.1) (2026-03-16)
 
 ### Bug Fixes
