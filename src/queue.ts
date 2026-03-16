@@ -1,12 +1,29 @@
 import { Semaphore } from './semaphore.js'
 import type { Func } from './lang.js'
 
+export type QueueSettleMode = 'ordered' | 'completion'
+
+/**
+ * @public
+ * Queue configuration
+ */
+export interface QueueOptions {
+  /**
+   * Bind queue methods to the queue instance.
+   */
+  bound?: boolean
+  /**
+   * Control whether returned task promises settle in queue order or completion order.
+   */
+  settle?: QueueSettleMode
+}
+
 /**
  * @public
  * Create Queue with a specified size
  */
-export function q(size: number, bound = true): Queue {
-  return new Queue(size, bound)
+export function q(size: number, options: QueueOptions = {}): Queue {
+  return new Queue(size, options)
 }
 /**
  * @public
@@ -15,8 +32,12 @@ export function q(size: number, bound = true): Queue {
 export class Queue {
   private lock: Semaphore
   private running = new Set<Promise<void>>()
-  constructor(concurrency: number, bound = true) {
+  private last: Promise<void> = Promise.resolve()
+  private readonly settle: QueueSettleMode
+  constructor(concurrency: number, options: QueueOptions = {}) {
+    const { bound = true, settle = 'ordered' } = options
     this.lock = new Semaphore(concurrency)
+    this.settle = settle
     if (bound) {
       this.add = this.add.bind(this)
       this.ready = this.ready.bind(this)
@@ -29,8 +50,8 @@ export class Queue {
   }
 
   /**
-   * Add work to the Queue. The returned promise settles with the underlying work
-   * as soon as that work settles.
+   * Add work to the Queue. By default the returned promise settles in queue order.
+   * Pass `settle: 'completion'` to settle each promise as soon as its work settles.
    * @param work work function
    * @param arg single argument that will be passed to the work function
    * @returns
@@ -44,8 +65,26 @@ export class Queue {
       }
     })
 
+    const result =
+      this.settle === 'completion'
+        ? run
+        : Promise.allSettled([this.last, run]).then(([, current]) => {
+            if (current.status === 'rejected') {
+              throw current.reason
+            }
+
+            return current.value as Awaited<ReturnType<T>>
+          })
+
+    if (this.settle === 'ordered') {
+      this.last = result.then(
+        () => undefined,
+        () => undefined,
+      )
+    }
+
     let tracked!: Promise<void>
-    tracked = run.then(
+    tracked = result.then(
       () => undefined,
       () => undefined,
     )
@@ -55,7 +94,7 @@ export class Queue {
 
     this.running.add(tracked)
 
-    return run
+    return result
   }
 
   /**

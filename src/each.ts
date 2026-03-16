@@ -27,7 +27,7 @@ export async function each<T, K = ExplicitAny>(
   },
 ): Promise<void> {
   const limit = concurrency || 1
-  const queue = new Queue(limit, false)
+  const queue = new Queue(limit, { bound: false })
   const thisArg = typeof context === 'undefined' ? this : context
   const values = list[Symbol.iterator]()
   const itr = (arg: { value: T; i: number; list: Iterable<T> }) =>

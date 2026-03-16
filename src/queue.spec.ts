@@ -42,7 +42,7 @@ describe('queue', () => {
     await expect(q.empty()).resolves.toBeUndefined()
   })
 
-  it('should resolve each task when that task completes', async () => {
+  it('should resolve each task in queue order by default', async () => {
     const q = new Queue(2)
     const order: string[] = []
 
@@ -51,6 +51,23 @@ describe('queue', () => {
 
     await Promise.all([slow, fast])
 
+    expect(order).toEqual(['slow', 'fast'])
+  })
+
+  it('should resolve each task when that task completes when enabled', async () => {
+    const q = new Queue(2, { settle: 'completion' })
+    const order: string[] = []
+
+    const slow = q.add(() => delay(20, 'slow')).then((value) => order.push(value))
+    const fast = q.add(() => delay(5, 'fast')).then((value) => order.push(value))
+
+    await Promise.all([slow, fast])
+
     expect(order).toEqual(['fast', 'slow'])
+  })
+
+  it('should allow disabling bound methods through options', async () => {
+    expect(new Queue(1).add).not.toBe(Queue.prototype.add)
+    expect(new Queue(1, { bound: false }).add).toBe(Queue.prototype.add)
   })
 })

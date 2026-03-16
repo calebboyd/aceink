@@ -1,139 +1,110 @@
-[aceink](../README.md) / [Exports](../modules.md) / Queue
+[**aceink**](../README.md)
+
+***
+
+[aceink](../globals.md) / Queue
 
 # Class: Queue
 
+Defined in: [queue.ts:32](https://github.com/calebboyd/aceink/blob/eb54a3ee0f1bb74f7956e61b5d881bbc7b81ff38/src/queue.ts#L32)
+
 Work queue abstraction around a semaphore
-
-## Table of contents
-
-### Constructors
-
-- [constructor](Queue.md#constructor)
-
-### Properties
-
-- [lock](Queue.md#lock)
-- [running](Queue.md#running)
-
-### Accessors
-
-- [pending](Queue.md#pending)
-
-### Methods
-
-- [add](Queue.md#add)
-- [empty](Queue.md#empty)
-- [ready](Queue.md#ready)
 
 ## Constructors
 
-### constructor
+### Constructor
 
-• **new Queue**(`concurrency`, `bound?`)
+> **new Queue**(`concurrency`, `options?`): `Queue`
+
+Defined in: [queue.ts:37](https://github.com/calebboyd/aceink/blob/eb54a3ee0f1bb74f7956e61b5d881bbc7b81ff38/src/queue.ts#L37)
 
 #### Parameters
 
-| Name          | Type      | Default value |
-| :------------ | :-------- | :------------ |
-| `concurrency` | `number`  | `undefined`   |
-| `bound`       | `boolean` | `true`        |
+##### concurrency
 
-#### Defined in
+`number`
 
-[queue.ts:18](https://github.com/calebboyd/aceink/blob/5bc342e/src/queue.ts#L18)
+##### options?
 
-## Properties
+[`QueueOptions`](../interfaces/QueueOptions.md) = `{}`
 
-### lock
+#### Returns
 
-• `Private` **lock**: [`Semaphore`](Semaphore.md)<`number`\>
-
-#### Defined in
-
-[queue.ts:16](https://github.com/calebboyd/aceink/blob/5bc342e/src/queue.ts#L16)
-
----
-
-### running
-
-• `Private` **running**: `Set`<`Promise`<`void`\>\>
-
-#### Defined in
-
-[queue.ts:17](https://github.com/calebboyd/aceink/blob/5bc342e/src/queue.ts#L17)
+`Queue`
 
 ## Accessors
 
 ### pending
 
-• `get` **pending**(): `number`
+#### Get Signature
 
-#### Returns
+> **get** **pending**(): `number`
+
+Defined in: [queue.ts:48](https://github.com/calebboyd/aceink/blob/eb54a3ee0f1bb74f7956e61b5d881bbc7b81ff38/src/queue.ts#L48)
+
+##### Returns
 
 `number`
 
-#### Defined in
-
-[queue.ts:27](https://github.com/calebboyd/aceink/blob/5bc342e/src/queue.ts#L27)
-
 ## Methods
 
-### add
+### add()
 
-▸ **add**<`T`\>(`work`, `arg?`): `Promise`<`Awaited`<`ReturnType`<`T`\>\>\>
+> **add**\<`T`\>(`work`, `arg?`): `Promise`\<`Awaited`\<`ReturnType`\<`T`\>\>\>
 
-Add work to the Queue. The returned promise settles with the underlying work
-as soon as that work settles.
+Defined in: [queue.ts:59](https://github.com/calebboyd/aceink/blob/eb54a3ee0f1bb74f7956e61b5d881bbc7b81ff38/src/queue.ts#L59)
 
-#### Type parameters
+Add work to the Queue. By default the returned promise settles in queue order.
+Pass `settle: 'completion'` to settle each promise as soon as its work settles.
 
-| Name | Type                                 |
-| :--- | :----------------------------------- |
-| `T`  | extends [`Func`](../modules.md#func) |
+#### Type Parameters
+
+##### T
+
+`T` *extends* [`Func`](../type-aliases/Func.md)
 
 #### Parameters
 
-| Name   | Type                      | Description                                              |
-| :----- | :------------------------ | :------------------------------------------------------- |
-| `work` | `T`                       | work function                                            |
-| `arg?` | `Parameters`<`T`\>[``0``] | single argument that will be passed to the work function |
+##### work
+
+`T`
+
+work function
+
+##### arg?
+
+`Parameters`\<`T`\>\[`0`\]
+
+single argument that will be passed to the work function
 
 #### Returns
 
-`Promise`<`Awaited`<`ReturnType`<`T`\>\>\>
+`Promise`\<`Awaited`\<`ReturnType`\<`T`\>\>\>
 
-#### Defined in
+***
 
-[queue.ts:38](https://github.com/calebboyd/aceink/blob/5bc342e/src/queue.ts#L38)
+### empty()
 
----
+> **empty**(): `Promise`\<`void`\>
 
-### empty
-
-▸ **empty**(): `Promise`<`void`\>
+Defined in: [queue.ts:109](https://github.com/calebboyd/aceink/blob/eb54a3ee0f1bb74f7956e61b5d881bbc7b81ff38/src/queue.ts#L109)
 
 Wait for all queued work to settle.
 
 #### Returns
 
-`Promise`<`void`\>
+`Promise`\<`void`\>
 
-#### Defined in
+***
 
-[queue.ts:70](https://github.com/calebboyd/aceink/blob/5bc342e/src/queue.ts#L70)
+### ready()
 
----
+> **ready**(): `Promise`\<`void`\>
 
-### ready
-
-▸ **ready**(): `Promise`<`void`\>
+Defined in: [queue.ts:103](https://github.com/calebboyd/aceink/blob/eb54a3ee0f1bb74f7956e61b5d881bbc7b81ff38/src/queue.ts#L103)
 
 Wait for the queue to have at least one empty slot
 
 #### Returns
 
-`Promise`<`void`\>
-
-#### Defined in
-
-[queue.ts:64](https://github.com/calebboyd/aceink/blob/5bc342e/src/queue.ts#L64)
+`Promise`\<`void`\>
